@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="symptom.css" />
+		<link rel="stylesheet" href="http://css.cdn.tl/normalize.css" />
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+		<script type="text/javascript" src="symptom.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			HypoApp
+		</div>
+		<div id="content">
+			
+		</div>
+		<div id="footer">
+			<button>About</button>
+			<button>Settings</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(window).bind('hashchange', function() {
+  				route();
+			});
+			route();
+			//populateSymptoms();
+			
+		});
+	</script>
+	<script type="template" id="symptom-template">
+		<div class="symptom">
+			<div class="symptomName"><%= name %></div>
+			<div class="timeStamp"><%= createdAt %></div>
+			<div class="severity">
+			<%
+				switch(severity)
+				{
+					case 1: print("Very light"); break;
+					case 2: print("Light"); break;
+					case 3: print("Moderate"); break;
+					case 4: print("Severe"); break;
+					case 5: print("Extreme"); break;
+				}
+			%>
+			</div>
+			<div class="comment"><%= comment %></div>
+		</div>
+	</script>
+	<script type="template" id="addSymptom-template">
+		<h3><%= type %></h3>
+		<form id="submitform">
+			<input type="hidden" name="name" value="<%= type %>"/>
+			<select name="severity">
+			  <option value="0">Severity</option>
+			  <option value="1">Very light</option>
+			  <option value="2">Light</option>
+			  <option value="3">Moderate</option>
+			  <option value="4">Severe</option>
+			  <option value="5">Extreme</option>
+			</select>
+			Comment: <input type="text" name="comment">
+			<input type="submit">
+		</form>
+		<div id="symptoms">
+			
+		</div>
+	</script>
+	<script type="template" id="symptomList-template">
+		<div>
+			<ul>
+				<li><a href="#/addSymptom/Head ache">Head ache</a></li>
+				<li><a href="#/addSymptom/Tummy ache">Tummy ache</a></li>
+				<li><a href="#/addSymptom/Back ache">Back ache</a></li>
+				<li><a href="#/addSymptom/Toe ache">Toe ache</a></li>
+			</ul>
+		</div>
+	</script>
+</html>

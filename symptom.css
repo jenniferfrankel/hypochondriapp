@@ -1,0 +1,18 @@
+
+.symptom {
+	background: #ddf;
+	width: 300px;
+	margin: 10px;
+	border: 2px solid #888;
+	border-radius: 2px;
+	padding: 5px;
+}
+
+.symptom:first-child {
+	background: #fdd;
+}
+
+#content {
+	height: 600px;
+	overflow: scroll;
+}
