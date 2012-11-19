@@ -1,52 +1,31 @@
 (function($){
-	hypo = {
+	$.parse.init({
+		app_id: "M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e",
+		rest_key : "oBbw4wZNrq0NTAUadxLlyvRyhuyRq33Z6zUNgmmT"
+	});
 
+	hypo = {
 		populateSymptoms: function(symptomType){
 			console.log("Yeay!");
 			$("#content").spin();
-			$.ajax({
-				url: 'https://api.parse.com/1/classes/Symptom?where={"name":"'+symptomType+'"}',
-				headers: {
-					"X-Parse-Application-Id": "M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e",
-					"X-Parse-REST-API-Key": "oBbw4wZNrq0NTAUadxLlyvRyhuyRq33Z6zUNgmmT"
-				},
-				success: function(data){
+			$.parse.get('Symptom', {where: {name: symptomType}})
+				.success(function(data) {
+					$("#content").spin(false);
 					hypo.renderSymptoms(data.results);
-					$("#content").spin(false);
-				},
-				error: function(){
-					console.log('error');
-					$("#content").spin(false);
-				}
-			});
+				});
 		},
 
 		handleSubmit: function(event){
 			event.preventDefault();
-			var o = $("#submitform").serializeObject();
-			o.severity = parseInt(o.severity,10);
-			console.log(o);
-			$.ajax({
-				url: "https://api.parse.com/1/classes/Symptom",
-				type: "POST",
-				contentType: "application/json",
-				headers: {
-					"X-Parse-Application-Id": "M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e",
-					"X-Parse-REST-API-Key": "oBbw4wZNrq0NTAUadxLlyvRyhuyRq33Z6zUNgmmT"
-				},
-				data: JSON.stringify(o),
-				success: function(data){
-					console.log(data);
-					//renderSymptoms(data.results);
+			var formData = $("#submitform").serializeObject();
+			formData.severity = parseInt(formData.severity,10);
+			$("#content").spin();
+			$.parse.post('Symptom', formData)
+				.success(function(data) {
+					$("#content").spin(false);
 					hypo.renderSymptom(data.objectId);
-				},
-				error: function(){
-					console.log('error');
-				}
-			});
+				});
 		},
-
-
 
 		renderSymptoms: function(symptoms){
 			var template = _.template($("#symptom-template").html());
@@ -56,31 +35,18 @@
 		},
 
 		renderSymptom: function(dataId){
-			$.ajax({
-				url: "https://api.parse.com/1/classes/Symptom/"+dataId,
-				headers: {
-					"X-Parse-Application-Id": "M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e",
-					"X-Parse-REST-API-Key": "oBbw4wZNrq0NTAUadxLlyvRyhuyRq33Z6zUNgmmT"
-				},
-				success: function(data){
+			$("#content").spin();
+			$.parse.get('Symptom/'+dataId)
+				.success(function(data) {
+					$("#content").spin(false);
 					hypo.renderSymptoms([data]);
-				},
-				error: function(){
-					console.log('error');
-				}
-			});
-
+				});
 		},
 
 		route: function(){
 			var hashParts = window.location.hash.split("/");
 			var page = hashParts.length > 1 ? hashParts[1] : "";
-			if (page === "symptomList"){
-				hypo.renderSymptomList();
-				// list of possible symptoms
-			}
-			else if (page === "addSymptom"){
-				// page where you can add chosen symptom
+			if (page === "addSymptom"){
 				hypo.renderAddSymptomForm(hashParts[2]);
 			}
 			else {
