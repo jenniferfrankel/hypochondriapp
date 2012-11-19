@@ -46,12 +46,7 @@
 		route: function(){
 			var hashParts = window.location.hash.split("/");
 			var page = hashParts.length > 1 ? hashParts[1] : "";
-			if (page === "symptomList"){
-				hypo.renderSymptomList();
-				// list of possible symptoms
-			}
-			else if (page === "addSymptom"){
-				// page where you can add chosen symptom
+			if (page === "addSymptom"){
 				hypo.renderAddSymptomForm(hashParts[2]);
 			}
 			else {
