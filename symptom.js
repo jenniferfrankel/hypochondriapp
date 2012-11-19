@@ -1,12 +1,17 @@
 (function($){
+	// Initialize the Parse jQuery plugin with HypochondriApp's app ID and my REST API key
 	$.parse.init({
 		app_id: "M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e",
 		rest_key : "oBbw4wZNrq0NTAUadxLlyvRyhuyRq33Z6zUNgmmT"
 	});
 
+	// Create a new name space for the HypochondriApp functions
 	hypo = {
+		/**
+		* Get symptoms of the specified type and render a list of them.
+		* @param symptomType the type of symptom we are fetching
+		*/
 		populateSymptoms: function(symptomType){
-			console.log("Yeay!");
 			$("#content").spin();
 			$.parse.get('Symptom', {where: {name: symptomType}})
 				.success(function(data) {
