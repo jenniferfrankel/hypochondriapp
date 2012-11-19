@@ -100,17 +100,23 @@
 
 
     function _response(req, cb, error) {
-        typeof cb === "function" && req.done(cb);
+        if (typeof cb === "function") {
+            req.done(cb);
+        }
         error = typeof error === 'function' ? error : _error;
-        req.fail(error); 
-        return $[ns];
+        req.fail(error);
+        return req;
     }
     
     function _logger(method, uri, data){
       var str = [ "$.", ns, ".", method, "(", "\"",uri,"\""];
-      data && str.push(", " + (JSON ? JSON.stringify(data) : "data") ); 
+      if (data) {
+        str.push(", " + (JSON ? JSON.stringify(data) : "data"));
+      }
       str = str.join('')+");";
-      $.publish && $.publish("parse.log", [str]);
+      if ($.publish) {
+        $.publish("parse.log", [str]);
+      }
       return str;
     }
     //exports
@@ -121,7 +127,7 @@
 
 
     /*
-    Creates $.parse.get/post/put/delete methods 
+    Creates $.parse.get/post/put/delete methods
     Examples....
 
     $.parse.post('tasks',{ body : "Build all the things!" },function(json){
@@ -140,7 +146,7 @@
             uri = args[0];
             data = args[1];
             cb = args[2];
-            error = args[3]
+            error = args[3];
             
             if (typeof args[1] === 'function') {
                 data = false;
@@ -191,7 +197,7 @@
 
     
    
-    //attach methods to jQuery object using ns var aka 'parse'	
+    //attach methods to jQuery object using ns var aka 'parse'
     $[ns] = methods;
 
 })(jQuery);
