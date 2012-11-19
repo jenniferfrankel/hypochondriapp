@@ -3,6 +3,7 @@
 
 		populateSymptoms: function(symptomType){
 			console.log("Yeay!");
+			$("#content").spin();
 			$.ajax({
 				url: 'https://api.parse.com/1/classes/Symptom?where={"name":"'+symptomType+'"}',
 				headers: {
@@ -11,9 +12,11 @@
 				},
 				success: function(data){
 					hypo.renderSymptoms(data.results);
+					$("#content").spin(false);
 				},
 				error: function(){
 					console.log('error');
+					$("#content").spin(false);
 				}
 			});
 		},
