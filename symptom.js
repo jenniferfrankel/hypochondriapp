@@ -7,6 +7,13 @@
 
 	// Create a new name space for the HypochondriApp functions
 	hypo = {
+		// Templates
+		templates: {
+			addSymptom: _.template($("#addSymptom-template").html()),
+			symptomList: _.template($("#symptomList-template").html()),
+			symptom: _.template($("#symptom-template").html())
+		},
+
 		/**
 		* Get symptoms of the specified category and render a list of them.
 		* @param categoryName the name of the category of the symptoms we are fetching
@@ -49,9 +56,8 @@
 		},
 
 		renderSymptoms: function(symptoms){
-			var template = _.template($("#symptom-template").html());
 			_.each(symptoms,function(symptom){
-				$("#symptoms").prepend(template(symptom));
+				$("#symptoms").prepend(hypo.templates.symptom(symptom));
 			});
 		},
 
@@ -81,15 +87,12 @@
 			$.parse.get('Category')
 				.success(function(data) {
 					$("#content").spin(false);
-					console.log(data.results);
-					var template = _.template($("#symptomList-template").html());
-					$("#content").html(template(data));
+					$("#content").html(hypo.templates.symptomList(data));
 				});
 		},
 
 		renderAddSymptomForm: function(category){
-			var template = _.template($("#addSymptom-template").html());
-			$("#content").html(template(category));
+			$("#content").html(hypo.templates.addSymptom(category));
 			$("#submitform").submit(hypo.handleSubmit);
 		},
 
