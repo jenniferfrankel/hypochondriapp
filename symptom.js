@@ -8,12 +8,22 @@
 	// Create a new name space for the HypochondriApp functions
 	hypo = {
 		/**
-		* Get symptoms of the specified type and render a list of them.
-		* @param symptomType the type of symptom we are fetching
+		* Get symptoms of the specified category and render a list of them.
+		* @param categoryName the name of the category of the symptoms we are fetching
 		*/
-		populateSymptoms: function(symptomType){
+		populateSymptoms: function(categoryId){
 			$("#content").spin();
-			$.parse.get('Symptom', {where: {name: symptomType}})
+			var query = {
+				include: 'category',
+				where: {
+					category: {
+						__type:'Pointer',
+						className:'Category',
+						objectId:categoryId
+					}
+				}
+			};
+			$.parse.get('Symptom', query)
 				.success(function(data) {
 					$("#content").spin(false);
 					hypo.renderSymptoms(data.results);
@@ -24,6 +34,12 @@
 			event.preventDefault();
 			var formData = $("#submitform").serializeObject();
 			formData.severity = parseInt(formData.severity,10);
+			formData.category = {
+				__type:'Pointer',
+				className:'Category',
+				objectId:formData.category
+			};
+
 			$("#content").spin();
 			$.parse.post('Symptom', formData)
 				.success(function(data) {
@@ -52,23 +68,41 @@
 			var hashParts = window.location.hash.split("/");
 			var page = hashParts.length > 1 ? hashParts[1] : "";
 			if (page === "addSymptom"){
-				hypo.renderAddSymptomForm(hashParts[2]);
+				hypo.renderSymptomPage(hashParts[2]);
 			}
 			else {
-				hypo.renderSymptomList();
+				hypo.renderCategoryList();
 			}
 		},
 
-		renderSymptomList: function(){
-			$("#content").html($("#symptomList-template").html());
+		renderCategoryList: function(){
+			$("#content").spin();
+			// Get available symptom types from db
+			$.parse.get('Category')
+				.success(function(data) {
+					$("#content").spin(false);
+					console.log(data.results);
+					var template = _.template($("#symptomList-template").html());
+					$("#content").html(template(data));
+				});
 		},
 
-		renderAddSymptomForm: function(symptomType){
+		renderAddSymptomForm: function(category){
 			var template = _.template($("#addSymptom-template").html());
-			$("#content").html(template({type:symptomType}));
+			$("#content").html(template(category));
 			$("#submitform").submit(hypo.handleSubmit);
-			hypo.populateSymptoms(symptomType);
-		}
+		},
 
+		renderSymptomPage: function(categoryName){
+			$.parse.get('Category', {where: {name:categoryName}})
+				.success(function(data) {
+					if (data.results.length === 0){
+						return;
+					}
+					var category = data.results[0];
+					hypo.renderAddSymptomForm(category);
+					hypo.populateSymptoms(category.objectId);
+				});
+		}
 	};
 })(jQuery);

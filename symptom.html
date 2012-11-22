@@ -33,7 +33,7 @@
 	</script>
 	<script type="template" id="symptom-template">
 		<div class="symptom">
-			<div class="symptomName"><%= name %></div>
+			<div class="symptomName"><%= category.name %></div>
 			<div class="timeStamp"><%= createdAt %></div>
 			<div class="severity">
 			<%
@@ -51,9 +51,9 @@
 		</div>
 	</script>
 	<script type="template" id="addSymptom-template">
-		<h3><%= type %></h3>
+		<h3><%= name %></h3>
 		<form id="submitform">
-			<input type="hidden" name="name" value="<%= type %>"/>
+			<input type="hidden" name="category" value="<%= objectId %>"/>
 			<select name="severity">
 			  <option value="0">Severity</option>
 			  <option value="1">Very light</option>
@@ -72,10 +72,13 @@
 	<script type="template" id="symptomList-template">
 		<div>
 			<ul>
-				<li><a href="#/addSymptom/Head ache">Head ache</a></li>
-				<li><a href="#/addSymptom/Tummy ache">Tummy ache</a></li>
-				<li><a href="#/addSymptom/Back ache">Back ache</a></li>
-				<li><a href="#/addSymptom/Toe ache">Toe ache</a></li>
+	<%			_.each(results,function(category){ %>
+					<li>
+						<a href="#/addSymptom/<%= category.name %>">
+							<%= category.name %>
+						</a>
+					</li>
+	<%			}); %>
 			</ul>
 		</div>
 	</script>
