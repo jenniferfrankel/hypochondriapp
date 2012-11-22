@@ -71,10 +71,10 @@
 		},
 
 		route: function(){
-			var hashParts = window.location.hash.split("/");
-			var page = hashParts.length > 1 ? hashParts[1] : "";
+			var hashParts = window.location.hash.substring(1).split("/");
+			var page = hashParts[0];
 			if (page === "addSymptom"){
-				hypo.renderSymptomPage(hashParts[2]);
+				hypo.renderSymptomPage(hashParts[1]);
 			}
 			else {
 				hypo.renderCategoryList();
