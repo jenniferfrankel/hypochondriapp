@@ -2,7 +2,8 @@
 	$.fn.serializeObject = function(){
 		var o = {};
 		_.each(this.serializeArray(),function(element){
-			o[element.name] = element.value;
+			var v = element.value;
+			o[element.name] = $.isNumeric(v) ? parseFloat(v) : v;
 		});
 		return o;
 	};
