@@ -46,7 +46,6 @@
 				className:'Category',
 				objectId:formData.category
 			};
-
 			$("#content").spin();
 			$.parse.post('Symptom', formData)
 				.success(function(data) {
@@ -111,12 +110,12 @@
 		},
 
 		renderAddCategoryForm: function(){
-			//bla
-			$("#content").html(hypo.templates.addCategory()); //skriv
-			$("#categorysubmitform").submit(hypo.handleCatgorySubmit); //skriv
+			$("#content").html(hypo.templates.addCategory());
+			$("#categorysubmitform").submit(hypo.handleCatgorySubmit);
 		},
 
 		renderAddSymptomForm: function(category){
+			console.log(category);
 			$("#content").html(hypo.templates.addSymptom(category));
 			$("#symptomsubmitform").submit(hypo.handleSymptomSubmit);
 		},
