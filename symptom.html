@@ -51,7 +51,7 @@
 	</script>
 	<script type="template" id="addSymptom-template">
 		<h3><%= name %></h3>
-		<form id="submitform">
+		<form id="symptomsubmitform">
 			<input type="hidden" name="category" value="<%= objectId %>"/>
 			<select name="severity">
 			  <option value="0">Severity</option>
@@ -65,9 +65,23 @@
 			<input type="submit">
 		</form>
 		<div id="symptoms">
-			
 		</div>
 	</script>
+
+	<script type="template" id="addCategory-template">
+		<h3>Add New symptom category</h3>
+		<form id="categorysubmitform">
+			<label>Symptom name: </label><input type="text" name="name"><br/>
+			<label>Unit: </label><input type="text" name="unit"><br/>
+			<label>Range Min value: </label><input type="number" name="rangeMin"><br/>
+			<label>Range Max value: </label><input type="number" name="rangeMax"><br/>
+			<label>Unit step value: </label><input type="number" name="stepSize"><br/>
+			<input type="submit">
+		</form>
+		<div id="categories">
+		</div>
+	</script>
+
 	<script type="template" id="symptomList-template">
 		<div>
 			<ul>
@@ -79,6 +93,9 @@
 					</li>
 	<%			}); %>
 			</ul>
+		</div>
+		<div>
+			<a href="#addCategory">Add New symptom category</a>
 		</div>
 	</script>
 

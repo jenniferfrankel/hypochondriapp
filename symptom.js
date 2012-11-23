@@ -11,6 +11,7 @@
 		templates: {
 			addSymptom: _.template($("#addSymptom-template").html()),
 			symptomList: _.template($("#symptomList-template").html()),
+			addCategory: _.template($("#addCategory-template").html()),
 			symptom: _.template($("#symptom-template").html())
 		},
 
@@ -37,10 +38,9 @@
 				});
 		},
 
-		handleSubmit: function(event){
+		handleSymptomSubmit: function(event){
 			event.preventDefault();
-			var formData = $("#submitform").serializeObject();
-			formData.severity = parseInt(formData.severity,10);
+			var formData = $("#symptomsubmitform").serializeObject();
 			formData.category = {
 				__type:'Pointer',
 				className:'Category',
@@ -55,10 +55,26 @@
 				});
 		},
 
+		handleCatgorySubmit: function(event){
+			// Handles submission of new symptom category to db
+			event.preventDefault();
+			var formData = $("#categorysubmitform").serializeObject();
+			$("#content").spin();
+			$.parse.post('Category', formData)
+				.success(function(data) {
+					$("#content").spin(false);
+					hypo.renderCategories();
+				});
+		},
+
 		renderSymptoms: function(symptoms){
 			_.each(symptoms,function(symptom){
 				$("#symptoms").prepend(hypo.templates.symptom(symptom));
 			});
+		},
+
+		renderCategories: function(){
+			console.log("renderCategories");
 		},
 
 		renderSymptom: function(dataId){
@@ -76,6 +92,9 @@
 			if (page === "addSymptom"){
 				hypo.renderSymptomPage(hashParts[1]);
 			}
+			else if (page === "addCategory"){
+				hypo.renderAddCategoryForm();
+			}
 			else {
 				hypo.renderCategoryList();
 			}
@@ -91,9 +110,15 @@
 				});
 		},
 
+		renderAddCategoryForm: function(){
+			//bla
+			$("#content").html(hypo.templates.addCategory()); //skriv
+			$("#categorysubmitform").submit(hypo.handleCatgorySubmit); //skriv
+		},
+
 		renderAddSymptomForm: function(category){
 			$("#content").html(hypo.templates.addSymptom(category));
-			$("#submitform").submit(hypo.handleSubmit);
+			$("#symptomsubmitform").submit(hypo.handleSymptomSubmit);
 		},
 
 		renderSymptomPage: function(categoryName){
