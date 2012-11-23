@@ -78,7 +78,7 @@
 
 		renderSymptom: function(dataId){
 			$("#content").spin();
-			$.parse.get('Symptom/'+dataId)
+			$.parse.get('Symptom/'+dataId, {include: "category"})
 				.success(function(data) {
 					$("#content").spin(false);
 					hypo.renderSymptoms([data]);

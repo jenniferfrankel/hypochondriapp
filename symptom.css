@@ -8,6 +8,10 @@
 	padding: 5px;
 }
 
+.symptom>div {
+	display: inline-block;
+}
+
 .symptom:first-child {
 	background: #fdd;
 }

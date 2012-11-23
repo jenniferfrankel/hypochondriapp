@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="symptom.css" />
 		<link rel="stylesheet" href="http://css.cdn.tl/normalize.css" />
 		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/1.7.2/moment.min.js"></script>
 	</head>
 	<body>
 		<div id="header">
@@ -32,21 +33,10 @@
 	</script>
 	<script type="template" id="symptom-template">
 		<div class="symptom">
-			<div class="symptomName"><%= category.name %></div>
-			<div class="timeStamp"><%= createdAt %></div>
-			<div class="severity">
-			<%
-				switch(severity)
-				{
-					case 1: print("Very light"); break;
-					case 2: print("Light"); break;
-					case 3: print("Moderate"); break;
-					case 4: print("Severe"); break;
-					case 5: print("Extreme"); break;
-				}
-			%>
-			</div>
-			<div class="comment"><%= comment %></div>
+			<div class="severity"><%= severity %></div>
+			<div class="unit"><%= category.unit %>,</div>
+			<div class="time">at <%= moment(createdAt).format("HH:mm") %></div>
+			<div class="date">on <%= moment(createdAt).format("YYYY-MM-DD") %></div>
 		</div>
 	</script>
 	<script type="template" id="addSymptom-template">
