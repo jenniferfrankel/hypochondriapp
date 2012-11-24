@@ -41,6 +41,10 @@
 		handleSymptomSubmit: function(event){
 			event.preventDefault();
 			var formData = $("#symptomsubmitform").serializeObject();
+			formData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
+			delete formData.hours;
+			delete formData.minutes;
+			delete formData.seconds;
 			formData.category = {
 				__type:'Pointer',
 				className:'Category',
