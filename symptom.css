@@ -12,6 +12,15 @@
 	display: inline-block;
 }
 
+#symptomsubmitform {
+	line-height: 2.5em;
+}
+
+#symptomsubmitform input[type="number"] {
+	width: 40px;
+	
+}
+
 .symptom:first-child {
 	background: #fdd;
 }

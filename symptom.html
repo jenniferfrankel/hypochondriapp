@@ -44,15 +44,15 @@
 		<h3><%= name %></h3>
 		<form id="symptomsubmitform">
 			<input type="hidden" name="category" value="<%= objectId %>"/>
+			<label for="date">Date: </label><input type="date" name="date"/><br/>
 			<label for="severity">Severity: </label><input type="number" name="severity" 
 			min="<%= rangeMin %>" 
 			max="<%= rangeMax %>" 
-			step="<%= stepSize %>" 
-			value="<%= rangeMin %>"/> <%= unit %><br/>
+			step="<%= stepSize %>"/> <%= unit %><br/>
 			<label>Duration: </label>
-				<input type="number" name="hours">hh
-				<input type="number" name="minutes">mm
-				<input type="number" name="seconds">ss
+				<input type="number" name="hours" value="0" min="0" required> hh
+				<input type="number" name="minutes" value="0" min="0" required> mm
+				<input type="number" name="seconds" value="0" min="0" required> ss<br/>
 			<label for="comment">Comment: </label><input type="text" name="comment">
 			<input type="submit">
 		</form>
