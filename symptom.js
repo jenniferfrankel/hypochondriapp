@@ -54,6 +54,7 @@
 			$.parse.post('Symptom', formData)
 				.success(function(data) {
 					$("#content").spin(false);
+					$('#symptomsubmitform')[0].reset();
 					hypo.renderSymptom(data.objectId);
 				});
 		},
