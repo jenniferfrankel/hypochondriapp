@@ -6,6 +6,7 @@
 		<script type="text/javascript" src="serializeObject.js"></script>
 		<script type="text/javascript" src="spin.min.js"></script>
 		<script type="text/javascript" src="jquery.parse.js"></script>
+		<script type="text/javascript" src="parse-1.1.13.js"></script>
 		<link rel="stylesheet" href="symptom.css" />
 		<link rel="stylesheet" href="http://css.cdn.tl/normalize.css" />
 		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
@@ -23,14 +24,6 @@
 			<button>Settings</button>
 		</div>
 	</body>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$(window).on('hashchange', function() {
-  				hypo.route();
-			});
-			hypo.route();
-		});
-	</script>
 	<script type="template" id="symptom-template">
 		<div class="symptom">
 			<div class="severity"><%= severity %></div>
@@ -77,7 +70,7 @@
 	<script type="template" id="symptomList-template">
 		<div>
 			<ul>
-	<%			_.each(results,function(category){ %>
+	<%			_.each(categories,function(category){ %>
 					<li>
 						<a href="#addSymptom/<%= category.name %>">
 							<%= category.name %>
@@ -91,5 +84,5 @@
 		</div>
 	</script>
 
-	<script type="text/javascript" src="symptom.js"></script>
+	<script type="text/javascript" src="app.js"></script>
 </html>
