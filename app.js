@@ -17,10 +17,23 @@ $(document).ready(function(){
 			_.bindAll(this);
 			this.collection = options.collection;
 			this.collection.on("all", this.render);
-			this.template = _.template($("#symptomList-template").html());
+			this.template = _.template($("#categoryList-template").html());
 		},
 		render: function(){
 			this.$el.html(this.template({categories: this.collection.toJSON()}));
+			return this;
+		}
+	});
+
+	var SymptomListView = Parse.View.extend({
+		initialize: function(options){
+			_.bindAll(this);
+			this.collection = options.collection;
+			this.collection.on("all", this.render);
+			this.template = _.template($("#symptomList-template").html());
+		},
+		render: function(){
+			this.$el.html(this.template({symptoms: this.collection.toJSON()}));
 			return this;
 		}
 	});
@@ -49,6 +62,20 @@ $(document).ready(function(){
 
 		listSymptoms: function(categoryName){
 			console.log("listSymptoms" + categoryName);
+			var categoryQuery = new Parse.Query(Category);
+			categoryQuery.equalTo("name", categoryName);
+
+			var symptomQuery = new Parse.Query(Symptom);
+			symptomQuery.matchesQuery("category", categoryQuery);
+			symptomQuery.include("category");
+
+			var symptoms = symptomQuery.collection();
+
+			var view = new SymptomListView({
+				collection: symptoms
+			});
+			$("#content").empty().append(view.render().$el);
+			symptoms.fetch();
 		}
 
 	});
