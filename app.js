@@ -2,15 +2,7 @@ $(document).ready(function(){
 	// Initialize Parse libraries with my app ID and javascript API key
 	Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");
 	
-	// Define Symptom and Category objects and collections
-	var Symptom = Parse.Object.extend("Symptom");
-	var Symptoms = Parse.Collection.extend({
-		model : Symptom
-	});
-	var Category = Parse.Object.extend("Category");
-	var Categories = Parse.Collection.extend({
-		model : Category
-	});
+	
 
 	
 
@@ -46,7 +38,7 @@ $(document).ready(function(){
 			var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
 			symptomData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
 			symptomData.category = this.collection.first();
-			var symptom = new Symptom(symptomData);
+			var symptom = new HypoApp.Models.Symptom(symptomData);
 			symptom.save({
 				success: function() {
 					that.$("[type=submit]").prop('disabled', false);
@@ -71,7 +63,7 @@ $(document).ready(function(){
 
 		listCategories: function(){
 			console.log("listCategories");
-			var categories = new Categories();
+			var categories = new HypoApp.Models.Categories();
 			var view = new HypoApp.Views.CategoryListView({
 				collection: categories
 			});
@@ -80,7 +72,7 @@ $(document).ready(function(){
 		},
 
 		addSymptom: function(categoryName){
-			var categoryQuery = new Parse.Query(Category);
+			var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 			categoryQuery.equalTo("name", categoryName);
 			var categories = categoryQuery.collection();
 
@@ -91,10 +83,10 @@ $(document).ready(function(){
 
 		listSymptoms: function(categoryName){
 			console.log("listSymptoms" + categoryName);
-			var categoryQuery = new Parse.Query(Category);
+			var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 			categoryQuery.equalTo("name", categoryName);
 
-			var symptomQuery = new Parse.Query(Symptom);
+			var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
 			symptomQuery.matchesQuery("category", categoryQuery);
 			symptomQuery.include("category");
 
