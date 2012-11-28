@@ -79,7 +79,7 @@ $(document).ready(function(){
 			categories.fetch();
 			symptoms.fetch();
 
-			// We pass both the symptoms and the categories in to the vuew so
+			// We pass both the symptoms and the categories in to the view so
 			// it can listen to any changes to either and re-render when
 			// neccessary.
 			var view = new HypoApp.Views.SymptomListView({
