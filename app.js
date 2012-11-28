@@ -25,24 +25,7 @@ $(document).ready(function(){
 		}
 	});
 
-	var SymptomListView = Parse.View.extend({
-		initialize: function(options){
-			_.bindAll(this);
-			this.symptoms = options.symptoms;
-			this.symptoms.on("all", this.render);
-			this.categories = options.categories;
-			this.categories.on("all", this.render);
-			this.template = _.template($("#symptomList-template").html());
-		},
-		render: function(){
-			var hasCategory = !!this.categories.first();
-			this.$el.html(this.template({
-				symptoms : this.symptoms.toJSON(),
-				category : hasCategory ? this.categories.first().toJSON() : null
-			}));
-			return this;
-		}
-	});
+	
 
 	var AddSymptomView = Parse.View.extend({
 		events : {
@@ -129,7 +112,7 @@ $(document).ready(function(){
 			var categories = categoryQuery.collection();
 			var symptoms = symptomQuery.collection();
 
-			var view = new SymptomListView({
+			var view = new HypoApp.Views.SymptomListView({
 				symptoms : symptoms,
 				categories : categories
 			});
