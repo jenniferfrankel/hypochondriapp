@@ -38,11 +38,54 @@ $(document).ready(function(){
 		}
 	});
 
+	var AddSymptomView = Parse.View.extend({
+		events : {
+			"submit form" :  "handleSymptomSubmit"
+		},
+
+		initialize: function(options){
+			_.bindAll(this);
+			this.collection = options.collection;
+			this.collection.on("all", this.render);
+			this.template = _.template($("#addSymptom-template").html());
+		},
+		render: function(){
+			if (this.collection.length > 0) {
+				var category = this.collection.models[0];
+				this.$el.html(this.template(category.toJSON()));
+			} else {
+				this.$el.html("Nothing here yet!");
+			}
+			return this;
+		},
+		handleSymptomSubmit: function(event){
+			event.preventDefault();
+			var formData = $("#symptomsubmitform").serializeObject();
+			formData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
+			delete formData.hours;
+			delete formData.minutes;
+			delete formData.seconds;
+			formData.category = {
+				__type:'Pointer',
+				className:'Category',
+				objectId:formData.category
+			};
+			$("#content").spin();
+	//		$.parse.post('Symptom', formData)
+	//			.success(function(data) {
+	//				$("#content").spin(false);
+	//				$('#symptomsubmitform')[0].reset();
+	//				hypo.renderSymptom(data.objectId);
+	//			});
+		}
+	});
+
 	var Workspace = Parse.Router.extend({
 		routes: {
 			"": "home",
 			"categories": "listCategories",
-			"categories/:categoryName": "listSymptoms"
+			"categories/:categoryName": "listSymptoms",
+			"categories/:categoryName/addSymptom": "addSymptom"
 		},
 
 		home: function(){
@@ -56,6 +99,16 @@ $(document).ready(function(){
 			var view = new CategoryListView({
 				collection: categories
 			});
+			$("#content").empty().append(view.render().$el);
+			categories.fetch();
+		},
+
+		addSymptom: function(categoryName){
+			var categoryQuery = new Parse.Query(Category);
+			categoryQuery.equalTo("name", categoryName);
+			var categories = categoryQuery.collection();
+
+			var view = new AddSymptomView({collection: categories});
 			$("#content").empty().append(view.render().$el);
 			categories.fetch();
 		},

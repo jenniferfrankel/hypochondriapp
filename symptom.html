@@ -34,6 +34,11 @@
 				<div class="date">on <%= moment(symptom.createdAt).format("YYYY-MM-DD") %></div>
 			</div>
 		<%			}); %>
+		<div>
+			<% if (symptoms.length > 0){ %>
+				<a href="#<%=symptoms[0].category.name%>/addSymptom">Add symptom</a>
+			<%};%>
+		</div>
 	</script>
 	<script type="template" id="addSymptom-template">
 		<h3><%= name %></h3>
