@@ -55,29 +55,27 @@ $(document).ready(function(){
 			this.collection.on("all", this.render);
 			this.template = _.template($("#addSymptom-template").html());
 		},
+
 		render: function(){
 			if (this.collection.length > 0) {
 				var category = this.collection.first();
-				this.$el.html(this.template(category.toJSON()));
+				this.$el.html(this.template({ category: category.toJSON() }));
 			} else {
 				this.$el.html("Nothing here yet!");
 			}
 			return this;
 		},
+		
 		handleSymptomSubmit: function(event){
 			event.preventDefault();
-			var formData = $("#symptomsubmitform").serializeObject();
-			formData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
-			delete formData.hours;
-			delete formData.minutes;
-			delete formData.seconds;
-			formData.date = new Date(formData.date);
-			formData.category = {
-				__type:'Pointer',
-				className:'Category',
-				objectId:formData.category
-			};
-			var symptom = new Symptom(formData);
+			var formData = this.$("#symptomsubmitform").serializeObject();
+			var symptom = new Symptom({
+				comment: formData.comment,
+				date: formData.date,
+				duration: formData.seconds + 60*formData.minutes + 3600*formData.hours,
+				severity: formData.severity,
+				category: this.collection.first()
+			});
 			symptom.save();
 			window.location.hash=$("#symptomsubmitform").attr("action");
 		}

@@ -42,13 +42,12 @@
 	</script>
 	<script type="template" id="addSymptom-template">
 		<h3><%= name %></h3>
-		<form id="symptomsubmitform" action="#categories/<%=name%>">
-			<input type="hidden" name="category" value="<%= objectId %>"/>
+		<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 			<label for="date">Date: </label><input type="date" name="date"/><br/>
 			<label for="severity">Severity: </label><input type="number" name="severity" 
-			min="<%= rangeMin %>" 
-			max="<%= rangeMax %>" 
-			step="<%= stepSize %>"/> <%= unit %><br/>
+			min="<%= category.rangeMin %>" 
+			max="<%= category.rangeMax %>" 
+			step="<%= category.stepSize %>"/> <%= category.unit %><br/>
 			<label>Duration: </label>
 				<input type="number" name="hours" value="0" min="0" required> hh
 				<input type="number" name="minutes" value="0" min="0" required> mm
