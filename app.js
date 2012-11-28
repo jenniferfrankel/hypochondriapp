@@ -28,12 +28,18 @@ $(document).ready(function(){
 	var SymptomListView = Parse.View.extend({
 		initialize: function(options){
 			_.bindAll(this);
-			this.collection = options.collection;
-			this.collection.on("all", this.render);
+			this.symptoms = options.symptoms;
+			this.symptoms.on("all", this.render);
+			this.categories = options.categories;
+			this.categories.on("all", this.render);
 			this.template = _.template($("#symptomList-template").html());
 		},
 		render: function(){
-			this.$el.html(this.template({symptoms: this.collection.toJSON()}));
+			var hasCategory = !!this.categories.first();
+			this.$el.html(this.template({
+				symptoms : this.symptoms.toJSON(),
+				category : hasCategory ? this.categories.first().toJSON() : null
+			}));
 			return this;
 		}
 	});
@@ -51,7 +57,7 @@ $(document).ready(function(){
 		},
 		render: function(){
 			if (this.collection.length > 0) {
-				var category = this.collection.models[0];
+				var category = this.collection.first();
 				this.$el.html(this.template(category.toJSON()));
 			} else {
 				this.$el.html("Nothing here yet!");
@@ -65,18 +71,15 @@ $(document).ready(function(){
 			delete formData.hours;
 			delete formData.minutes;
 			delete formData.seconds;
+			formData.date = new Date(formData.date);
 			formData.category = {
 				__type:'Pointer',
 				className:'Category',
 				objectId:formData.category
 			};
-			$("#content").spin();
-	//		$.parse.post('Symptom', formData)
-	//			.success(function(data) {
-	//				$("#content").spin(false);
-	//				$('#symptomsubmitform')[0].reset();
-	//				hypo.renderSymptom(data.objectId);
-	//			});
+			var symptom = new Symptom(formData);
+			symptom.save();
+			window.location.hash=$("#symptomsubmitform").attr("action");
 		}
 	});
 
@@ -122,12 +125,15 @@ $(document).ready(function(){
 			symptomQuery.matchesQuery("category", categoryQuery);
 			symptomQuery.include("category");
 
+			var categories = categoryQuery.collection();
 			var symptoms = symptomQuery.collection();
 
 			var view = new SymptomListView({
-				collection: symptoms
+				symptoms : symptoms,
+				categories : categories
 			});
 			$("#content").empty().append(view.render().$el);
+			categories.fetch();
 			symptoms.fetch();
 		}
 
