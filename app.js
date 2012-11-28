@@ -12,18 +12,7 @@ $(document).ready(function(){
 		model : Category
 	});
 
-	var CategoryListView = Parse.View.extend({
-		initialize: function(options){
-			_.bindAll(this);
-			this.collection = options.collection;
-			this.collection.on("all", this.render);
-			this.template = _.template($("#categoryList-template").html());
-		},
-		render: function(){
-			this.$el.html(this.template({categories: this.collection.toJSON()}));
-			return this;
-		}
-	});
+	
 
 	
 
@@ -83,7 +72,7 @@ $(document).ready(function(){
 		listCategories: function(){
 			console.log("listCategories");
 			var categories = new Categories();
-			var view = new CategoryListView({
+			var view = new HypoApp.Views.CategoryListView({
 				collection: categories
 			});
 			$("#content").empty().append(view.render().$el);
