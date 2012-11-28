@@ -1,14 +1,6 @@
 $(document).ready(function(){
 	// Initialize Parse libraries with my app ID and javascript API key
-	Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");
-	
-	
-
-	
-
-	
-
-	
+	Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");	
 
 	var Workspace = Parse.Router.extend({
 		routes: {
