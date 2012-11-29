@@ -19,7 +19,8 @@ $(document).ready(function(){
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
 			"categories/:categoryName/addSymptom": "addSymptom",
-			"categories/:categoryName/editSymptom/:symptomId": "addSymptom"
+			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
+			"*path": "defaultRoute"
 		},
 
 		/**
@@ -28,6 +29,10 @@ $(document).ready(function(){
 		home: function(){
 			console.log("home");
 			this.navigate("categories", {trigger: true, replace: true});
+		},
+
+		defaultRoute: function(){
+			$("#content").empty().html("404");
 		},
 
 		addCategory: function(){
