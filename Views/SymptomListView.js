@@ -7,13 +7,26 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 		"click .symptom" :  "editSymptom"
 	},
 
-	initialize: function(options){
+	initialize: function(categoryName) {
 		_.bindAll(this);
-		this.symptoms = options.symptoms;
-		this.symptoms.on("all", this.render);
-		this.categories = options.categories;
-		this.categories.on("all", this.render);
 		this.template = _.template($("#symptomList-template").html());
+
+		// Create a query to fetch the actual category object with the specified name
+		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
+		categoryQuery.equalTo("name", categoryName);
+
+		// A query to fetch the symptoms - this uses the category query as
+		// an inner query to just pick the symptoms for that category.
+		var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
+		symptomQuery.matchesQuery("category", categoryQuery);
+		symptomQuery.include("category");
+
+		this.categories = categoryQuery.collection();
+		this.symptoms = symptomQuery.collection();
+		this.symptoms.on("all", this.render);
+		this.categories.on("all", this.render);
+		this.categories.fetch();
+		this.symptoms.fetch();
 	},
 
 	render: function(){

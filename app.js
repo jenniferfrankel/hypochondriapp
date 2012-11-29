@@ -42,13 +42,8 @@ $(document).ready(function(){
 		 * List the available categories of symptoms
 		 */
 		listCategories: function(){
-			console.log("listCategories");
-			var categories = new HypoApp.Models.Categories();
-			var view = new HypoApp.Views.CategoryListView({
-				collection: categories
-			});
+			var view = new HypoApp.Views.CategoryListView();
 			$("#content").empty().append(view.render().$el);
-			categories.fetch();
 		},
 
 		/**
@@ -85,31 +80,8 @@ $(document).ready(function(){
 		 *
 		 * @param categoryName - the name of the category of the symptoms we are listing.
 		 */
-		listSymptoms: function(categoryName){
-			// Create a query to fetch the actual category object with the specified name
-			var categoryQuery = new Parse.Query(HypoApp.Models.Category);
-			categoryQuery.equalTo("name", categoryName);
-
-			// A query to fetch the symptoms - this uses the category query as
-			// an inner query to just pick the symptoms for that category.
-			var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
-			symptomQuery.matchesQuery("category", categoryQuery);
-			symptomQuery.include("category");
-
-			var categories = categoryQuery.collection();
-			var symptoms = symptomQuery.collection();
-			categories.fetch();
-			symptoms.fetch();
-
-			// We pass both the symptoms and the categories in to the view so
-			// it can listen to any changes to either and re-render when
-			// neccessary.
-			var view = new HypoApp.Views.SymptomListView({
-				symptoms : symptoms,
-				categories : categories
-			});
-
-			// Update the content-div in the DOM
+		listSymptoms: function(categoryName) {
+			var view = new HypoApp.Views.SymptomListView(categoryName);
 			$("#content").empty().append(view.render().$el);
 		}
 
