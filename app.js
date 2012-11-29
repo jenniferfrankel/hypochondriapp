@@ -23,6 +23,10 @@ $(document).ready(function(){
 			"*path": "defaultRoute"
 		},
 
+		initialize: function() {
+			_.bindAll(this);
+		},
+
 		/**
 		 * The default route. For now, just take the users to the categories list.
 		 */
@@ -72,7 +76,13 @@ $(document).ready(function(){
 		},
 
 		login: function() {
-			this.updateContent(new HypoApp.Views.LogInView(), true);
+			var that = this;
+			this.updateContent(new HypoApp.Views.LogInView({
+				success: function() {
+					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
+					that.locationAfterLogin = null;
+				}
+			}), true);
 		},
 
 		logout: function() {
@@ -80,10 +90,19 @@ $(document).ready(function(){
 			this.navigate("login", {trigger: true, replace: true});
 		},
 
+		/**
+		 * Swap out the current contents with a new view. If a user is not
+		 * logged in, they will be directed to the login/signup flow unless
+		 * the noLogin flag is passed.
+		 *
+		 * @param view - the view that should be rendered
+		 * @param noLogin - boolean to determine if we are skipping the login requirement.
+		 */
 		updateContent : function(view, noLogin) {
 			if (noLogin || Parse.User.current()) {
 				$("#content").empty().append(view.render().$el);
 			} else {
+				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});
 			}
 		}

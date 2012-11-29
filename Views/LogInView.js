@@ -7,24 +7,22 @@ HypoApp.Views.LogInView = Parse.View.extend({
 		"submit form.signup-form": "signUp"
 	},
 	
-	initialize: function() {
+	initialize: function(options) {
 		_.bindAll(this);
+		this.success = options.success;
 		this.template = _.template($("#login-template").html());
 	},
 
 	logIn: function(e) {
-		var self = this;
+		var that = this;
 		var username = this.$("#login-username").val();
 		var password = this.$("#login-password").val();
 		
 		Parse.User.logIn(username, password, {
-			success: function(user) {
-				window.location.hash = "";
-			},
-
+			success: this.success,
 			error: function(user, error) {
-				self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
-				this.$(".login-form button").removeAttr("disabled");
+				that.$(".login-form .error").html("Invalid username or password. Please try again.").show();
+				that.$(".login-form button").removeAttr("disabled");
 			}
 		});
 
@@ -34,18 +32,15 @@ HypoApp.Views.LogInView = Parse.View.extend({
 	},
 
 	signUp: function(e) {
-		var self = this;
+		var that = this;
 		var username = this.$("#signup-username").val();
 		var password = this.$("#signup-password").val();
 		
 		Parse.User.signUp(username, password, { ACL: new Parse.ACL() }, {
-			success: function(user) {
-				window.location.hash = "";
-			},
-
+			success: this.success,
 			error: function(user, error) {
-				self.$(".signup-form .error").html(error.message).show();
-				this.$(".signup-form button").removeAttr("disabled");
+				that.$(".signup-form .error").html(error.message).show();
+				that.$(".signup-form button").removeAttr("disabled");
 			}
 		});
 
