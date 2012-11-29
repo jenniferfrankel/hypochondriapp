@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 	// Create a workspace for the app. This will partly be responsible for
 	// routing the app to the right place, but also hold any state or
-	// caches that we might need. It will create viewss, objects and collections
+	// caches that we might need. It will create views, objects and collections
 	// as neccessary when routing.
 	// TODO: Move this to a separate file too.
 	var Workspace = Parse.Router.extend({
@@ -16,6 +16,7 @@ $(document).ready(function(){
 		routes: {
 			"": "home",
 			"categories": "listCategories",
+			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
 			"categories/:categoryName/addSymptom": "addSymptom"
 		},
@@ -26,6 +27,11 @@ $(document).ready(function(){
 		home: function(){
 			console.log("home");
 			this.navigate("categories", {trigger: true, replace: true});
+		},
+
+		addCategory: function(){
+			var view = new HypoApp.Views.AddCategoryView();
+			$("#content").empty().append(view.render().$el);
 		},
 
 		/**
@@ -61,7 +67,7 @@ $(document).ready(function(){
 		/**
 		 * Show the list of symptoms for the specified category.
 		 *
-		 * @param categoryName - the name of the category which symptoms we are listing.
+		 * @param categoryName - the name of the category of the symptoms we are listing.
 		 */
 		listSymptoms: function(categoryName){
 			// Create a query to fetch the actual category object with the specified name

@@ -61,12 +61,12 @@
 
 	<script type="template" id="addCategory-template">
 		<h3>Add New symptom category</h3>
-		<form id="categorysubmitform">
-			<label>Symptom name: </label><input type="text" name="name"><br/>
-			<label>Unit: </label><input type="text" name="unit"><br/>
-			<label>Range Min value: </label><input type="number" step="any" name="rangeMin"><br/>
-			<label>Range Max value: </label><input type="number" step="any" name="rangeMax"><br/>
-			<label>Unit step value: </label><input type="number" step="any" name="stepSize"><br/>
+		<form id="categorysubmitform" action="#categories">
+			<label>Symptom name: </label><input type="text" name="name" required><br/>
+			<label>Unit: </label><input type="text" name="unit" required><br/>
+			<label>Range Min value: </label><input type="number" step="any" name="rangeMin" required><br/>
+			<label>Range Max value: </label><input type="number" step="any" name="rangeMax" required><br/>
+			<label>Unit step value: </label><input type="number" step="any" name="stepSize" required><br/>
 			<input type="submit">
 		</form>
 		<div id="categories">
@@ -86,11 +86,12 @@
 			</ul>
 		</div>
 		<div>
-			<a href="#addCategory">Add New symptom category</a>
+			<a href="#categories/addCategory">Add New symptom category</a>
 		</div>
 	</script>
 
 	<script type="text/javascript" src="Models/Models.js"></script>
+	<script type="text/javascript" src="Views/AddCategoryView.js"></script>
 	<script type="text/javascript" src="Views/AddSymptomView.js"></script>
 	<script type="text/javascript" src="Views/CategoryListView.js"></script>
 	<script type="text/javascript" src="Views/SymptomListView.js"></script>
