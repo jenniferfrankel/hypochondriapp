@@ -30,20 +30,19 @@ $(document).ready(function(){
 		},
 
 		defaultRoute: function(){
+			// TODO: Make this into a view
 			$("#content").empty().html("404");
 		},
 
 		addCategory: function(){
-			var view = new HypoApp.Views.AddCategoryView();
-			$("#content").empty().append(view.render().$el);
+			this.updateContent(new HypoApp.Views.AddCategoryView());
 		},
 
 		/**
 		 * List the available categories of symptoms
 		 */
 		listCategories: function(){
-			var view = new HypoApp.Views.CategoryListView();
-			$("#content").empty().append(view.render().$el);
+			this.updateContent(new HypoApp.Views.CategoryListView());
 		},
 
 		/**
@@ -55,11 +54,10 @@ $(document).ready(function(){
 		 * @param symptomId - (optional) the id of the symptom to edit
 		 */
 		addSymptom: function(categoryName, symptomId){
-			var view = new HypoApp.Views.AddSymptomView({
+			this.updateContent(new HypoApp.Views.AddSymptomView({
 				categoryName: categoryName,
 				symptomId: symptomId
-			});
-			$("#content").empty().append(view.render().$el);
+			}));
 		},
 
 		/**
@@ -68,7 +66,10 @@ $(document).ready(function(){
 		 * @param categoryName - the name of the category of the symptoms we are listing.
 		 */
 		listSymptoms: function(categoryName) {
-			var view = new HypoApp.Views.SymptomListView(categoryName);
+			this.updateContent(new HypoApp.Views.SymptomListView(categoryName));
+		},
+
+		updateContent : function(view) {
 			$("#content").empty().append(view.render().$el);
 		}
 
