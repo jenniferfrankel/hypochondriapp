@@ -6,14 +6,28 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		"submit form" :  "handleSymptomSubmit"
 	},
 
-	initialize: function(options){
+	initialize: function(options) {
 		_.bindAll(this);
-		this.collection = options.collection;
-		this.collection.on("all", this.render);
 		this.template = _.template($("#addSymptom-template").html());
+		var that = this;
+		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
+		categoryQuery.equalTo("name", options.categoryName);
+		this.collection = categoryQuery.collection();
+		this.collection.on("all", this.render);
+		this.collection.fetch();
+
+		if (options.symptomId) {
+			var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
+			symptomQuery.get(symptomId, {
+				success: function(symptom){
+					that.symptom = symptom;
+					that.render();
+				}
+			});
+		}
 	},
 
-	render: function(){
+	render: function() {
 		if (this.collection.length > 0) {
 			var category = this.collection.first();
 			this.$el.html(this.template({
@@ -26,7 +40,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		return this;
 	},
 
-	handleSymptomSubmit: function(event){
+	handleSymptomSubmit: function(event) {
 		event.preventDefault();
 		var that = this;
 		this.$("[type=submit]").prop('disabled', true);

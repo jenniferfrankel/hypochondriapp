@@ -55,24 +55,11 @@ $(document).ready(function(){
 		 * @param symptomId - (optional) the id of the symptom to edit
 		 */
 		addSymptom: function(categoryName, symptomId){
-
-			var categoryQuery = new Parse.Query(HypoApp.Models.Category);
-			categoryQuery.equalTo("name", categoryName);
-			var categories = categoryQuery.collection();
-
-			var view = new HypoApp.Views.AddSymptomView({collection: categories});
+			var view = new HypoApp.Views.AddSymptomView({
+				categoryName: categoryName,
+				symptomId: symptomId
+			});
 			$("#content").empty().append(view.render().$el);
-			categories.fetch();
-
-			if(symptomId){
-				var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
-				symptomQuery.get(symptomId, {
-					success: function(symptom){
-						view.symptom = symptom;
-						view.render();
-					}
-				});
-			}
 		},
 
 		/**
