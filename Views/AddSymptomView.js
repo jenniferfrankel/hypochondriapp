@@ -18,7 +18,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 
 		if (options.symptomId) {
 			var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
-			symptomQuery.get(symptomId, {
+			symptomQuery.get(options.symptomId, {
 				success: function(symptom){
 					that.symptom = symptom;
 					that.render();
