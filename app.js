@@ -10,8 +10,6 @@ $(document).ready(function(){
 	var Workspace = Parse.Router.extend({
 		/**
 		 * A list of routes for this app.
-		 * TODO: Add a default route to capture anything that doesn't
-		 *       match any of these routes.
 		 */
 		routes: {
 			"": "home",
