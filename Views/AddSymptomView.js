@@ -9,34 +9,34 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 	initialize: function(options) {
 		_.bindAll(this);
 		this.template = _.template($("#addSymptom-template").html());
-		var that = this;
 		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 		categoryQuery.equalTo("name", options.categoryName);
-		this.collection = categoryQuery.collection();
-		this.collection.on("all", this.render);
-		this.collection.fetch();
+		categoryQuery.find({ success : this.onCategoryLoaded });
 
 		if (options.symptomId) {
 			var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
-			symptomQuery.get(options.symptomId, {
-				success: function(symptom){
-					that.symptom = symptom;
-					that.render();
-				}
-			});
+			symptomQuery.get(options.symptomId, { success : this.onSymptomLoaded });
 		}
 	},
 
+	onSymptomLoaded : function(symptom) {
+		console.log("Got symptom");
+		this.symptom = symptom;
+		this.render();
+	},
+
+	onCategoryLoaded : function(categories) {
+		console.log("Got category");
+		this.category = _.first(categories);
+		this.render();
+	},
+
 	render: function() {
-		if (this.collection.length > 0) {
-			var category = this.collection.first();
-			this.$el.html(this.template({
-				category: category.toJSON(),
-				symptom: this.symptom ? this.symptom.toJSON() : {}
-			}));
-		} else {
-			this.$el.html("Nothing here yet!");
-		}
+		this.$el.html(this.template({
+			isEdit: this.options.symptomId,
+			category: this.category ? this.category.toJSON() : {},
+			symptom: this.symptom ? this.symptom.toJSON() : {}
+		}));
 		return this;
 	},
 
