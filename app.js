@@ -18,7 +18,8 @@ $(document).ready(function(){
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
-			"categories/:categoryName/addSymptom": "addSymptom"
+			"categories/:categoryName/addSymptom": "addSymptom",
+			"categories/:categoryName/editSymptom/:symptomId": "addSymptom"
 		},
 
 		/**
@@ -53,8 +54,10 @@ $(document).ready(function(){
 		 *       list view at som later point.
 		 *
 		 * @param categoryName - the name of the category we are adding a symptom to.
+		 * @param symptomId - (optional) the id of the symptom to edit
 		 */
-		addSymptom: function(categoryName){
+		addSymptom: function(categoryName, symptomId){
+
 			var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 			categoryQuery.equalTo("name", categoryName);
 			var categories = categoryQuery.collection();
@@ -62,6 +65,16 @@ $(document).ready(function(){
 			var view = new HypoApp.Views.AddSymptomView({collection: categories});
 			$("#content").empty().append(view.render().$el);
 			categories.fetch();
+
+			if(symptomId){
+				var symptomQuery = new Parse.Query(HypoApp.Models.Symptom);
+				symptomQuery.get(symptomId, {
+					success: function(symptom){
+						view.symptom = symptom;
+						view.render();
+					}
+				});
+			}
 		},
 
 		/**

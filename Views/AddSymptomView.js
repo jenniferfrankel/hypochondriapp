@@ -16,7 +16,10 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 	render: function(){
 		if (this.collection.length > 0) {
 			var category = this.collection.first();
-			this.$el.html(this.template({ category: category.toJSON() }));
+			this.$el.html(this.template({
+				category: category.toJSON(),
+				symptom: this.symptom ? this.symptom.toJSON() : {}
+			}));
 		} else {
 			this.$el.html("Nothing here yet!");
 		}
@@ -31,8 +34,8 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
 		symptomData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
 		symptomData.category = this.collection.first();
-		var symptom = new HypoApp.Models.Symptom(symptomData);
-		symptom.save({
+		var symptom = (!!this.symptom) ? this.symptom : new HypoApp.Models.Symptom();
+		symptom.save(symptomData, {
 			success: function() {
 				that.$("[type=submit]").prop('disabled', false);
 				window.location.hash=$("#symptomsubmitform").attr("action");

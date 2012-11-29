@@ -2,6 +2,11 @@ var HypoApp = (typeof HypoApp === "undefined") ? {} : HypoApp;
 HypoApp.Views = (typeof HypoApp.Views === "undefined") ? {} : HypoApp.Views;
 
 HypoApp.Views.SymptomListView = Parse.View.extend({
+
+	events : {
+		"click .symptom" :  "editSymptom"
+	},
+
 	initialize: function(options){
 		_.bindAll(this);
 		this.symptoms = options.symptoms;
@@ -10,6 +15,7 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 		this.categories.on("all", this.render);
 		this.template = _.template($("#symptomList-template").html());
 	},
+
 	render: function(){
 		var hasCategory = !!this.categories.first();
 		this.$el.html(this.template({
@@ -17,5 +23,9 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 			category : hasCategory ? this.categories.first().toJSON() : null
 		}));
 		return this;
+	},
+
+	editSymptom: function(event){
+		window.location.hash=$(event.target).closest(".symptom").data("edit-hash");
 	}
 });
