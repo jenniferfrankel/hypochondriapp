@@ -47,7 +47,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		var formData = this.$("#symptomsubmitform").serializeObject();
 		var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
 		symptomData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
-		symptomData.category = this.collection.first();
+		symptomData.category = this.category;
 		var symptom = (!!this.symptom) ? this.symptom : new HypoApp.Models.Symptom();
 		symptom.save(symptomData, {
 			success: function() {
