@@ -13,6 +13,8 @@ $(document).ready(function(){
 		 */
 		routes: {
 			"": "home",
+			"login": "login",
+			"logout": "logout",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
@@ -21,11 +23,14 @@ $(document).ready(function(){
 			"*path": "defaultRoute"
 		},
 
+		initialize: function() {
+			_.bindAll(this);
+		},
+
 		/**
 		 * The default route. For now, just take the users to the categories list.
 		 */
 		home: function(){
-			console.log("home");
 			this.navigate("categories", {trigger: true, replace: true});
 		},
 
@@ -69,8 +74,42 @@ $(document).ready(function(){
 			this.updateContent(new HypoApp.Views.SymptomListView(categoryName));
 		},
 
-		updateContent : function(view) {
-			$("#content").empty().append(view.render().$el);
+		login: function() {
+			if (Parse.User.current()) {
+				// If we are logged in already, an the user goes to the login
+				// page (somehow), just send them home.
+				this.navigate("", {trigger: true, replace: true});
+			} else {
+				var that = this;
+				this.updateContent(new HypoApp.Views.LogInView({
+					success: function() {
+						that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
+						that.locationAfterLogin = null;
+					}
+				}), true);
+			}
+		},
+
+		logout: function() {
+			Parse.User.logOut();
+			this.navigate("login", {trigger: true, replace: true});
+		},
+
+		/**
+		 * Swap out the current contents with a new view. If a user is not
+		 * logged in, they will be directed to the login/signup flow unless
+		 * the noLogin flag is passed.
+		 *
+		 * @param view - the view that should be rendered
+		 * @param noLogin - boolean to determine if we are skipping the login requirement.
+		 */
+		updateContent : function(view, noLogin) {
+			if (noLogin || Parse.User.current()) {
+				$("#content").empty().append(view.render().$el);
+			} else {
+				this.locationAfterLogin = window.location.hash;
+				this.navigate("login", {trigger: true, replace: true});
+			}
 		}
 
 	});

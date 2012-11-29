@@ -22,6 +22,8 @@ HypoApp.Views.AddCategoryView = Parse.View.extend({
 		this.$("[type=submit]").prop('disabled', true);
 		var formData = this.$("#categorysubmitform").serializeObject();
 		var categoryData = _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'stepSize']);
+        categoryData.user = Parse.User.current();
+        categoryData.ACL = new Parse.ACL(Parse.User.current());
 		var category = new HypoApp.Models.Category(categoryData);
 		category.save({
 			success: function() {

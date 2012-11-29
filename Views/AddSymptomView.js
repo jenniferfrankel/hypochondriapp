@@ -11,6 +11,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		this.template = _.template($("#addSymptom-template").html());
 		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 		categoryQuery.equalTo("name", options.categoryName);
+		categoryQuery.equalTo("user", Parse.User.current());
 		categoryQuery.find({ success : this.onCategoryLoaded });
 
 		if (options.symptomId) {
@@ -48,6 +49,8 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
 		symptomData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
 		symptomData.category = this.category;
+        symptomData.user = Parse.User.current();
+        symptomData.ACL = new Parse.ACL(Parse.User.current());
 		var symptom = (!!this.symptom) ? this.symptom : new HypoApp.Models.Symptom();
 		symptom.save(symptomData, {
 			success: function() {

@@ -13,6 +13,7 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 
 		// Create a query to fetch the actual category object with the specified name
 		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
+		categoryQuery.equalTo("user", Parse.User.current());
 		categoryQuery.equalTo("name", categoryName);
 
 		// A query to fetch the symptoms - this uses the category query as
