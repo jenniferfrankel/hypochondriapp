@@ -14,6 +14,7 @@ HypoApp.Views.LogInView = Parse.View.extend({
 	},
 
 	logIn: function(e) {
+		e.preventDefault();
 		var that = this;
 		var username = this.$("#login-username").val();
 		var password = this.$("#login-password").val();
@@ -22,16 +23,15 @@ HypoApp.Views.LogInView = Parse.View.extend({
 			success: this.success,
 			error: function(user, error) {
 				that.$(".login-form .error").html("Invalid username or password. Please try again.").show();
-				that.$(".login-form button").removeAttr("disabled");
+				that.$(".login-form button").prop('disabled', false);
 			}
 		});
 
-		this.$(".login-form button").attr("disabled", "disabled");
-
-		return false;
+		this.$(".login-form button").prop('disabled', true);
 	},
 
 	signUp: function(e) {
+		e.preventDefault();
 		var that = this;
 		var username = this.$("#signup-username").val();
 		var password = this.$("#signup-password").val();
@@ -40,13 +40,11 @@ HypoApp.Views.LogInView = Parse.View.extend({
 			success: this.success,
 			error: function(user, error) {
 				that.$(".signup-form .error").html(error.message).show();
-				that.$(".signup-form button").removeAttr("disabled");
+				that.$(".signup-form button").prop('disabled', false);
 			}
 		});
 
-		this.$(".signup-form button").attr("disabled", "disabled");
-
-		return false;
+		this.$(".signup-form button").prop('disabled', true);
 	},
 
 	render: function() {

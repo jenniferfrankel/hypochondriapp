@@ -31,7 +31,6 @@ $(document).ready(function(){
 		 * The default route. For now, just take the users to the categories list.
 		 */
 		home: function(){
-			console.log("home");
 			this.navigate("categories", {trigger: true, replace: true});
 		},
 
@@ -76,13 +75,19 @@ $(document).ready(function(){
 		},
 
 		login: function() {
-			var that = this;
-			this.updateContent(new HypoApp.Views.LogInView({
-				success: function() {
-					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
-					that.locationAfterLogin = null;
-				}
-			}), true);
+			if (Parse.User.current()) {
+				// If we are logged in already, an the user goes to the login
+				// page (somehow), just send them home.
+				this.navigate("", {trigger: true, replace: true});
+			} else {
+				var that = this;
+				this.updateContent(new HypoApp.Views.LogInView({
+					success: function() {
+						that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
+						that.locationAfterLogin = null;
+					}
+				}), true);
+			}
 		},
 
 		logout: function() {
