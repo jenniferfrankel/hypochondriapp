@@ -6,7 +6,9 @@ HypoApp.Views.CategoryListView = Parse.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 		this.template = _.template($("#categoryList-template").html());
-		this.categories = new HypoApp.Models.Categories();
+		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
+		categoryQuery.equalTo("user", Parse.User.current());
+		this.categories = categoryQuery.collection();
 		this.categories.on("all", this.render);
 		this.categories.fetch();
 	},

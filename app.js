@@ -13,6 +13,8 @@ $(document).ready(function(){
 		 */
 		routes: {
 			"": "home",
+			"login": "login",
+			"logout": "logout",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
@@ -69,8 +71,21 @@ $(document).ready(function(){
 			this.updateContent(new HypoApp.Views.SymptomListView(categoryName));
 		},
 
-		updateContent : function(view) {
-			$("#content").empty().append(view.render().$el);
+		login: function() {
+			this.updateContent(new HypoApp.Views.LogInView(), true);
+		},
+
+		logout: function() {
+			Parse.User.logOut();
+			this.navigate("login", {trigger: true, replace: true});
+		},
+
+		updateContent : function(view, noLogin) {
+			if (noLogin || Parse.User.current()) {
+				$("#content").empty().append(view.render().$el);
+			} else {
+				this.navigate("login", {trigger: true, replace: true});
+			}
 		}
 
 	});
