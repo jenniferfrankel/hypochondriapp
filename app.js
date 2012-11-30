@@ -19,6 +19,7 @@ $(document).ready(function(){
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
 			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
+			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"*path": "defaultRoute"
 		},
 
@@ -50,9 +51,7 @@ $(document).ready(function(){
 		},
 
 		/**
-		 * Add a symptom.
-		 * NOTE: We might want to move this functionality into the symptom
-		 *       list view at som later point.
+		 * Add a symptom
 		 *
 		 * @param categoryName - the name of the category we are adding a symptom to.
 		 * @param symptomId - (optional) the id of the symptom to edit
@@ -71,6 +70,10 @@ $(document).ready(function(){
 		 */
 		listSymptoms: function(categoryName) {
 			this.updateContent(new HypoApp.Views.SymptomListView(categoryName));
+		},
+
+		symptomGraph: function(categoryName) {
+			this.updateContent(new HypoApp.Views.GraphSymptomView(categoryName));
 		},
 
 		login: function() {
