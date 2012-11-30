@@ -26,6 +26,8 @@
 		</div>
 	</body>
 	<script type="template" id="symptomList-template">
+		<div class="addSymptom">
+		</div>
 		<%			_.each(symptoms,function(symptom){ %>
 			<div class="symptom" data-edit-hash="#categories/<%=category.name%>/editSymptom/<%=symptom.objectId%>">
 				<div class="severity"><%= symptom.severity %></div>

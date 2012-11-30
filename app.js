@@ -18,7 +18,6 @@ $(document).ready(function(){
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "listSymptoms",
-			"categories/:categoryName/addSymptom": "addSymptom",
 			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
 			"*path": "defaultRoute"
 		},

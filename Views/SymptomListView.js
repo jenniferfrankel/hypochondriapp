@@ -9,6 +9,7 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 
 	initialize: function(categoryName) {
 		_.bindAll(this);
+		var that = this;
 		this.template = _.template($("#symptomList-template").html());
 
 		// Create a query to fetch the actual category object with the specified name
@@ -28,6 +29,13 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 		this.categories.on("all", this.render);
 		this.categories.fetch();
 		this.symptoms.fetch();
+
+		this.addSymptomView = new HypoApp.Views.AddSymptomView({
+			categoryName: categoryName,
+			onAddSuccess: function() {
+				that.symptoms.fetch();
+			}
+		});
 	},
 
 	render: function(){
@@ -36,6 +44,7 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 			symptoms : this.symptoms.toJSON(),
 			category : hasCategory ? this.categories.first().toJSON() : null
 		}));
+		this.$(".addSymptom").append(this.addSymptomView.render().$el);
 		return this;
 	},
 

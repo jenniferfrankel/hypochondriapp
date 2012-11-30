@@ -8,6 +8,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 
 	initialize: function(options) {
 		_.bindAll(this);
+		this.onAddSuccess = options.onAddSuccess;
 		this.template = _.template($("#addSymptom-template").html());
 		var categoryQuery = new Parse.Query(HypoApp.Models.Category);
 		categoryQuery.equalTo("name", options.categoryName);
@@ -38,6 +39,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 			category: this.category ? this.category.toJSON() : {},
 			symptom: this.symptom ? this.symptom.toJSON() : {}
 		}));
+		this.delegateEvents();
 		return this;
 	},
 
@@ -54,6 +56,9 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 		var symptom = (!!this.symptom) ? this.symptom : new HypoApp.Models.Symptom();
 		symptom.save(symptomData, {
 			success: function() {
+				if (that.onAddSuccess) {
+					that.onAddSuccess();
+				}
 				that.$("[type=submit]").prop('disabled', false);
 				window.location.hash=$("#symptomsubmitform").attr("action");
 			}
