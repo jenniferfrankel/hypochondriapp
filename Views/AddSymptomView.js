@@ -34,7 +34,7 @@ HypoApp.Views.AddSymptomView = Parse.View.extend({
 
 	render: function() {
 		this.$el.html(this.template({
-			isEdit: this.options.symptomId,
+			isEdit: !!this.options.symptomId,
 			category: this.category ? this.category.toJSON() : {},
 			symptom: this.symptom ? this.symptom.toJSON() : {}
 		}));

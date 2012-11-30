@@ -42,7 +42,13 @@
 		</div>
 	</script>
 	<script type="template" id="addSymptom-template">
-		<% if (!_.isEmpty(category) && (!_.isEmpty(symptom) || !isEdit)) { %>
+		<%
+			var hasCategory = !_.isEmpty(category);
+			var hasSymptom = !_.isEmpty(symptom);
+			var isAddNew = !isEdit;
+			var readyToRender =  hasCategory && (hasSymptom || isAddNew);
+			if (readyToRender) {
+		%>
 			<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> Event</h3>
 			<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 				<label for="date">Date: </label>
@@ -54,9 +60,9 @@
 						step="<%= category.stepSize %>"
 						value="<%= symptom.severity %>"/> <%= category.unit %><br/>
 				<label>Duration: </label>
-					<input type="number" name="hours" value="<%= symptom.duration ? Math.round(symptom.duration / 3600) : 0 %>" min="0" required> hh
-					<input type="number" name="minutes" value="<%= symptom.duration ? Math.round((symptom.duration % 3600) / 60) : 0 %>" min="0" required> mm
-					<input type="number" name="seconds" value="<%= symptom.duration ? Math.round(((symptom.duration % 3600) % 60)) : 0 %>" min="0" required> ss<br/>
+					<input type="number" name="hours" value="<%= symptom.duration ? Math.round(symptom.duration / 3600) : 0 %>" min="0"> hh
+					<input type="number" name="minutes" value="<%= symptom.duration ? Math.round((symptom.duration % 3600) / 60) : 0 %>" min="0"> mm
+					<input type="number" name="seconds" value="<%= symptom.duration ? Math.round(((symptom.duration % 3600) % 60)) : 0 %>" min="0"> ss<br/>
 				<label for="comment">Comment: </label>
 					<input type="text" name="comment" value="<%= symptom.comment %>"/>
 				<input type="submit">

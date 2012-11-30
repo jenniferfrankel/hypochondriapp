@@ -75,18 +75,20 @@ $(document).ready(function(){
 		},
 
 		login: function() {
-			if (Parse.User.current()) {
+			if (!!Parse.User.current()) {
 				// If we are logged in already, an the user goes to the login
 				// page (somehow), just send them home.
 				this.navigate("", {trigger: true, replace: true});
 			} else {
 				var that = this;
-				this.updateContent(new HypoApp.Views.LogInView({
-					success: function() {
-						that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
-						that.locationAfterLogin = null;
-					}
-				}), true);
+				var onLoginSuccess = function() {
+					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
+					that.locationAfterLogin = null;
+				};
+				var view = new HypoApp.Views.LogInView({
+					success: onLoginSuccess
+				});
+				this.updateContent(view, true);
 			}
 		},
 
@@ -98,13 +100,13 @@ $(document).ready(function(){
 		/**
 		 * Swap out the current contents with a new view. If a user is not
 		 * logged in, they will be directed to the login/signup flow unless
-		 * the noLogin flag is passed.
+		 * the allowWithoutLogin flag is passed.
 		 *
 		 * @param view - the view that should be rendered
-		 * @param noLogin - boolean to determine if we are skipping the login requirement.
+		 * @param allowWithoutLogin - boolean to determine if we are skipping the login requirement.
 		 */
-		updateContent : function(view, noLogin) {
-			if (noLogin || Parse.User.current()) {
+		updateContent : function(view, allowWithoutLogin) {
+			if (allowWithoutLogin || !!Parse.User.current()) {
 				$("#content").empty().append(view.render().$el);
 			} else {
 				this.locationAfterLogin = window.location.hash;
