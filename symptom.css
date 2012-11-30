@@ -21,6 +21,8 @@
 	
 }
 
+/* The first div of class "symptom" after a div of class "addSymptom" */
+/* is displayed with a different background color than the rest */
 .addSymptom + .symptom {
 	background: #fdd;
 }
