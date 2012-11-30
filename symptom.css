@@ -21,7 +21,7 @@
 	
 }
 
-.symptom:first-child {
+.addSymptom + .symptom {
 	background: #fdd;
 }
 

@@ -24,7 +24,7 @@ HypoApp.Views.SymptomListView = Parse.View.extend({
 		symptomQuery.include("category");
 
 		this.categories = categoryQuery.collection();
-		this.symptoms = symptomQuery.collection();
+		this.symptoms = symptomQuery.descending("updatedAt").collection();
 		this.symptoms.on("all", this.render);
 		this.categories.on("all", this.render);
 		this.categories.fetch();
