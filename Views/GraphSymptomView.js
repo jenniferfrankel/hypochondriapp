@@ -3,13 +3,14 @@ HypoApp.Views = (typeof HypoApp.Views === "undefined") ? {} : HypoApp.Views;
 
 HypoApp.Views.GraphSymptomView = Parse.View.extend({
 
-	events : {
+//	events : {
 //		"click .symptom" :  "editSymptom"
-	},
+//	},
 
 	initialize: function(categoryName) {
 		_.bindAll(this);
 		var that = this;
+		// FIX: plot does not seem to accept the width and height from the template!!
 		this.template = _.template($("#graphSymptom-template").html());
 
 		// Create a query to fetch the actual category object with the specified name
@@ -25,27 +26,46 @@ HypoApp.Views.GraphSymptomView = Parse.View.extend({
 
 		// extract the severity value and timestamp for each symptom event
 
-		// use pluc (underscore method, also in Parse)
-
 		this.categories = categoryQuery.collection();
-		this.symptoms = symptomQuery.ascending("updatedAt").collection();
+		this.symptoms = symptomQuery.ascending("date").collection();
 		this.symptoms.on("all", this.render);
 		this.categories.on("all", this.render);
 		this.categories.fetch();
-		this.symptoms.fetch();
+		this.symptoms.fetch({
+			success: function() {
+				console.log("severityList?");
+				that.dataY = that.symptoms.pluck("severity");
+				that.dataX = that.symptoms.map(function (symptom) {
+					console.log(symptom.get("date"));
+					return new Date(symptom.get("date")).getTime();
+				});
+				that.render();
+			}
+		});
 	},
 
 	render: function(){
-		var hasCategory = !!this.categories.first();
-
-		// Draw graph
 		this.$el.html(this.template());
-//		this.$el.html(this.template({
-//			symptoms : this.symptoms.toJSON(),
-//			category : hasCategory ? this.categories.first().toJSON() : null
-//		}));
-//		this.$(".symptomGraph").append($("<div>Hej Hopp graph</div>"));
-//		this.$(".symptomGraph").append(this.addSymptomView.render().$el);
+
+		if (this.dataX && this.dataY) {
+			var data = [
+				_.zip(this.dataX, this.dataY) // Series 1
+			];
+
+			var options = {
+				xaxis: {
+					mode: "time",
+					timeformat: "%d/%m"
+				},
+				series: {
+					lines: {show: true},
+					points: {show: true}
+				}
+			};
+
+			// Draw graph
+			$.plot(this.$("#placeholder"), data, options);
+		}
 		return this;
 	}
 });
