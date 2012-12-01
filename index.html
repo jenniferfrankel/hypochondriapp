@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
 	<head>
-		<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script type="text/javascript" src="serializeObject.js"></script>
-		<script type="text/javascript" src="spin.min.js"></script>
-		<script type="text/javascript" src="jquery.parse.js"></script>
-		<script type="text/javascript" src="parse-1.1.13.js"></script>
-		<script type="text/javascript" src="jquery.flot.js"></script>
-		<script type="text/javascript" src="jquery.flot.time.js"></script>
-		<link rel="stylesheet" href="symptom.css" />
-		<link rel="stylesheet" href="http://css.cdn.tl/normalize.css" />
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/1.7.2/moment.min.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// This is for automatic page reloading in dev mode. We dynamically insert a new script tag with the right hostname.
+				var currentHostname = (location.host || 'localhost').split(':')[0];
+				var scriptEl = document.createElement('script');
+				scriptEl.type = 'text/javascript';
+				scriptEl.src = 'http://' + currentHostname + ':35729/livereload.js?snipver=1';
+				document.head.appendChild(scriptEl);
+			})();
+		</script>
+		<link rel="stylesheet" href="styles/symptom.css" />
+		<link rel="stylesheet" href="styles/normalize.css" />
 	</head>
 	<body>
 		<div id="header">
@@ -135,13 +135,5 @@
 			</form>
 		</div>
 	</script>
-
-	<script type="text/javascript" src="Models/Models.js"></script>
-	<script type="text/javascript" src="Views/LogInView.js"></script>
-	<script type="text/javascript" src="Views/AddCategoryView.js"></script>
-	<script type="text/javascript" src="Views/AddSymptomView.js"></script>
-	<script type="text/javascript" src="Views/CategoryListView.js"></script>
-	<script type="text/javascript" src="Views/SymptomListView.js"></script>
-	<script type="text/javascript" src="Views/GraphSymptomView.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+	<script src="lib/require.js" data-main="app/app"></script>
 </html>
