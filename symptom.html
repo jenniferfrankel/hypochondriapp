@@ -40,8 +40,8 @@
 			<div class="severity"><%= symptom.severity %></div>
 			<div class="unit"><%= category.unit %>,</div>
 			<div class="duration">for <%= moment.duration(symptom.duration*1000).humanize() %></div>
-			<div class="time">at <%= moment(symptom.updatedAt).format("HH:mm") %></div>
-			<div class="date">on <%= moment(symptom.updatedAt).format("YYYY-MM-DD") %></div>
+			<div class="time">at <%= moment(symptom.date.iso).format("HH:mm") %></div>
+			<div class="date">on <%= moment(symptom.date.iso).format("YYYY-MM-DD") %></div>
 		</div>
 	<%	}); %>
 		<div>
