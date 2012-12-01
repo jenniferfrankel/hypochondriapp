@@ -11,6 +11,7 @@
 				document.head.appendChild(scriptEl);
 			})();
 		</script>
+		<script src="lib/require.js" data-main="app/app"></script>
 		<link rel="stylesheet" href="styles/symptom.css" />
 		<link rel="stylesheet" href="styles/normalize.css" />
 	</head>
@@ -28,112 +29,4 @@
 		</div>
 	</body>
 
-	<script type="template" id="graphSymptom-template">
-		<div class="symptomGraph">
-			<p>Here comes the graph:</p>
-			<div id="placeholder" style="width:500px;height:250px"></div>
-		</div>
-	</script>
-
-	<script type="template" id="symptomList-template">
-		<div class="addSymptom">
-		</div>
-	<%	_.each(symptoms,function(symptom){ %>
-		<div class="symptom" data-edit-hash="#categories/<%=category.name%>/editSymptom/<%=symptom.objectId%>">
-			<div class="severity"><%= symptom.severity %></div>
-			<div class="unit"><%= category.unit %>,</div>
-			<div class="duration">for <%= moment.duration(symptom.duration*1000).humanize() %></div>
-			<div class="time">at <%= moment(symptom.date.iso).format("HH:mm") %></div>
-			<div class="date">on <%= moment(symptom.date.iso).format("YYYY-MM-DD") %></div>
-		</div>
-	<%	}); %>
-		<div>
-			<% if (category){ %>
-				<a href="#categories/<%=category.name%>/symptomGraph">Symptom graph</a>
-			<%};%>
-		</div>
-	</script>
-	<script type="template" id="addSymptom-template">
-		<%
-			var hasCategory = !_.isEmpty(category);
-			var hasSymptom = !_.isEmpty(symptom);
-			var isAddNew = !isEdit;
-			var readyToRender =  hasCategory && (hasSymptom || isAddNew);
-			if (readyToRender) {
-		%>
-			<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> Event</h3>
-			<form id="symptomsubmitform" action="#categories/<%=category.name%>">
-				<label for="date">Date: </label>
-					<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/><br/>
-				<label for="severity">Severity: </label>
-					<input type="number" name="severity" 
-						min="<%= category.rangeMin %>" 
-						max="<%= category.rangeMax %>" 
-						step="<%= category.stepSize %>"
-						value="<%= symptom.severity ? symptom.severity : category.rangeMin %>"/> <%= category.unit %><br/>
-				<label>Duration: </label>
-					<input type="number" name="hours" value="<%= symptom.duration ? Math.round(symptom.duration / 3600) : 0 %>" min="0"> hh
-					<input type="number" name="minutes" value="<%= symptom.duration ? Math.round((symptom.duration % 3600) / 60) : 0 %>" min="0"> mm
-					<input type="number" name="seconds" value="<%= symptom.duration ? Math.round(((symptom.duration % 3600) % 60)) : 0 %>" min="0"> ss<br/>
-				<label for="comment">Comment: </label>
-					<input type="text" name="comment" value="<%= symptom.comment %>"/>
-				<input type="submit">
-			</form>
-		<% } else { %>
-			Loading&hellip;
-		<% } %>
-	</script>
-
-	<script type="template" id="addCategory-template">
-		<h3>Add New symptom category</h3>
-		<form id="categorysubmitform" action="#categories">
-			<label>Symptom name: </label><input type="text" name="name" required><br/>
-			<label>Unit: </label><input type="text" name="unit" value="severity" required><br/>
-			<label>Range Min value: </label><input type="number" step="any" name="rangeMin" required><br/>
-			<label>Range Max value: </label><input type="number" step="any" name="rangeMax" required><br/>
-			<label>Unit step value: </label><input type="number" step="any" name="stepSize" required><br/>
-			<input type="submit">
-		</form>
-		<div id="categories">
-		</div>
-	</script>
-
-	<script type="template" id="categoryList-template">
-		<div>
-			<ul>
-	<%			_.each(categories,function(category){ %>
-					<li>
-						<a href="#categories/<%= category.name %>">
-							<%= category.name %>
-						</a>
-					</li>
-	<%			}); %>
-			</ul>
-		</div>
-		<div>
-			<a href="#categories/addCategory">Add New symptom category</a>
-		</div>
-	</script>
-
-	<script type="text/template" id="login-template">
-		<header id="header"></header>
-		<div class="login">
-			<form class="login-form">
-				<h2>Log In</h2>
-				<div class="error" style="display:none"></div>
-				<input type="text" id="login-username" placeholder="Username" />
-				<input type="password" id="login-password" placeholder="Password" />
-				<button>Log In</button>
-			</form>
-
-			<form class="signup-form">
-				<h2>Sign Up</h2>
-				<div class="error" style="display:none"></div>
-				<input type="text" id="signup-username" placeholder="Username" />
-				<input type="password" id="signup-password" placeholder="Create a Password" />
-				<button>Sign Up</button>
-			</form>
-		</div>
-	</script>
-	<script src="lib/require.js" data-main="app/app"></script>
 </html>

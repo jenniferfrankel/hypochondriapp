@@ -1,4 +1,4 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "moment"], function($, Parse, _, Category, Symptom, AddSymptomView) {
+define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "moment"], function($, Parse, _, Category, Symptom, AddSymptomView, template) {
 	return Parse.View.extend({
 		events : {
 			"click .symptom" :  "editSymptom"
@@ -7,7 +7,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 		initialize: function(categoryName) {
 			_.bindAll(this);
 			var that = this;
-			this.template = _.template($("#symptomList-template").html());
+			this.template = _.template(template);
 
 			// Create a query to fetch the actual category object with the specified name
 			var categoryQuery = new Parse.Query(Category);

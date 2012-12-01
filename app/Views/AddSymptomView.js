@@ -1,4 +1,4 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "../serializeObject"], function($, Parse, _, Category, Symptom) {
+define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "jquery.serializeobject"], function($, Parse, _, Category, Symptom, template) {
 	return Parse.View.extend({
 		events : {
 			"submit form" :  "handleSymptomSubmit"
@@ -7,7 +7,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 		initialize: function(options) {
 			_.bindAll(this);
 			this.onAddSuccess = options.onAddSuccess;
-			this.template = _.template($("#addSymptom-template").html());
+			this.template = _.template(template);
 			var categoryQuery = new Parse.Query(Category);
 			categoryQuery.equalTo("name", options.categoryName);
 			categoryQuery.equalTo("user", Parse.User.current());

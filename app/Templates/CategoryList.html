@@ -1,0 +1,14 @@
+<div>
+	<ul>
+<%			_.each(categories,function(category){ %>
+			<li>
+				<a href="#categories/<%= category.name %>">
+					<%= category.name %>
+				</a>
+			</li>
+<%			}); %>
+	</ul>
+</div>
+<div>
+	<a href="#categories/addCategory">Add New symptom category</a>
+</div>

@@ -1,4 +1,4 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "jquery.serializeobject"], function($, Parse, _, Category) {
+define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "jquery.serializeobject"], function($, Parse, _, Category, template) {
 	return Parse.View.extend({
 		events : {
 			"submit form" :  "handleCategorySubmit"
@@ -6,7 +6,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "jquery.serialize
 
 		initialize: function(){
 			_.bindAll(this);
-			this.template = _.template($("#addCategory-template").html());
+			this.template = _.template(template);
 		},
 
 		render: function(){

@@ -1,4 +1,4 @@
-define(["jquery", "parse", "underscore"], function($, Parse, _) {
+define(["jquery", "parse", "underscore", "text!../Templates/Login.html"], function($, Parse, _, template) {
 	return Parse.View.extend({
 		events: {
 			"submit form.login-form": "logIn",
@@ -8,7 +8,7 @@ define(["jquery", "parse", "underscore"], function($, Parse, _) {
 		initialize: function(options) {
 			_.bindAll(this);
 			this.success = options.success;
-			this.template = _.template($("#login-template").html());
+			this.template = _.template(template);
 		},
 
 		logIn: function(e) {

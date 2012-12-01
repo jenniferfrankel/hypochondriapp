@@ -1,8 +1,8 @@
-define(["jquery", "parse", "underscore", "../Models/Category"], function($, Parse, _, Category) {
+define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html"], function($, Parse, _, Category, template) {
 	return Parse.View.extend({
 		initialize: function() {
 			_.bindAll(this);
-			this.template = _.template($("#categoryList-template").html());
+			this.template = _.template(template);
 			var categoryQuery = new Parse.Query(Category);
 			categoryQuery.equalTo("user", Parse.User.current());
 			this.categories = categoryQuery.collection();

@@ -1,10 +1,10 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "jquery.flot", "jquery.flot.time"], function($, Parse, _, Category, Symptom) {
+define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "text!../Templates/GraphSymptom.html", "jquery.flot", "jquery.flot.time"], function($, Parse, _, Category, Symptom, template) {
 	return Parse.View.extend({
 		initialize: function(categoryName) {
 			_.bindAll(this);
 			var that = this;
 			// FIX: plot does not seem to accept the width and height from the template!!
-			this.template = _.template($("#graphSymptom-template").html());
+			this.template = _.template(template);
 
 			// Create a query to fetch the actual category object with the specified name
 			var categoryQuery = new Parse.Query(Category);
