@@ -26,6 +26,7 @@ function(
 			"": "home",
 			"login": "login",
 			"logout": "logout",
+			"signup": "signup",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName": "addSymptom",
@@ -89,6 +90,20 @@ function(
 			this.updateContent(new GraphSymptomView(categoryName));
 		},
 
+		signup: function() {
+			var that = this;
+			var onSignupSuccess = function() {
+				// TODO: Take user to tutorial
+				that.navigate("", {trigger: true, replace: true});
+			};
+			var signUpView = new SignUpView({
+				success: onSignupSuccess
+			});
+			this.updateContent(signUpView, true);
+			$("#myModal").modal('hide');
+
+		},
+
 		login: function() {
 			if (!!Parse.User.current()) {
 				// If we are logged in already, an the user goes to the login
@@ -97,13 +112,16 @@ function(
 			} else {
 				var that = this;
 				var onLoginSuccess = function() {
+					$('#myModal').modal('hide');
 					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
 					that.locationAfterLogin = null;
 				};
 				var view = new LogInView({
 					success: onLoginSuccess
 				});
-				this.updateContent(view, true);
+				//this.updateContent(view, true);
+				$("#myModal").empty().append(view.render().$el);
+				$('#myModal').modal();
 			}
 		},
 

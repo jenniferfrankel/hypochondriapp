@@ -1,8 +1,7 @@
 define(["jquery", "parse", "underscore", "text!../Templates/Login.html"], function($, Parse, _, template) {
 	return Parse.View.extend({
 		events: {
-			"submit form.login-form": "logIn",
-			"submit form.signup-form": "signUp"
+			"submit form.login-form": "logIn"
 		},
 		
 		initialize: function(options) {
@@ -26,23 +25,6 @@ define(["jquery", "parse", "underscore", "text!../Templates/Login.html"], functi
 			});
 
 			this.$(".login-form button").prop('disabled', true);
-		},
-
-		signUp: function(e) {
-			e.preventDefault();
-			var that = this;
-			var username = this.$("#signup-username").val();
-			var password = this.$("#signup-password").val();
-			
-			Parse.User.signUp(username, password, { ACL: new Parse.ACL() }, {
-				success: this.success,
-				error: function(user, error) {
-					that.$(".signup-form .error").html(error.message).show();
-					that.$(".signup-form button").prop('disabled', false);
-				}
-			});
-
-			this.$(".signup-form button").prop('disabled', true);
 		},
 
 		render: function() {
