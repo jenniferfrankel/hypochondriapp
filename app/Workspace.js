@@ -1,16 +1,18 @@
 define([
-	"jquery","parse","underscore",
+	"jquery","parse","underscore", "spin",
 	"Views/CategoryListView",
 	"Views/LogInView",
+	"Views/SignUpView",
 	"Views/AddCategoryView",
 	"Views/AddSymptomView",
 	"Views/GraphSymptomView",
 	"Views/SymptomListView"
 	],
 function(
-	$, Parse, _,
+	$, Parse, _, spin,
 	CategoryListView,
 	LogInView,
+	SignUpView,
 	AddCategoryView,
 	AddSymptomView,
 	GraphSymptomView,

@@ -10,7 +10,9 @@ require.config( {
 		"underscore": "../lib/lodash",
 		"parse": "../lib/parse-1.1.13",
 		"moment": "../lib/moment",
-		"bootstrap": "../lib/bootstrap"
+		"bootstrap": "../lib/bootstrap",
+		"spin": "../lib/spin",
+		"spinhelper": "../lib/spin.helper"
 	},
 
 	// Sets the configuration for your third party scripts that are not AMD compatible
@@ -22,7 +24,9 @@ require.config( {
 		"jquery.flot": ['jquery'],
 		"jquery.flot.time": ['jquery', 'jquery.flot'],
 		"jquery.serializeobject": ['jquery'],
-		"bootstrap": ['jquery']
+		"bootstrap": ['jquery'],
+		"spin": ['jquery'],
+		"spinhelper": ['jquery', 'spin']
 	} // end Shim Configuration
 });
 
