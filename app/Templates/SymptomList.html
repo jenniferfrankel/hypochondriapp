@@ -1,4 +1,4 @@
-
+<h3><%= category ? category.name : '' %> history</h3>
 <%	_.each(symptoms,function(symptom){ %>
 <div class="symptom" data-edit-hash="#categories/<%=category.name%>/editSymptom/<%=symptom.objectId%>">
 	<div class="severity"><%= symptom.severity %></div>
