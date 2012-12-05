@@ -124,6 +124,11 @@ function(
 				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});
 			}
+			if (window.history.length > 0) {
+				$("#backButton").show();
+			} else {
+				$("#backButton").hide();
+			}
 		}
 	});
 });

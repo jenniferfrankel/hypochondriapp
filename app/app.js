@@ -26,7 +26,7 @@ require.config( {
 	} // end Shim Configuration
 });
 
-require(["parse", "./Workspace"], function(Parse, Workspace) {
+require(["parse", "./Workspace", "bootstrap"], function(Parse, Workspace, bootstrap) {
 	$(document).ready(function() {
 		// Initialize Parse libraries with my app ID and javascript API key
 		Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");
