@@ -26,7 +26,8 @@ function(
 			"logout": "logout",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
-			"categories/:categoryName": "listSymptoms",
+			"categories/:categoryName": "addSymptom",
+			"categories/:categoryName/history": "listSymptoms",
 			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
 			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"*path": "defaultRoute"

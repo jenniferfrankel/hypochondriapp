@@ -5,7 +5,8 @@
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
 %>
-	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> Event</h3>
+	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> event</h3>
+	<a class="btn pull-right" href="#categories/<%= category.name %>/history"><%= category.name %> history</a>
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 		<label for="date">Date: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/><br/>
