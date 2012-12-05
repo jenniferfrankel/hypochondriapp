@@ -41,7 +41,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				symptoms : this.symptoms.toJSON(),
 				category : hasCategory ? this.categories.first().toJSON() : null
 			}));
-			this.$(".addSymptom").append(this.addSymptomView.render().$el);
+			//this.$(".addSymptom").append(this.addSymptomView.render().$el);
 			return this;
 		},
 
