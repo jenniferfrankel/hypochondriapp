@@ -1,7 +1,9 @@
 define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "jquery.serializeobject"], function($, Parse, _, Category, Symptom, template) {
 	return Parse.View.extend({
 		events : {
-			"submit form" :  "handleSymptomSubmit"
+			"submit form" :  "handleSymptomSubmit",
+			"change input[name='severity']" : "onChangeSeverity"
+
 		},
 
 		initialize: function(options) {
@@ -39,6 +41,18 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			}));
 			this.delegateEvents();
 			return this;
+		},
+
+		onChangeSeverity: function(event) {
+			var severityEl = $(event.target);
+			var sevVal = parseFloat(severityEl.attr("value"));
+			var stepSize = parseFloat(severityEl.attr("step"));
+			var toFixed = 0;
+			while (stepSize < 1) {
+				toFixed += 1;
+				stepSize *= 10;
+			}
+			$('#severityVal').text(sevVal.toFixed(toFixed) + ' ');
 		},
 
 		handleSymptomSubmit: function(event) {
