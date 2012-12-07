@@ -83,14 +83,15 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			var that = this;
 			this.$("[type=submit]").prop('disabled', true);
 			var formData = this.$("#symptomsubmitform").serializeObject();
-			var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
-			symptomData.duration = formData.seconds + 60*formData.minutes + 3600*formData.hours;
+			var symptomData = _.pick(formData, ['comment', 'date', 'severity', 'duration']);
+			//symptomData.duration = duration;
 			symptomData.category = this.category;
 			symptomData.user = Parse.User.current();
 			symptomData.ACL = new Parse.ACL(Parse.User.current());
 			var symptom = (!!this.symptom) ? this.symptom : new Symptom();
 			symptom.save(symptomData, {
 				success: function() {
+					console.log("symptom successfully added to db");
 					if (that.onAddSuccess) {
 						that.onAddSuccess();
 					}
