@@ -10,19 +10,26 @@
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 		<label for="date">Date: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/><br/>
-		<label for="severity">Severity: </label>
+		Severity: <span id="severityVal"></span>
+				<%= category.unit %><br/>
 			<input type="range" name="severity" 
 				min="<%= category.rangeMin %>" 
 				max="<%= category.rangeMax %>" 
 				step="<%= category.stepSize %>"
-				value="<%= symptom.severity ? symptom.severity : category.rangeMin %>"/>
-				<span id="severityVal">value</span>
-				<%= category.unit %><br/>
+				value="<%= symptom.severity ? symptom.severity : category.rangeMean %>"/>
+				<br/>
 
-		<label>Duration: </label>
+		Duration: <span id="human"></span><br/>
+			<input id="duration" type="range" name="duration" 
+			min="1" max="900" />
+			
+
+<!--
 			<input type="number" name="hours" value="<%= symptom.duration ? Math.round(symptom.duration / 3600) : 0 %>" min="0"> hh
 			<input type="number" name="minutes" value="<%= symptom.duration ? Math.round((symptom.duration % 3600) / 60) : 0 %>" min="0"> mm
 			<input type="number" name="seconds" value="<%= symptom.duration ? Math.round(((symptom.duration % 3600) % 60)) : 0 %>" min="0"> ss<br/>
+-->
+
 		<label for="comment">Comment: </label>
 			<input type="text" name="comment" value="<%= symptom.comment %>"/>
 		<input type="submit">
