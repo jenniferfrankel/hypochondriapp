@@ -11,13 +11,12 @@
 		<label for="date">Date: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
 			<a class="btn pull-right" href="#categories/<%= category.name %>/history"><%= category.name %> history</a><br/>
-		Severity: <span id="severityVal"></span>
-				<%= category.unit %><br/>
+		Value: <span id="severityVal"></span><%= category.unit %><br/>
 			<input type="range" name="severity" 
 				min="<%= category.rangeMin %>" 
 				max="<%= category.rangeMax %>" 
 				step="<%= category.stepSize %>"
-				value="<%= symptom ? symptom.severity : category.rangeMean %>"/>
+				value="<%= symptom.severity ? symptom.severity : category.rangeMean %>"/>
 				<br/>
 
 		Duration: <span id="human"></span><br/>
