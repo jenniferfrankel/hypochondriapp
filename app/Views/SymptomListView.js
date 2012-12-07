@@ -24,8 +24,17 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			this.symptoms = symptomQuery.descending("date").collection();
 			this.symptoms.on("all", this.render);
 			this.categories.on("all", this.render);
+			var stopSpinner = function() {
+				console.log("stop spinner");
+				$("#spinner").spin(false).hide();
+			};
+
+			$("#spinner").show().spin('large');
 			this.categories.fetch();
-			this.symptoms.fetch();
+			this.symptoms.fetch({
+				success: stopSpinner,
+				error: stopSpinner
+			});
 
 			this.addSymptomView = new AddSymptomView({
 				categoryName: categoryName,
