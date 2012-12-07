@@ -8,6 +8,7 @@
 			switch (type) {
 				case "checkbox" : val = !!val; break;
 				case "number" : val = parseFloat(val); break;
+				case "range" : val = parseFloat(val); break;
 				case "date" : val = new Date(val); break;
 			}
 
