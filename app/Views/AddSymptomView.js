@@ -41,7 +41,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				category: this.category ? this.category.toJSON() : {},
 				symptom: this.symptom ? this.symptom.toJSON() : {}
 			}));
-			this.delegateEvents();
+			this.$("input[type=range]").change();
 			return this;
 		},
 
