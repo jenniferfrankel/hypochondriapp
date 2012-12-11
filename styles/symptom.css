@@ -8,6 +8,10 @@
 	padding: 5px;
 }
 
+h3 + .symptom {
+	background: #fdd;
+}
+
 .symptom>div {
 	display: inline-block;
 }
@@ -54,9 +58,6 @@ input[type='range']::-webkit-slider-thumb {
 
 /* The first div of class "symptom" after a div of class "addSymptom" */
 /* is displayed with a different background color than the rest */
-.addSymptom + .symptom {
-	background: #fdd;
-}
 
 #content {
 	overflow: scroll;
