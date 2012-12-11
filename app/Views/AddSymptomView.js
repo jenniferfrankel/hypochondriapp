@@ -100,7 +100,8 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			var that = this;
 			this.$("[type=submit]").prop('disabled', true);
 			var formData = this.$("#symptomsubmitform").serializeObject();
-			var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
+			var symptomData = _.pick(formData, ['comment', 'severity']);
+			symptomData.date = moment(this.$("[type='date']").val()+"T"+this.$("[type='time']").val()).toDate();
 			symptomData.duration = this.sliderValToSeconds(formData.duration) ;
 			symptomData.category = this.category;
 			symptomData.user = Parse.User.current();

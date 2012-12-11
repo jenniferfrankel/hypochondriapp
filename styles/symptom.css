@@ -21,7 +21,11 @@
 }
 
 #symptomsubmitform input[type="date"]{
-	width: 100px;
+	width: 90px;
+}
+
+#symptomsubmitform input[type="time"] {
+	width: 70px;
 }
 
 /* The first div of class "symptom" after a div of class "addSymptom" */

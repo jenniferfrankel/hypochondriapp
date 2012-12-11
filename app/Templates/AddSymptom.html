@@ -20,9 +20,10 @@
 	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> event</h3>
 	
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
-		<label for="date">Date: </label>
+		<label for="date">Date & Time: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
-			<a class="btn pull-right" href="#categories/<%= category.name %>/history"><%= category.name %> history</a><br/>
+			<input type="time" name="time" value="<%= symptom.date ? moment(symptom.date.iso).format('HH:mm') : moment().format('HH:mm') %>" />
+			<a class="btn pull-right" href="#categories/<%= category.name %>/history">history</a><br/>
 		Value: <span id="severityVal"></span><%= category.unit %><br/>
 			<input type="range" name="severity" 
 				min="<%= category.rangeMin %>" 
