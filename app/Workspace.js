@@ -84,6 +84,11 @@ function(
 		 */
 		listSymptoms: function(categoryName) {
 			this.updateContent(new SymptomListView(categoryName));
+			var view = new AddSymptomView({
+				categoryName: categoryName
+			});
+			$("#myModal").empty().append(view.render().$el);
+			$('#myModal').modal();
 		},
 
 		symptomGraph: function(categoryName) {

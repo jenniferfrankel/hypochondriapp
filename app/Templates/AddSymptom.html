@@ -23,7 +23,7 @@
 		<label for="date">Date & Time: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
 			<input type="time" name="time" value="<%= symptom.date ? moment(symptom.date.iso).format('HH:mm') : moment().format('HH:mm') %>" />
-			<a class="btn pull-right" href="#categories/<%= category.name %>/history">history</a><br/>
+			
 		Value: <span id="severityVal"></span><%= category.unit %><br/>
 			<input type="range" name="severity" 
 				min="<%= category.rangeMin %>" 
@@ -39,8 +39,9 @@
 <% console.log(sliderVal); %>
 		<br/>
 		Comment:<br/>
-			<input type="text" name="comment" value="<%= symptom.comment %>"/>
-		<input type="submit" class="btn-large btn-primary btn-block">
+			<input type="text" name="comment" value="<%= symptom.comment %>"/><br/>
+		<input type="submit" class="btn btn-primary">
+		<button type="button" class="btn pull-right close" data-dismiss="modal">Cancel</button>
 	</form>
 <% } else { %>
 	Loading&hellip;

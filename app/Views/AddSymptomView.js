@@ -114,7 +114,8 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 						that.onAddSuccess();
 					}
 					that.$("[type=submit]").prop('disabled', false);
-					window.location.hash=$("#symptomsubmitform").attr("action");
+					$("#myModal").modal('hide');
+					//window.location.hash=$("#symptomsubmitform").attr("action");
 				}
 			});
 		}
