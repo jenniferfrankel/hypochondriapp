@@ -78,13 +78,30 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			}
 		},
 
+		sliderValToSeconds: function(sliderVal) {
+			var secondsVal = 0;
+			if (sliderVal < 300) {
+				secondsVal = Math.ceil((59/300) * sliderVal);
+			}
+			else if (sliderVal > 600) {
+				secondsVal = Math.ceil((23/300) * (sliderVal - 599));
+				secondsVal = secondsVal*3600;
+				console.log('sliderValToSeconds(): slider: '+ sliderVal + ' and secondsVal: ' + secondsVal);
+			}
+			else {
+				secondsVal = Math.ceil((59/300) * (sliderVal-299));
+				secondsVal = secondsVal*60;
+			}
+			return secondsVal;
+		},
+
 		handleSymptomSubmit: function(event) {
 			event.preventDefault();
 			var that = this;
 			this.$("[type=submit]").prop('disabled', true);
 			var formData = this.$("#symptomsubmitform").serializeObject();
-			var symptomData = _.pick(formData, ['comment', 'date', 'severity', 'duration']);
-			//symptomData.duration = duration;
+			var symptomData = _.pick(formData, ['comment', 'date', 'severity']);
+			symptomData.duration = this.sliderValToSeconds(formData.duration) ;
 			symptomData.category = this.category;
 			symptomData.user = Parse.User.current();
 			symptomData.ACL = new Parse.ACL(Parse.User.current());

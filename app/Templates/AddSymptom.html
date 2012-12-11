@@ -2,6 +2,18 @@
 	var hasCategory = !_.isEmpty(category);
 	var hasSymptom = !_.isEmpty(symptom);
 	var isAddNew = !isEdit;
+	if (isEdit && hasSymptom) {
+		if (Math.floor(symptom.duration / 3600) > 0) {
+			var sliderVal = (symptom.duration / 3600) * (301/24) + 599;
+			console.log('in Template: slider: '+ sliderVal + ' and secondsVal: ' + symptom.duration);
+		}
+		else if (Math.floor(symptom.duration / 60) > 0) {
+			var sliderVal = (symptom.duration / 60) * (301/59) + 295;
+		}
+		else {
+			var sliderVal = symptom.duration * (299/59);
+		}
+	}
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
 %>
@@ -16,14 +28,14 @@
 				min="<%= category.rangeMin %>" 
 				max="<%= category.rangeMax %>" 
 				step="<%= category.stepSize %>"
-				value="<%= symptom.severity ? symptom.severity : category.rangeMean %>"/>
+				value="<%= symptom.severity ? symptom.severity : category.rangeDefault %>"/>
 				<br/>
 
 		Duration: <span id="human"></span><br/>
 			<input id="duration" type="range" name="duration" 
 			min="1" max="900" 
-			value="<%= symptom.duration ? 800 : 450 %>"/>
-
+			value="<%= symptom.duration ? sliderVal : 450 %>"/>
+<% console.log(sliderVal); %>
 		<br/>
 		Comment:<br/>
 			<input type="text" name="comment" value="<%= symptom.comment %>"/>
