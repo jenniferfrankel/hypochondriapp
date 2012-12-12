@@ -16,8 +16,14 @@ define([], function() {
 			return duration;
 		},
 
-		secondsToSliderValue : function() {
-			return 2;
+		secondsToSliderValue : function(seconds) {
+			if (seconds < 60) {
+				return 300/60 * seconds;
+			}
+			if (seconds < 60*60) {
+				return 300 + 300/60 * (seconds/60);
+			}
+			return 600 + 300/24 * (seconds/60/60);
 		}
 	};
 });
