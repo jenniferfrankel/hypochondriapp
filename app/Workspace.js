@@ -71,10 +71,12 @@ function(
 		 * @param symptomId - (optional) the id of the symptom to edit
 		 */
 		addSymptom: function(categoryName, symptomId){
-			this.updateContent(new AddSymptomView({
+			var view = new AddSymptomView({
 				categoryName: categoryName,
 				symptomId: symptomId
-			}));
+			});
+			$("#myModal").empty().append(view.render().$el);
+			$('#myModal').modal();
 		},
 
 		/**

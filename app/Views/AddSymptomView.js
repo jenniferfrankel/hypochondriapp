@@ -1,4 +1,6 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "jquery.serializeobject"], function($, Parse, _, Category, Symptom, template) {
+define(
+	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "jquery.serializeobject"],
+	function($, Parse, _, durationUtils, Category, Symptom, template) {
 	return Parse.View.extend({
 		events : {
 			"submit form" :  "handleSymptomSubmit",
@@ -39,7 +41,8 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			this.$el.html(this.template({
 				isEdit: !!this.options.symptomId,
 				category: this.category ? this.category.toJSON() : {},
-				symptom: this.symptom ? this.symptom.toJSON() : {}
+				symptom: this.symptom ? this.symptom.toJSON() : {},
+				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 450
 			}));
 			this.$("input[type=range]").change();
 			return this;
@@ -59,40 +62,10 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 
 		onChangeDuration: function(event) {
 			var durationEl = $(event.target);
-			var durVal = durationEl.attr("value");
-			var duration = 0;
-			if (durVal < 300) {
-				duration = Math.ceil((59/300) * durVal);
-				$("#human").text(duration + ' second' + (duration > 1 ? 's' : ''));
-				// save duration to Parse object properly
-			}
-			else if (durVal > 600) {
-				duration = Math.ceil((23/300) * (durVal - 599));
-				$('#human').text(duration + ' hour' + (duration > 1 ? 's' : ''));
-				duration = duration*3600;
-			}
-			else {
-				duration = Math.ceil((59/300) * (durVal-299));
-				$('#human').text(duration + ' minute' + (duration > 1 ? 's' : ''));
-				duration = duration*60;
-			}
-		},
-
-		sliderValToSeconds: function(sliderVal) {
-			var secondsVal = 0;
-			if (sliderVal < 300) {
-				secondsVal = Math.ceil((59/300) * sliderVal);
-			}
-			else if (sliderVal > 600) {
-				secondsVal = Math.ceil((23/300) * (sliderVal - 599));
-				secondsVal = secondsVal*3600;
-				console.log('sliderValToSeconds(): slider: '+ sliderVal + ' and secondsVal: ' + secondsVal);
-			}
-			else {
-				secondsVal = Math.ceil((59/300) * (sliderVal-299));
-				secondsVal = secondsVal*60;
-			}
-			return secondsVal;
+			var sliderValue = durationEl.attr("value");
+			var duration = durationUtils.sliderValueToSeconds(sliderValue);
+			console.log(duration);
+			$('#human').text(durationUtils.humanizeSeconds(duration));
 		},
 
 		handleSymptomSubmit: function(event) {
@@ -102,7 +75,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			var formData = this.$("#symptomsubmitform").serializeObject();
 			var symptomData = _.pick(formData, ['comment', 'severity']);
 			symptomData.date = moment(this.$("[type='date']").val()+"T"+this.$("[type='time']").val()).toDate();
-			symptomData.duration = this.sliderValToSeconds(formData.duration) ;
+			symptomData.duration = durationUtils.sliderValueToSeconds(formData.duration);
 			symptomData.category = this.category;
 			symptomData.user = Parse.User.current();
 			symptomData.ACL = new Parse.ACL(Parse.User.current());

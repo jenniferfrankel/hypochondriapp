@@ -2,17 +2,11 @@
 	var hasCategory = !_.isEmpty(category);
 	var hasSymptom = !_.isEmpty(symptom);
 	var isAddNew = !isEdit;
-	if (isEdit && hasSymptom) {
-		if (Math.floor(symptom.duration / 3600) > 0) {
-			var sliderVal = (symptom.duration / 3600) * (301/24) + 599;
-			console.log('in Template: slider: '+ sliderVal + ' and secondsVal: ' + symptom.duration);
-		}
-		else if (Math.floor(symptom.duration / 60) > 0) {
-			var sliderVal = (symptom.duration / 60) * (301/59) + 295;
-		}
-		else {
-			var sliderVal = symptom.duration * (299/59);
-		}
+
+	if (isEdit) {
+		$("#myModal").css("background", "#B8E627");
+	} else {
+		$("#myModal").css("background", "white");
 	}
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
@@ -22,7 +16,7 @@
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 		<label for="date">Date & Time: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
-			<input type="time" name="time" value="<%= symptom.date ? moment(symptom.date.iso).format('HH:mm') : moment().format('HH:mm') %>" />
+			<input type="time" name="time" value="<%= symptom.date ? moment(symptom.date.iso).format('HH:mm') : moment().format('HH:mm') %>" /><br/>
 			
 		Value: <span id="severityVal"></span><%= category.unit %><br/>
 			<input type="range" name="severity" 
@@ -34,14 +28,13 @@
 
 		Duration: <span id="human"></span><br/>
 			<input id="duration" type="range" name="duration" 
-			min="1" max="900" 
-			value="<%= symptom.duration ? sliderVal : 450 %>"/>
-<% console.log(sliderVal); %>
+			min="1" max="878" 
+			value="<%= sliderValue %>"/>
 		<br/>
 		Comment:<br/>
 			<input type="text" name="comment" value="<%= symptom.comment %>"/><br/>
 		<input type="submit" class="btn btn-primary">
-		<button type="button" class="btn pull-right close" data-dismiss="modal">Cancel</button>
+		<button type="button" class="btn pull-right" data-dismiss="modal">Cancel</button>
 	</form>
 <% } else { %>
 	Loading&hellip;
