@@ -50,14 +50,14 @@ define(
 				toFixed += 1;
 				stepSize *= 10;
 			}
-			$('#severityVal').text(sevVal.toFixed(toFixed) + ' ');
+			this.$('#severityVal').text(sevVal.toFixed(toFixed) + ' ');
 		},
 
 		onChangeDuration: function(event) {
 			var durationEl = $(event.target);
 			var sliderValue = durationEl.attr("value");
 			var duration = durationUtils.sliderValueToSeconds(sliderValue);
-			$('#human').text(durationUtils.humanizeSeconds(duration));
+			this.$('#human').text(durationUtils.humanizeSeconds(duration));
 		},
 
 		handleSymptomSubmit: function(event) {
