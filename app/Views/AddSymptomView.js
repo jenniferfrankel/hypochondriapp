@@ -34,7 +34,7 @@ define(
 				isEdit: !!this.options.symptom,
 				category: this.category ? this.category.toJSON() : {},
 				symptom: this.symptom ? this.symptom.toJSON() : {},
-				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 450
+				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 443
 			}));
 			this.$("input[type=range]").change();
 			
