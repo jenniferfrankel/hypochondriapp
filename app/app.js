@@ -1,6 +1,8 @@
 // Sets the require.js configuration for your application.
 require.config( {
 	// 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.8.2.min")
+	
+	urlArgs: 'cb=' + Math.random(),
 	paths: {
 		// Core Libraries
 		"jquery": "../lib/jquery-1.8.3",
