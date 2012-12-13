@@ -1,6 +1,6 @@
 <h3><%= category ? category.name : '' %> history</h3>
 <%	_.each(symptoms,function(symptom){ %>
-<div class="symptom" data-edit-hash="#categories/<%=category.name%>/editSymptom/<%=symptom.objectId%>">
+<div class="symptom" data-symptom-id="<%=symptom.objectId%>">
 	<div class="severity"><%= symptom.severity %></div>
 	<div class="unit"><%= category.unit %>,</div>
 	<div class="date">on <%= moment(symptom.date.iso).format("YYYY-MM-DD") %></div>

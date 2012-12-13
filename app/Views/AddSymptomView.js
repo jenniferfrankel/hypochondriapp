@@ -6,45 +6,38 @@ define(
 			"submit form" :  "handleSymptomSubmit",
 			"change input[name='severity']" : "onChangeSeverity",
 			"change input[name='duration']" : "onChangeDuration"
-
-
 		},
 
 		initialize: function(options) {
 			_.bindAll(this);
-			this.onAddSuccess = options.onAddSuccess;
 			this.template = _.template(template);
-			var categoryQuery = new Parse.Query(Category);
-			categoryQuery.equalTo("name", options.categoryName);
-			categoryQuery.equalTo("user", Parse.User.current());
-			categoryQuery.find({ success : this.onCategoryLoaded });
+			this.symptom = options.symptom;
+			this.symptoms = options.symptoms;
 
-			if (options.symptomId) {
-				var symptomQuery = new Parse.Query(Symptom);
-				symptomQuery.get(options.symptomId, { success : this.onSymptomLoaded });
+			if (this.symptom) {
+				this.category = this.symptom.get("category");
+			} else {
+				var categoryQuery = new Parse.Query(Category);
+				categoryQuery.equalTo("name", options.categoryName);
+				categoryQuery.equalTo("user", Parse.User.current());
+				categoryQuery.find({ success : this.onCategoryLoaded });
 			}
 		},
 
-		onSymptomLoaded : function(symptom) {
-			console.log("Got symptom");
-			this.symptom = symptom;
-			this.render();
-		},
-
 		onCategoryLoaded : function(categories) {
-			console.log("Got category");
 			this.category = _.first(categories);
 			this.render();
 		},
 
 		render: function() {
 			this.$el.html(this.template({
-				isEdit: !!this.options.symptomId,
+				isEdit: !!this.options.symptom,
 				category: this.category ? this.category.toJSON() : {},
 				symptom: this.symptom ? this.symptom.toJSON() : {},
 				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 450
 			}));
 			this.$("input[type=range]").change();
+			
 			return this;
 		},
 
@@ -64,14 +57,13 @@ define(
 			var durationEl = $(event.target);
 			var sliderValue = durationEl.attr("value");
 			var duration = durationUtils.sliderValueToSeconds(sliderValue);
-			console.log(duration);
 			$('#human').text(durationUtils.humanizeSeconds(duration));
 		},
 
 		handleSymptomSubmit: function(event) {
 			event.preventDefault();
-			var that = this;
-			this.$("[type=submit]").prop('disabled', true);
+			var $submitButton = this.$("[type=submit]");
+			$submitButton.prop('disabled', true);
 			var formData = this.$("#symptomsubmitform").serializeObject();
 			var symptomData = _.pick(formData, ['comment', 'severity']);
 			symptomData.date = moment(this.$("[type='date']").val()+"T"+this.$("[type='time']").val()).toDate();
@@ -79,18 +71,22 @@ define(
 			symptomData.category = this.category;
 			symptomData.user = Parse.User.current();
 			symptomData.ACL = new Parse.ACL(Parse.User.current());
-			var symptom = (!!this.symptom) ? this.symptom : new Symptom();
-			symptom.save(symptomData, {
-				success: function() {
-					console.log("symptom successfully added to db");
-					if (that.onAddSuccess) {
-						that.onAddSuccess();
-					}
-					that.$("[type=submit]").prop('disabled', false);
-					$("#myModal").modal('hide');
-					//window.location.hash=$("#symptomsubmitform").attr("action");
-				}
-			});
+
+			var onSendToParseComplete = function() {
+				$submitButton.prop('disabled', false);
+				$("#myModal").modal('hide');
+			};
+
+			if (this.symptom) { // if we're editing...
+				this.symptom.save(symptomData, {
+					success: onSendToParseComplete
+				});
+			} else { // If we're creating a new one...
+				this.symptoms.create(symptomData, {
+					wait: true, // Make sure to wait for the server to agree
+					success: onSendToParseComplete
+				});
+			}
 		}
 	});
 });

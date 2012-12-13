@@ -4,7 +4,6 @@ define([
 	"Views/LogInView",
 	"Views/SignUpView",
 	"Views/AddCategoryView",
-	"Views/AddSymptomView",
 	"Views/GraphSymptomView",
 	"Views/SymptomListView"
 	],
@@ -14,7 +13,6 @@ function(
 	LogInView,
 	SignUpView,
 	AddCategoryView,
-	AddSymptomView,
 	GraphSymptomView,
 	SymptomListView
 	) {
@@ -29,9 +27,7 @@ function(
 			"signup": "signup",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
-			"categories/:categoryName": "addSymptom",
 			"categories/:categoryName/history": "listSymptoms",
-			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
 			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"*path": "defaultRoute"
 		},
@@ -65,32 +61,12 @@ function(
 		},
 
 		/**
-		 * Add a symptom
-		 *
-		 * @param categoryName - the name of the category we are adding a symptom to.
-		 * @param symptomId - (optional) the id of the symptom to edit
-		 */
-		addSymptom: function(categoryName, symptomId){
-			var view = new AddSymptomView({
-				categoryName: categoryName,
-				symptomId: symptomId
-			});
-			$("#myModal").empty().append(view.render().$el);
-			$('#myModal').modal();
-		},
-
-		/**
 		 * Show the list of symptoms for the specified category.
 		 *
 		 * @param categoryName - the name of the category of the symptoms we are listing.
 		 */
 		listSymptoms: function(categoryName) {
 			this.updateContent(new SymptomListView(categoryName));
-			var view = new AddSymptomView({
-				categoryName: categoryName
-			});
-			$("#myModal").empty().append(view.render().$el);
-			$('#myModal').modal();
 		},
 
 		symptomGraph: function(categoryName) {
