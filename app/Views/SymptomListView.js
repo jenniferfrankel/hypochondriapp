@@ -1,7 +1,8 @@
 define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "moment"], function($, Parse, _, Category, Symptom, AddSymptomView, template) {
 	return Parse.View.extend({
 		events : {
-			"click .symptom" :  "editSymptom"
+			"click .symptom" :  "editSymptom",
+			"click #addSymptomButton" : "addSymptom"
 		},
 
 		initialize: function(categoryName) {
@@ -70,6 +71,16 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			var symptom = this.symptoms.get(symptomId);
 			var view = new AddSymptomView({
 				symptom: symptom
+			});
+			$("#myModal").empty().append(view.render().$el);
+			$("#myModal").modal();
+		},
+
+		addSymptom: function(event){
+			// when the add new button is clicked
+			// create the add view
+			var view = new AddSymptomView({
+				categoryName: this.categoryName
 			});
 			$("#myModal").empty().append(view.render().$el);
 			$("#myModal").modal();
