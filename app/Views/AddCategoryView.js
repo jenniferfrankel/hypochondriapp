@@ -19,9 +19,9 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			var that = this;
 			this.$("[type=submit]").prop('disabled', true);
 			var formData = this.$("#categorysubmitform").serializeObject();
-			var rangeMean = Math.round(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
-			formData.rangeMean = rangeMean;
-			var categoryData = _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeMean', 'stepSize']);
+			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
+			formData.rangeDefault = rangeDefault;
+			var categoryData = _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
 			categoryData.user = Parse.User.current();
 			categoryData.ACL = new Parse.ACL(Parse.User.current());
 			var category = new Category(categoryData);
