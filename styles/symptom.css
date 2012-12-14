@@ -48,6 +48,17 @@
 	width: 100%;
 }
 
+#categorysubmitform input[type="number"] {
+	width: 40px;
+}
+
+.rangeValues {
+	border: 1px solid #BBB;
+	padding: 5px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
 input[type='range']::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	width: 30px;
@@ -77,3 +88,6 @@ input[type='range']::-webkit-slider-thumb {
 #content {
 	overflow: scroll;
 }
+
+
+
