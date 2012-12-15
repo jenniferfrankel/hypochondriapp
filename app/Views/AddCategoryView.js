@@ -22,7 +22,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 		handleCategorySubmit: function(event){
 			event.preventDefault();
 			var that = this;
-			this.$("[type=submit]").prop('disabled', true);
+			that.toggleSubmitButtonDisabled(true);
 			var formData = this.$("#categorysubmitform").serializeObject();
 			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
 			formData.rangeDefault = rangeDefault;
@@ -31,7 +31,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			categoryData.ACL = new Parse.ACL(Parse.User.current());
 
 			var onSendToParseComplete = function() {
-				toggleSubmitButtonDisabled(false);
+				that.toggleSubmitButtonDisabled(false);
 				$("#myModal").modal('hide');
 			};
 
