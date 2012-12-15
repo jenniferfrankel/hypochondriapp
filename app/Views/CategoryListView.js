@@ -1,5 +1,9 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html", "spinhelper"], function($, Parse, _, Category, template, spinhelper) {
+define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html", "./AddCategoryView", "spinhelper"], function($, Parse, _, Category, template, AddCategoryView, spinhelper) {
 	return Parse.View.extend({
+		events : {
+			"click #addCategoryButton" : "addCategory"
+		},
+
 		initialize: function() {
 			_.bindAll(this);
 			var that = this;
@@ -17,12 +21,24 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 				success: stopSpinner,
 				error: stopSpinner
 			});
+
+			this.categories.on("all", this.render);
 		},
 
 		render: function() {
 
 			this.$el.html(this.template({categories: this.categories.toJSON()}));
 			return this;
+		},
+
+		addCategory: function() {
+			// when add new button is clicked
+			// create addCategoryView and display in modal
+			var view = new AddCategoryView({
+				categories: this.categories
+			});
+			$("#myModal").empty().append(view.render().$el);
+			$("#myModal").modal();
 		}
 	});
 });

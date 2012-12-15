@@ -1,5 +1,9 @@
+<%
+	$("#myModal").css("background", "#FFFFB2");
+%>
+
 <h3>New category</h3>
-<form id="categorysubmitform" action="#categories">
+<form id="categorysubmitform">
 	<label>Symptom name: </label><input type="text" name="name" required placeholder="e.g. 'Head ache' or 'Fatigue'"><br/>
 	<label>Unit: </label><input type="text" name="unit" required placeholder="e.g. 'deg C' or 'on scale of 1-10'"><br/>
 	<div class="rangeValues">
@@ -9,6 +13,7 @@
 		Unit step: <input type="number" step="any" name="stepSize" required placeholder="0.1"><br/>
 	</div>
 	<input type="submit" class="btn btn-primary">
+	<button type="button" class="btn pull-right" data-dismiss="modal">Cancel</button>
 </form>
 <div id="categories">
 </div>

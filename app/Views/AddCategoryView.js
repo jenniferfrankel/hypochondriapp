@@ -4,14 +4,19 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			"submit form" :  "handleCategorySubmit"
 		},
 
-		initialize: function(){
+		initialize: function(options){
 			_.bindAll(this);
 			this.template = _.template(template);
+			this.categories = options.categories;
 		},
 
 		render: function(){
 			this.$el.html(this.template());
 			return this;
+		},
+
+		toggleSubmitButtonDisabled: function(isDisabled) {
+			this.$("[type=submit]").prop('disabled', isDisabled);
 		},
 
 		handleCategorySubmit: function(event){
@@ -24,12 +29,15 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			var categoryData = _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
 			categoryData.user = Parse.User.current();
 			categoryData.ACL = new Parse.ACL(Parse.User.current());
-			var category = new Category(categoryData);
-			category.save({
-				success: function() {
-					that.$("[type=submit]").prop('disabled', false);
-					window.location.hash=$("#categorysubmitform").attr("action");
-				}
+
+			var onSendToParseComplete = function() {
+				toggleSubmitButtonDisabled(false);
+				$("#myModal").modal('hide');
+			};
+
+			this.categories.create(categoryData, {
+				wait: true,
+				success: onSendToParseComplete
 			});
 		}
 	});
