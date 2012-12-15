@@ -1,7 +1,9 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "jquery.serializeobject"], function($, Parse, _, Category, template) {
-	return Parse.View.extend({
+define(
+	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "./ModalFormView", "jquery.serializeobject"],
+	function($, Parse, _, Category, template, ModalFormView) {
+	return ModalFormView.extend({
 		events : {
-			"submit form" :  "handleCategorySubmit"
+			"submit form" :  "handleSubmit"
 		},
 
 		initialize: function(options){
@@ -10,34 +12,17 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			this.categories = options.categories;
 		},
 
-		render: function(){
-			this.$el.html(this.template());
-			return this;
-		},
-
-		toggleSubmitButtonDisabled: function(isDisabled) {
-			this.$("[type=submit]").prop('disabled', isDisabled);
-		},
-
-		handleCategorySubmit: function(event){
-			event.preventDefault();
-			var that = this;
-			that.toggleSubmitButtonDisabled(true);
+		getDataFromForm : function() {
 			var formData = this.$("#categorysubmitform").serializeObject();
 			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
 			formData.rangeDefault = rangeDefault;
-			var categoryData = _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
-			categoryData.user = Parse.User.current();
-			categoryData.ACL = new Parse.ACL(Parse.User.current());
+			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
+		},
 
-			var onSendToParseComplete = function() {
-				that.toggleSubmitButtonDisabled(false);
-				$("#myModal").modal('hide');
-			};
-
-			this.categories.create(categoryData, {
+		saveToParse: function(data) {
+			this.categories.create(data, {
 				wait: true,
-				success: onSendToParseComplete
+				success: this.onSendToParseComplete
 			});
 		}
 	});

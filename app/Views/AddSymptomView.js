@@ -1,9 +1,9 @@
 define(
-	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "jquery.serializeobject"],
-	function($, Parse, _, durationUtils, Category, Symptom, template) {
-	return Parse.View.extend({
+	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./ModalFormView", "jquery.serializeobject"],
+	function($, Parse, _, durationUtils, Category, Symptom, template, ModalFormView) {
+	return ModalFormView.extend({
 		events : {
-			"submit form" :  "handleSymptomSubmit",
+			"submit form" :  "handleSubmit",
 			"change input[name='severity']" : "onChangeSeverity",
 			"change input[name='duration']" : "onChangeDuration"
 		},
@@ -60,31 +60,24 @@ define(
 			this.$('#human').text(durationUtils.humanizeSeconds(duration));
 		},
 
-		handleSymptomSubmit: function(event) {
-			event.preventDefault();
-			var $submitButton = this.$("[type=submit]");
-			$submitButton.prop('disabled', true);
+		getDataFromForm : function() {
 			var formData = this.$("#symptomsubmitform").serializeObject();
 			var symptomData = _.pick(formData, ['comment', 'severity']);
 			symptomData.date = moment(this.$("[type='date']").val()+"T"+this.$("[type='time']").val()).toDate();
 			symptomData.duration = durationUtils.sliderValueToSeconds(formData.duration);
 			symptomData.category = this.category;
-			symptomData.user = Parse.User.current();
-			symptomData.ACL = new Parse.ACL(Parse.User.current());
+			return symptomData;
+		},
 
-			var onSendToParseComplete = function() {
-				$submitButton.prop('disabled', false);
-				$("#myModal").modal('hide');
-			};
-
+		saveToParse: function(data) {
 			if (this.symptom) { // if we're editing...
-				this.symptom.save(symptomData, {
-					success: onSendToParseComplete
+				this.symptom.save(data, {
+					success: this.onSendToParseComplete
 				});
 			} else { // If we're creating a new one...
-				this.symptoms.create(symptomData, {
+				this.symptoms.create(data, {
 					wait: true, // Make sure to wait for the server to agree
-					success: onSendToParseComplete
+					success: this.onSendToParseComplete
 				});
 			}
 		}
