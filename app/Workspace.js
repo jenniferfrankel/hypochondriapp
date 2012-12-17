@@ -1,18 +1,18 @@
 define([
-	"jquery","parse","underscore",
+	"jquery","parse","underscore", "spin",
 	"Views/CategoryListView",
 	"Views/LogInView",
+	"Views/SignUpView",
 	"Views/AddCategoryView",
-	"Views/AddSymptomView",
 	"Views/GraphSymptomView",
 	"Views/SymptomListView"
 	],
 function(
-	$, Parse, _,
+	$, Parse, _, spin,
 	CategoryListView,
 	LogInView,
+	SignUpView,
 	AddCategoryView,
-	AddSymptomView,
 	GraphSymptomView,
 	SymptomListView
 	) {
@@ -24,10 +24,10 @@ function(
 			"": "home",
 			"login": "login",
 			"logout": "logout",
+			"signup": "signup",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
-			"categories/:categoryName": "listSymptoms",
-			"categories/:categoryName/editSymptom/:symptomId": "addSymptom",
+			"categories/:categoryName/history": "listSymptoms",
 			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"*path": "defaultRoute"
 		},
@@ -61,19 +61,6 @@ function(
 		},
 
 		/**
-		 * Add a symptom
-		 *
-		 * @param categoryName - the name of the category we are adding a symptom to.
-		 * @param symptomId - (optional) the id of the symptom to edit
-		 */
-		addSymptom: function(categoryName, symptomId){
-			this.updateContent(new AddSymptomView({
-				categoryName: categoryName,
-				symptomId: symptomId
-			}));
-		},
-
-		/**
 		 * Show the list of symptoms for the specified category.
 		 *
 		 * @param categoryName - the name of the category of the symptoms we are listing.
@@ -86,6 +73,20 @@ function(
 			this.updateContent(new GraphSymptomView(categoryName));
 		},
 
+		signup: function() {
+			var that = this;
+			var onSignupSuccess = function() {
+				// TODO: Take user to tutorial
+				that.navigate("", {trigger: true, replace: true});
+			};
+			var signUpView = new SignUpView({
+				success: onSignupSuccess
+			});
+			this.updateContent(signUpView, true);
+			$("#myModal").modal('hide');
+
+		},
+
 		login: function() {
 			if (!!Parse.User.current()) {
 				// If we are logged in already, an the user goes to the login
@@ -94,13 +95,16 @@ function(
 			} else {
 				var that = this;
 				var onLoginSuccess = function() {
+					$('#myModal').modal('hide');
 					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
 					that.locationAfterLogin = null;
 				};
 				var view = new LogInView({
 					success: onLoginSuccess
 				});
-				this.updateContent(view, true);
+				//this.updateContent(view, true);
+				$("#myModal").empty().append(view.render().$el);
+				$('#myModal').modal();
 			}
 		},
 
@@ -124,6 +128,13 @@ function(
 				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});
 			}
+			if (window.history.length > 0) {
+				$("#backButton").show();
+			} else {
+				$("#backButton").hide();
+			}
+			// This is a fix for non-working drop-down menus on iPad and iPhone (from https://github.com/twitter/bootstrap/issues/2975#issuecomment-6659992)
+			$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
 		}
 	});
 });

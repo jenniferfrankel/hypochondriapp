@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
 	<head>
+		<title>HypoApp</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon-precomposed" href="img/icon.png"/>
+		<link rel="apple-touch-icon" href="img/icon.png"/>
+		<link rel="apple-touch-startup-image" href="img/splash.png" />
 		<script type="text/javascript">
 			(function() {
 				// This is for automatic page reloading in dev mode. We dynamically insert a new script tag with the right hostname.
@@ -14,18 +20,35 @@
 		<script src="lib/require.js" data-main="app/app"></script>
 		<link rel="stylesheet" href="styles/symptom.css" />
 		<link rel="stylesheet" href="styles/normalize.css" />
+		<link rel="stylesheet" href="styles/bootstrap.css" />
+		<link rel="stylesheet" href="styles/bootstrap-responsive.css" />
 	</head>
 	<body>
-		<div id="header">
-			HypoApp
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="btn pull-left hide" id="backButton" href="#">Back</a>
+				<a class="brand" href="#">HypochondriApp</a>
+				<div class="dropdown pull-right">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="icon-cog"></i>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Settings</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#logout">Log out</a></li>
+					</ul>
+				</div>
+				
+			</div>
 		</div>
 		<div id="content">
 			
 		</div>
+		<div class="hide" id="spinner" style="position: fixed; top: 0; bottom: 0; right: 0; left: 0;"></div>
 		<div id="footer">
-			<button>About</button>
-			<button>Settings</button>
-			<a href="#logout">Log Out</a>
+		</div>
+		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  
 		</div>
 	</body>
 

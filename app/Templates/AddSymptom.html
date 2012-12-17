@@ -2,26 +2,39 @@
 	var hasCategory = !_.isEmpty(category);
 	var hasSymptom = !_.isEmpty(symptom);
 	var isAddNew = !isEdit;
+
+	if (isEdit) {
+		$("#myModal").css("background", "#B8E627");
+	} else {
+		$("#myModal").css("background", "#99CCFF");
+	}
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
 %>
-	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> Event</h3>
+	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> event</h3>
+	
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
-		<label for="date">Date: </label>
-			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/><br/>
-		<label for="severity">Severity: </label>
-			<input type="number" name="severity" 
+		<label for="date">Date & Time: </label>
+			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
+			<input type="time" name="time" value="<%= symptom.date ? moment(symptom.date.iso).format('HH:mm') : moment().format('HH:mm') %>" /><br/>
+			
+		Value: <span id="severityVal"></span><%= category.unit %><br/>
+			<input type="range" name="severity" 
 				min="<%= category.rangeMin %>" 
 				max="<%= category.rangeMax %>" 
 				step="<%= category.stepSize %>"
-				value="<%= symptom.severity ? symptom.severity : category.rangeMin %>"/> <%= category.unit %><br/>
-		<label>Duration: </label>
-			<input type="number" name="hours" value="<%= symptom.duration ? Math.round(symptom.duration / 3600) : 0 %>" min="0"> hh
-			<input type="number" name="minutes" value="<%= symptom.duration ? Math.round((symptom.duration % 3600) / 60) : 0 %>" min="0"> mm
-			<input type="number" name="seconds" value="<%= symptom.duration ? Math.round(((symptom.duration % 3600) % 60)) : 0 %>" min="0"> ss<br/>
-		<label for="comment">Comment: </label>
-			<input type="text" name="comment" value="<%= symptom.comment %>"/>
-		<input type="submit">
+				value="<%= symptom.severity ? symptom.severity : category.rangeDefault %>"/>
+				<br/>
+
+		Duration: <span id="human"></span><br/>
+			<input id="duration" type="range" name="duration" 
+			min="1" max="878" 
+			value="<%= sliderValue %>"/>
+		<br/>
+		Comment:<br/>
+			<input type="text" name="comment" value="<%= symptom.comment %>"/><br/>
+		<input type="submit" class="btn btn-primary">
+		<button type="button" class="btn pull-right" data-dismiss="modal">Cancel</button>
 	</form>
 <% } else { %>
 	Loading&hellip;

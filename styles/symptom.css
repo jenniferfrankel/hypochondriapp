@@ -1,11 +1,26 @@
 
 .symptom {
-	background: #ddf;
-	width: 400px;
-	margin: 10px;
-	border: 2px solid #888;
-	border-radius: 2px;
+	background: -webkit-linear-gradient(bottom, #DDD 2%, #EEE 68%);
+	margin-bottom: 5px;
+	border: 1px solid #BBB;
 	padding: 5px;
+	height: 40px;
+	border-radius: 6px;
+}
+
+.symptom .severity {
+	float: left;
+	font-size: 16pt;
+}
+.symptom .date {
+	float: right;
+}
+.symptom .comment {
+	display: block;
+	font-style: italic;
+	padding-left: 10px;
+	color: #555;
+	clear: both;
 }
 
 .symptom>div {
@@ -14,19 +29,65 @@
 
 #symptomsubmitform {
 	line-height: 2.5em;
+	-webkit-user-select: none;
 }
 
 #symptomsubmitform input[type="number"] {
 	width: 60px;
-	
+}
+
+#symptomsubmitform input[type="date"]{
+	width: 90px;
+}
+
+#symptomsubmitform input[type="time"] {
+	width: 75px;
+}
+
+#symptomsubmitform input[type="range"] {
+	width: 100%;
+}
+
+#categorysubmitform input[type="number"] {
+	width: 40px;
+}
+
+.rangeValues {
+	border: 1px solid #BBB;
+	padding: 5px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 30px;
+	height: 30px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #fefefe),
+		color-stop(0.49, #dddddd),
+		color-stop(0.51, #d1d1d1),
+		color-stop(1, #a1a1a1)
+	);
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+#myModal {
+	padding: 10px;
 }
 
 /* The first div of class "symptom" after a div of class "addSymptom" */
 /* is displayed with a different background color than the rest */
-.addSymptom + .symptom {
-	background: #fdd;
-}
 
 #content {
 	overflow: scroll;
 }
+
+
+

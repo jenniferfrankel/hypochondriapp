@@ -1,14 +1,13 @@
 <div>
-	<ul>
+	<a class="btn pull-right" id="addCategoryButton">Add new</a>
+	<h3>Categories</h3>
+	<ul class="nav nav-tabs nav-stacked">
 <%			_.each(categories,function(category){ %>
 			<li>
-				<a href="#categories/<%= category.name %>">
+				<a href="#categories/<%= category.name %>/history">
 					<%= category.name %>
 				</a>
 			</li>
 <%			}); %>
 	</ul>
-</div>
-<div>
-	<a href="#categories/addCategory">Add New symptom category</a>
 </div>

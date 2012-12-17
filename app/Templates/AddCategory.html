@@ -1,11 +1,19 @@
-<h3>Add New symptom category</h3>
-<form id="categorysubmitform" action="#categories">
-	<label>Symptom name: </label><input type="text" name="name" required><br/>
-	<label>Unit: </label><input type="text" name="unit" value="severity" required><br/>
-	<label>Range Min value: </label><input type="number" step="any" name="rangeMin" required><br/>
-	<label>Range Max value: </label><input type="number" step="any" name="rangeMax" required><br/>
-	<label>Unit step value: </label><input type="number" step="any" name="stepSize" required><br/>
-	<input type="submit">
+<%
+	$("#myModal").css("background", "#FFFFB2");
+%>
+
+<h3>New category</h3>
+<form id="categorysubmitform">
+	<label>Symptom name: </label><input type="text" name="name" required placeholder="e.g. 'Head ache' or 'Fatigue'"><br/>
+	<label>Unit: </label><input type="text" name="unit" required placeholder="e.g. 'deg C' or 'on scale of 1-10'"><br/>
+	<div class="rangeValues">
+		<p>Range values:</p>
+		<span>Min: <input type="number" step="any" name="rangeMin" required placeholder="1">
+			Max: <input type="number" step="any" name="rangeMax" required placeholder="45"></span><br/>
+		Unit step: <input type="number" step="any" name="stepSize" required placeholder="0.1"><br/>
+	</div>
+	<input type="submit" class="btn btn-primary">
+	<button type="button" class="btn pull-right" data-dismiss="modal">Cancel</button>
 </form>
 <div id="categories">
 </div>

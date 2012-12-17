@@ -1,6 +1,8 @@
 // Sets the require.js configuration for your application.
 require.config( {
 	// 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.8.2.min")
+	
+	urlArgs: 'cb=' + Math.random(),
 	paths: {
 		// Core Libraries
 		"jquery": "../lib/jquery-1.8.3",
@@ -9,7 +11,10 @@ require.config( {
 		"jquery.flot.time": "../lib/jquery.flot.time",
 		"underscore": "../lib/lodash",
 		"parse": "../lib/parse-1.1.13",
-		"moment": "../lib/moment"
+		"moment": "../lib/moment",
+		"bootstrap": "../lib/bootstrap",
+		"spin": "../lib/spin",
+		"spinhelper": "../lib/spin.helper"
 	},
 
 	// Sets the configuration for your third party scripts that are not AMD compatible
@@ -20,11 +25,14 @@ require.config( {
 		},
 		"jquery.flot": ['jquery'],
 		"jquery.flot.time": ['jquery', 'jquery.flot'],
-		"jquery.serializeobject": ['jquery']
+		"jquery.serializeobject": ['jquery'],
+		"bootstrap": ['jquery'],
+		"spin": ['jquery'],
+		"spinhelper": ['jquery', 'spin']
 	} // end Shim Configuration
 });
 
-require(["parse", "./Workspace"], function(Parse, Workspace) {
+require(["parse", "./Workspace", "bootstrap"], function(Parse, Workspace, bootstrap) {
 	$(document).ready(function() {
 		// Initialize Parse libraries with my app ID and javascript API key
 		Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");
