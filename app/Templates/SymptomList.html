@@ -1,5 +1,12 @@
 <a class="btn pull-right" id="addSymptomButton">Add new</a>
 <h3><%= category ? category.name : '' %> history</h3>
+<%
+	if(symptoms.length < 1){
+%>
+		<p>No <%= category ? category.name : 'symptom' %> events recorded yet</p>
+<%
+	};
+%>
 <%	_.each(symptoms,function(symptom){ %>
 <div class="symptom" data-symptom-id="<%=symptom.objectId%>">
 	<div class="severity"><%= symptom.severity %> <span class="unit"> <%= category.unit %></span></div>
