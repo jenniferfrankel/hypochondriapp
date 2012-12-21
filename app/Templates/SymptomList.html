@@ -5,7 +5,13 @@
 	<div class="severity"><%= symptom.severity %> <span class="unit"> <%= category.unit %></span></div>
 	
 	<div class="date"><%= moment(symptom.date.iso).format('MMM DD, HH:mm') %></div>
-	<div class="comment"><%= symptom.comment ? '&ldquo;'+symptom.comment+'&rdquo;' : ''  %></div>
+<%
+	var dotdot = '';
+	if (symptom.comment.length > 25) {
+		dotdot = dotdot + '...';
+	};
+%>	
+	<div class="comment"><%= symptom.comment ? '&ldquo;'+symptom.comment.substring(0,25)+dotdot+'&rdquo;' : ''  %></div>
 </div>
 <%	}); %>
 <div>
