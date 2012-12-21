@@ -1,10 +1,10 @@
 <div>
 	<a class="btn pull-right" id="addCategoryButton">Add new</a>
 	<h3>Categories</h3>
-	<ul class="nav nav-tabs nav-stacked">
+	<ul class="nav" id="categoryList">
 <%			_.each(categories,function(category){ %>
 			<li>
-				<a href="#categories/<%= category.name %>/history">
+				<a class="btn" href="#categories/<%= category.name %>/history">
 					<%= category.name %>
 				</a>
 			</li>

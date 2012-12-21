@@ -1,3 +1,11 @@
+#categoryList li a {
+	background: -webkit-linear-gradient(bottom, #DDD 2%, #EEE 68%);
+	margin-bottom: 5px;
+	border: 1px solid #BBB;
+	padding: 15px;
+	border-radius: 6px;
+	font-size: 16pt;
+}
 
 .symptom {
 	background: -webkit-linear-gradient(bottom, #DDD 2%, #EEE 68%);
