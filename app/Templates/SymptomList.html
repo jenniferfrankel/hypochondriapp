@@ -21,8 +21,3 @@
 	<div class="comment"><%= symptom.comment ? '&ldquo;'+symptom.comment.substring(0,25)+dotdot+'&rdquo;' : ''  %></div>
 </div>
 <%	}); %>
-<div>
-	<% if (category){ %>
-		<a class="btn" href="#categories/<%=category.name%>/symptomGraph">Symptom graph</a>
-	<%};%>
-</div>

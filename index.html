@@ -1,5 +1,5 @@
 <!doctype html>
-<html manifest="debug1.appcache">
+<html>
 	<head>
 		<title>HypoApp</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
@@ -18,15 +18,15 @@
 			})();
 		</script>
 		<script src="lib/require.js" data-main="app/app"></script>
-		<link rel="stylesheet" href="styles/symptom.css" />
 		<link rel="stylesheet" href="styles/normalize.css" />
 		<link rel="stylesheet" href="styles/bootstrap.css" />
 		<link rel="stylesheet" href="styles/bootstrap-responsive.css" />
+		<link rel="stylesheet" href="styles/symptom.css" />
 	</head>
 	<body>
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
-				<a class="btn pull-left hide" id="backButton" href="#">Back</a>
+				<a class="btn pull-left hide" id="backButton" href="javascript:window.history.back();">Back</a>
 				<a class="brand" href="#">HypochondriApp</a>
 				<div class="dropdown pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

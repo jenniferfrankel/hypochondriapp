@@ -33,8 +33,15 @@
 		<br/>
 		Comment:<br/>
 			<input type="text" name="comment" value="<%= symptom.comment %>"/><br/>
-		<input type="submit" class="btn btn-primary">
-		<button type="button" class="btn pull-right" data-dismiss="modal">Cancel</button>
+		<div class="pull-left">
+			<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+			<% if (isEdit) { %>
+				<button type="button" class="delete btn btn-danger" data-dismiss="modal">Delete</button>
+			<% } %>
+		</div>
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary"><%= isEdit ? 'Save' : 'Add' %></button>
+		</div>
 	</form>
 <% } else { %>
 	Loading&hellip;

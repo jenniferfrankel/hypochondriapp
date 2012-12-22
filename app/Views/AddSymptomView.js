@@ -4,6 +4,7 @@ define(
 	return ModalFormView.extend({
 		events : {
 			"submit form" :  "handleSubmit",
+			"click .delete" : "onClickDelete",
 			"change input[name='severity']" : "onChangeSeverity",
 			"change input[name='duration']" : "onChangeDuration"
 		},
@@ -21,6 +22,12 @@ define(
 				categoryQuery.equalTo("name", options.categoryName);
 				categoryQuery.equalTo("user", Parse.User.current());
 				categoryQuery.find({ success : this.onCategoryLoaded });
+			}
+		},
+
+		onClickDelete : function() {
+			if (confirm("Are you sure you want to delete this symptom?")) {
+				this.symptom.destroy();
 			}
 		},
 
