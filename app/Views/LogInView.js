@@ -17,7 +17,14 @@ define(["jquery", "parse", "underscore", "text!../Templates/Login.html"], functi
 			var password = this.$("#login-password").val();
 			
 			Parse.User.logIn(username, password, {
-				success: this.success,
+				success: function() {
+					// Remove focus from the input dialog to make
+					// sure the iPhone dismisses the keyboard
+					that.$("input").blur();
+
+					// Call custom success callback.
+					that.success();
+				},
 				error: function(user, error) {
 					that.$(".login-form .error").html("Invalid username or password. Please try again.").show();
 					that.$(".login-form button").prop('disabled', false);

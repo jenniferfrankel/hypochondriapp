@@ -1,6 +1,14 @@
-.navbar-top-fixed {
+#bestest-navbar {
 	position: fixed;
+	margin-left:0;
+	margin-right:0;
 }
+
+body {
+	padding-top: 50px;
+}
+
+
 
 .brand
 {

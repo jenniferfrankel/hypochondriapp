@@ -23,6 +23,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			});
 
 			this.categories.on("all", this.render);
+			this.hideBackButton = true;
 		},
 
 		render: function() {
