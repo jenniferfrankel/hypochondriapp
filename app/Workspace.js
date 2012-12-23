@@ -5,6 +5,7 @@ define([
 	"Views/SignUpView",
 	"Views/AddCategoryView",
 	"Views/GraphSymptomView",
+	"Views/AboutView",
 	"Views/SymptomListView"
 	],
 function(
@@ -14,6 +15,7 @@ function(
 	SignUpView,
 	AddCategoryView,
 	GraphSymptomView,
+	AboutView,
 	SymptomListView
 	) {
 	return Parse.Router.extend({
@@ -22,6 +24,7 @@ function(
 		 */
 		routes: {
 			"": "home",
+			"about": "about",
 			"login": "login",
 			"logout": "logout",
 			"signup": "signup",
@@ -47,6 +50,10 @@ function(
 		defaultRoute: function(){
 			// TODO: Make this into a view
 			$("#content").empty().html("404");
+		},
+
+		about: function(){
+			this.updateContent(new AboutView());
 		},
 
 		addCategory: function(){
