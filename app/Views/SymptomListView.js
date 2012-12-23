@@ -80,7 +80,8 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			// when the add new button is clicked
 			// create the add view
 			var view = new AddSymptomView({
-				categoryName: this.categoryName
+				categoryName: this.categoryName,
+				symptoms : this.symptoms
 			});
 			$("#myModal").empty().append(view.render().$el);
 			$("#myModal").modal();
