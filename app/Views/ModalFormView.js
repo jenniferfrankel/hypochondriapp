@@ -12,6 +12,9 @@ define(
 		},
 
 		hideModal: function() {
+			// Remove focus from input fields to ensure
+			// that keyboard field disappears when modal closes
+			this.$("input").blur();
 			$("#myModal").modal('hide');
 		},
 
