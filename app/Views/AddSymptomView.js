@@ -23,6 +23,14 @@ define(
 				categoryQuery.equalTo("user", Parse.User.current());
 				categoryQuery.find({ success : this.onCategoryLoaded });
 			}
+
+			// We 'debounce' the onChange event handlers to not make the UI
+			// to sluggish when dragging the slider to fast. I.e., we wait
+			// 50ms before we re-calcuate the values for severity and duration
+			// before we update the UI. Conviniently handled by the debounce()
+			// function in underscore.js (http://underscorejs.org/#debounce).
+			this.onChangeSeverity = _.debounce(this.onChangeSeverity, 50);
+			this.onChangeDuration = _.debounce(this.onChangeDuration, 50);
 		},
 
 		onClickDelete : function() {
