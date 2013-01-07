@@ -1,5 +1,5 @@
 define(
-	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "./ModalFormView", "jquery.serializeobject"],
+	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory2.html", "./ModalFormView", "jquery.serializeobject"],
 	function($, Parse, _, Category, template, ModalFormView) {
 	return ModalFormView.extend({
 		events : {
@@ -12,10 +12,31 @@ define(
 			this.categories = options.categories;
 		},
 
-		getDataFromForm : function() {
+		getDataFromForm1 : function() {
 			var formData = this.$("#categorysubmitform").serializeObject();
 			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
 			formData.rangeDefault = rangeDefault;
+			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
+		},
+
+		getDataFromForm : function() {
+			var formData = this.$("#categorysubmitform").serializeObject();
+			var range = [];
+			switch (formData["unit"]) {
+				case "scale10" : formData.unit = "on a scale of 1-10", range = [1,10,5,1]; break;
+				case "scale5" : formData.unit = "on a scale of 1-5", range = [1,5,3,1]; break;
+				case "tempC" : formData.unit = "degrees Celcius", range = [32.0,45.0,37.0,0.1]; break;
+				case "tempF" : formData.unit = "degrees Fahrenheit", range = [89.6,113.0,98.6,0.1]; break;
+				case "bpm" : formData.unit = "bpm", range = [30,230,100,1]; break;
+				case "glucosemmol" : formData.unit = "mmol/L", range = [1,12,5.5,0.1]; break;
+				case "glucosemg" : formData.unit = "mg/dL", range = [20,220,100,1]; break;
+			}
+			formData["rangeMin"] = range[0];
+			formData["rangeMax"] = range[1];
+			formData["rangeDefault"] = range[2];
+			formData["stepSize"] = range[3];
+			console.log(formData);
+			console.log("That was the formData");
 			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
 		},
 
@@ -24,6 +45,15 @@ define(
 				wait: true,
 				success: this.onSendToParseComplete
 			});
+		},
+
+		rangeValuesOk: function(max, min, step) {
+			if (max > min && step < (max - min)) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	});
 });

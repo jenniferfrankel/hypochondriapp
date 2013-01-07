@@ -1,0 +1,24 @@
+<%
+	$("#myModal").css("background", "#FFFFB2");
+%>
+
+<h3>New symptom</h3>
+<form id="categorysubmitform">
+	<label>Symptom name: </label><input type="text" name="name" required placeholder="e.g. 'Head ache' or 'Fatigue'" maxlength="20"><br/>
+
+	<select type="text" name="unit" required>
+		<option value="">Select a unit</option>
+		<option value="scale10">Severity (scale of 1-10)</option>
+		<option value="scale5">Severity (scale of 1-5)</option>
+		<option value="tempC">Temperature (Celcius)</option>
+		<option value="tempF">Temperature (Fahrenheit)</option>
+		<option value="bpm">bpm (beats per minute)</option>
+		<option value="glucosemmol">Blood sugar (mmol/L)</option>
+		<option value="glucosemg">Blood sugar (mg/dL)</option>
+	</select>
+
+	<input type="submit" class="btn btn-primary pull-right">
+	<button type="button" class="btn pull-left" data-dismiss="modal">Cancel</button>
+</form>
+<div id="categories">
+</div>
