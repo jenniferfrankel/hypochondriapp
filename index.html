@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>HypoApp</title>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=0"/>
+	    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-touch-fullscreen" content="yes">
-		<link rel="apple-touch-icon-precomposed" href="img/icon.png"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<link rel="apple-touch-icon-precomposed" href="img/icon.png"/>
 		<link rel="apple-touch-icon" href="img/icon.png"/>
 		<link rel="apple-touch-startup-image" href="img/splash.png" />
 		<script type="text/javascript">
@@ -22,33 +23,22 @@
 		<link rel="stylesheet" href="styles/normalize.css" />
 		<link rel="stylesheet" href="styles/bootstrap.css" />
 		<link rel="stylesheet" href="styles/bootstrap-responsive.css" />
+		<link rel="stylesheet" href="styles/ratchet.css" />
 		<link rel="stylesheet" href="styles/symptom.css" />
 	</head>
 	<body>
-		<div id="bestest-navbar" class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<a class="brand" href="#">HypochondriApp</a>
-				<button class="btn pull-left hide" id="backButton">Back</button>
-				<div class="dropdown pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-cog"></i>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a id="aboutButton" href="#about">About</a></li>
-						<li><a href="#logout">Log out</a></li>
-					</ul>
-				</div>
-				
-			</div>
-		</div>
-		<div id="content">
+		<header class="bar-title">
+			<a class="button-prev hide" href="javascript:window.history.back();">
+			    Back
+			</a>
+  			<h1 class="title">HypoApp</h1>
+		</header>
+		<div class="content">
 			
 		</div>
-		<div class="hide" id="spinner" style="position: fixed; top: 0; bottom: 0; right: 0; left: 0;"></div>
-		<div id="footer">
+		<div class="hide" id="spinner" style="position: fixed; top: 0; bottom: 0; right: 0; left: 0;">
 		</div>
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  
 		</div>
 	</body>
 </html>

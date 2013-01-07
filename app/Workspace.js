@@ -139,7 +139,7 @@ function(
 		 */
 		updateContent : function(view, allowWithoutLogin) {
 			if (allowWithoutLogin || !!Parse.User.current()) {
-				$("#content").empty().append(view.render().$el);
+				$(".content").empty().append(view.render().$el);
 			} else {
 				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});

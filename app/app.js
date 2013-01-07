@@ -14,7 +14,8 @@ require.config( {
 		"moment": "../lib/moment",
 		"bootstrap": "../lib/bootstrap",
 		"spin": "../lib/spin",
-		"spinhelper": "../lib/spin.helper"
+		"spinhelper": "../lib/spin.helper",
+		"ratchet": "../lib/ratchet"
 	},
 
 	// Sets the configuration for your third party scripts that are not AMD compatible
@@ -32,7 +33,7 @@ require.config( {
 	} // end Shim Configuration
 });
 
-require(["parse", "./Workspace", "bootstrap"], function(Parse, Workspace, bootstrap) {
+require(["parse", "./Workspace", "bootstrap", "ratchet"], function(Parse, Workspace, bootstrap, ratchet) {
 	$(document).ready(function() {
 		// Initialize Parse libraries with my app ID and javascript API key
 		Parse.initialize("M6BP3LK8ORschhjxTdpoWhWQzVz0VyndcvvQVi7e", "NllvdChHyabrLUTVo2AoAxqO5pQRonDw0FL6jgDN");

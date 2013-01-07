@@ -29,8 +29,8 @@ define(
 			// 50ms before we re-calcuate the values for severity and duration
 			// before we update the UI. Conviniently handled by the debounce()
 			// function in underscore.js (http://underscorejs.org/#debounce).
-			this.onChangeSeverity = _.debounce(this.onChangeSeverity, 50);
-			this.onChangeDuration = _.debounce(this.onChangeDuration, 50);
+			this.onChangeSeverity = _.debounce(this.onChangeSeverity, 100);
+			this.onChangeDuration = _.debounce(this.onChangeDuration, 100);
 		},
 
 		onClickDelete : function() {
