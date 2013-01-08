@@ -36,6 +36,7 @@ define(
 		onClickDelete : function() {
 			if (confirm("Are you sure you want to delete this symptom?")) {
 				this.symptom.destroy();
+				$("#myModal").modal('hide');
 			}
 		},
 
