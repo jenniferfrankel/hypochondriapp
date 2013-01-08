@@ -151,6 +151,11 @@ function(
 			}
 			// This is a fix for non-working drop-down menus on iPad and iPhone (from https://github.com/twitter/bootstrap/issues/2975#issuecomment-6659992)
 			$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+			$("#backButton").off("click");
+			$("#backButton").click(function(event) {
+				event.preventDefault();
+				window.history.back();
+			});
 		}
 	});
 });
