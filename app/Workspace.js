@@ -53,7 +53,10 @@ function(
 		},
 
 		about: function(){
-			this.updateContent(new AboutView());
+			//this.updateContent(new AboutView());
+			var view = new AboutView();
+			$("#myModal").empty().append(view.render().$el);
+			$('#myModal').modal();
 		},
 
 		addCategory: function(){
