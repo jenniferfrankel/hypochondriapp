@@ -24,7 +24,6 @@ function(
 		 */
 		routes: {
 			"": "home",
-			"about": "about",
 			"login": "login",
 			"logout": "logout",
 			"signup": "signup",
@@ -38,6 +37,13 @@ function(
 		initialize: function() {
 			_.bindAll(this);
 			Parse.history.start();
+			$("#aboutButton").click(function(event) {
+				event.preventDefault();
+				var view = new AboutView();
+				//this.updateContent(view, true);
+				$("#myModal").empty().append(view.render().$el);
+				$('#myModal').modal();
+			});
 		},
 
 		/**
