@@ -4,14 +4,19 @@
 	margin-right:0;
 }
 
+hr {
+	margin: 10px 0;
+}
+
 body {
 	padding-top: 50px;
 }
 
+.modal-title {
+	font-weight: normal;
+}
 
-
-.brand
-{
+.brand {
 	position: absolute;
 	width: 100%;
 	left: 0;
