@@ -11,7 +11,7 @@
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
 %>
-	<h3><%= isEdit ? 'Edit' : 'Add' %> <%= category.name %> event</h3>
+	<h3 class="modal-title"><%= isEdit ? 'Edit' : 'Add' %> <strong><%= category.name %></strong> event</h3>
 	
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 		<label for="date">Date & Time: </label>
