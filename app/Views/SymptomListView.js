@@ -5,11 +5,14 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			"click #addSymptomButton" : "addSymptom"
 		},
 
+		pageTitle: "&hellip;",
+
 		initialize: function(categoryName) {
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
 			this.categoryName = categoryName;
+			this.pageTitle = categoryName;
 
 			// Create a query to fetch the actual category object with the specified name
 			var categoryQuery = new Parse.Query(Category);
