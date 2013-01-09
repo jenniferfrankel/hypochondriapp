@@ -156,6 +156,7 @@ function(
 				event.preventDefault();
 				window.history.back();
 			});
+			$("#page-title").html(view.pageTitle);
 		}
 	});
 });

@@ -4,6 +4,8 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 			"click #addCategoryButton" : "addCategory"
 		},
 
+		pageTitle: "Symptoms",
+
 		initialize: function() {
 			_.bindAll(this);
 			var that = this;
