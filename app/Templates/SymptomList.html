@@ -15,11 +15,11 @@
 <%
 	var dotdot = '';
 	if (symptom.comment.length > 25) {
-		dotdot = dotdot + '...';
+		dotdot = dotdot + '&hellip;';
 	};
 %>	
 	<div class="comment"><%= symptom.comment ? '&ldquo;'+symptom.comment.substring(0,25)+dotdot+'&rdquo;' : ''  %></div>
 </div>
 <%	}); %>
 
-<p>Click the 'Add new' button to add to this symptom history.</p>
+<p>Click the 'New' button to add a new event to this symptom history.</p>
