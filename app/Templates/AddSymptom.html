@@ -4,15 +4,15 @@
 	var isAddNew = !isEdit;
 
 	if (isEdit) {
-		$("#myModal").css("background", "#B8E627");
+		$("#myModal").css("background", "#A9BE9A");
 	} else {
-		$("#myModal").css("background", "#99CCFF");
+		$("#myModal").css("background", "#B7C4D1");
 	}
 	var readyToRender =  hasCategory && (hasSymptom || isAddNew);
 	if (readyToRender) {
 %>
-	<h3 class="modal-title"><%= isEdit ? 'Edit' : 'Add' %> <strong><%= category.name %></strong> event</h3>
-	
+	<h3 class="modal-title"><%= isEdit ? 'Edit' : 'Add' %> <strong><%= category.name %></strong></h3>
+	<hr/>
 	<form id="symptomsubmitform" action="#categories/<%=category.name%>">
 		<label for="date">Date & Time: </label>
 			<input type="date" name="date" value="<%= symptom.date ? moment(symptom.date.iso).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD') %>"/>
