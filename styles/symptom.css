@@ -42,6 +42,10 @@ body {
 	color: #4D4D4D;
 }
 
+#listEnd {
+	height: 50px;
+}
+
 .new-text {
 	padding: 15px 15px 80px 15px;
 }
