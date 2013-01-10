@@ -42,9 +42,15 @@ define(
 		},
 
 		validateForm: function() {
-			var isValid = true;
-			isValid = isValid && this.$("[name=name]").val().length > 0;
-			this.toggleSubmitButtonDisabled(!isValid);
+			if (this.$("[name=name]").val().length < 1) {
+				alert("You need to give the symptom a name.");
+				return false;
+			}
+			if (this.$("[name=unit]").val().length < 1) {
+				alert("You need to choose a unit.");
+				return false;
+			}
+			return true;
 		},
 
 		saveToParse: function(data) {

@@ -23,15 +23,21 @@ define(
 			this.hideModal();
 		},
 
+		validateForm: function() {
+			return true;
+		},
+
 		handleSubmit: function(event){
 			event.preventDefault();
-			this.toggleSubmitButtonDisabled(true);
+			if(this.validateForm()) {
+				this.toggleSubmitButtonDisabled(true);
 
-			var data = this.getDataFromForm();
-			data.user = Parse.User.current();
-			data.ACL = new Parse.ACL(Parse.User.current());
+				var data = this.getDataFromForm();
+				data.user = Parse.User.current();
+				data.ACL = new Parse.ACL(Parse.User.current());
 
-			this.saveToParse(data);
+				this.saveToParse(data);
+			}
 		}
 	});
 });
