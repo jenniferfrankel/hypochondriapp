@@ -1,17 +1,14 @@
-<a class="btn pull-right" id="addSymptomButton">New</a>
-<%	_.each(symptoms,function(symptom){ %>
-<div class="symptom" data-symptom-id="<%=symptom.objectId%>">
-	<div class="severity"><%= symptom.severity %> <span class="unit"> <%= category.unit %></span></div>
+<ul class="list" id="symptomList">
+	<%	_.each(symptoms,function(symptom){ %>
 	
-	<div class="date"><%= moment(symptom.date.iso).format('MMM DD, HH:mm') %></div>
-<%
-	var dotdot = '';
-	if (symptom.comment.length > 25) {
-		dotdot = dotdot + '&hellip;';
-	};
-%>	
-	<div class="comment"><%= symptom.comment ? '&ldquo;'+symptom.comment.substring(0,25)+dotdot+'&rdquo;' : ''  %></div>
-</div>
-<%	}); %>
+	<li class="symptom" data-symptom-id="<%=symptom.objectId%>">
+		<div class="severity"><%= symptom.severity %> <%= category.unit %></div>
+		<div class="date"><%= moment(symptom.date.iso).format('MMM DD, HH:mm') %></div>
+		<% if (symptom.comment) { %>
+		<div class="comment">&ldquo;<%= symptom.comment %>&rdquo;</div>
+		<% } %>
+	</li>
 
-<p>Click the 'New' button to add a new event to this symptom history.</p>
+	<%	}); %>
+</ul>
+<p  class="new-text">Click the 'New' button to add a new event to the symptom history.</p>

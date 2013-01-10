@@ -1,3 +1,7 @@
+a:hover {
+	text-decoration: none;
+}
+
 #bestest-navbar {
 	position: fixed;
 	margin-left:0;
@@ -25,42 +29,51 @@ body {
 }
 
 #categoryList li a {
-	background: -webkit-linear-gradient(bottom, #DDD 2%, #EEE 68%);
-	margin-bottom: 5px;
-	border: 1px solid #BBB;
-	padding: 15px;
-	border-radius: 6px;
 	font-size: 16pt;
-	height: 15px;
+	padding-left: 20px;
+	font-weight: bold;
+	color: #4D4D4D;
+}
+
+.new-text {
+	padding: 15px 15px 80px 15px;
+}
+
+
+#symptomList li {
+	padding: 10px 20px 10px 20px;
+	color: #4D4D4D;
 }
 
 .symptom {
-	background: -webkit-linear-gradient(bottom, #DDD 2%, #EEE 68%);
-	margin-bottom: 5px;
-	border: 1px solid #BBB;
-	padding: 5px;
-	height: 40px;
-	border-radius: 6px;
+  height: 40px;
+  position: relative;
 }
 
 .symptom .severity {
-	float: left;
-	font-size: 16pt;
+	float: right;
+	font-size: 18pt;
+	padding-bottom: 5px;
 }
 .symptom .date {
-	float: right;
+  display: inline-block;
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  max-width: 100px;
 }
 .symptom .comment {
-	display: block;
+  text-align: right;
 	font-style: italic;
-	padding-left: 10px;
-	color: #555;
-	clear: both;
+  position: absolute;
+  bottom: 5px;
+  right: 15px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
 }
 
-.symptom>div {
-	display: inline-block;
-}
 
 #symptomsubmitform {
 	line-height: 2.5em;
@@ -98,9 +111,6 @@ body {
 	padding: 10px;
 }
 
-/* The first div of class "symptom" after a div of class "addSymptom" */
-/* is displayed with a different background color than the rest */
-
 #content {
 	overflow: scroll;
 }
@@ -128,4 +138,6 @@ input[type="range"]::-webkit-slider-thumb {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9e9e9e), color-stop(50%,#ddd), color-stop(80%,#eee), color-stop(100%,#d5ebfb));
 }
 
-
+.list li {
+	border-bottom: 1px solid #aaa;
+}
