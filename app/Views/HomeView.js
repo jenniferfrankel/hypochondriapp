@@ -9,6 +9,9 @@ define(["jquery", "underscore", "text!../Templates/Home.html"], function($, _, t
 			this.template = _.template(template);
 			$("#newButton").hide();
 			this.hideBackButton = true;
+			$("#symptomsTab").removeClass("active");
+			$("#settingsTab").removeClass("active");
+			$("#homeTab").addClass("active");
 		},
 
 		render: function() {

@@ -15,6 +15,10 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 				$("#spinner").spin(false).hide();
 			};
 
+			$("#homeTab").removeClass("active");
+			$("#settingsTab").removeClass("active");
+			$("#symptomsTab").addClass("active");
+
 			$("#spinner").show().spin('large');
 			this.categories.fetch({
 				success: stopSpinner,
