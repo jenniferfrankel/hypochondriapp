@@ -6,7 +6,8 @@ define([
 	"Views/AddCategoryView",
 	"Views/GraphSymptomView",
 	"Views/AboutView",
-	"Views/SymptomListView"
+	"Views/SymptomListView",
+	"Views/HomeView"
 	],
 function(
 	$, Parse, _, spin,
@@ -16,17 +17,19 @@ function(
 	AddCategoryView,
 	GraphSymptomView,
 	AboutView,
-	SymptomListView
+	SymptomListView,
+	HomeView
 	) {
 	return Parse.Router.extend({
 		/**
 		 * A list of routes for this app.
 		 */
 		routes: {
-			"": "home",
+			"": "listCategories",
 			"login": "login",
 			"logout": "logout",
 			"signup": "signup",
+			"home": "home",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName/history": "listSymptoms",
@@ -50,7 +53,8 @@ function(
 		 * The default route. For now, just take the users to the categories list.
 		 */
 		home: function(){
-			this.navigate("categories", {trigger: true, replace: true});
+			this.updateContent(new HomeView());
+			//this.navigate("categories", {trigger: true, replace: true});
 		},
 
 		defaultRoute: function(){
