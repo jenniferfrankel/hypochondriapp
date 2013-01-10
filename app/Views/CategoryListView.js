@@ -23,6 +23,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 
 			this.categories.on("all", this.render);
 			this.hideBackButton = true;
+			$("#newButton").show();
 			$("#newButton").off("click");
 			$("#newButton").click(function(event) {
 				event.preventDefault();

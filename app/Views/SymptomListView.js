@@ -43,7 +43,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				success: stopSpinner,
 				error: stopSpinner
 			});
-
+			$("#newButton").show();
 			$("#newButton").off("click");
 			$("#newButton").click(function(event) {
 				event.preventDefault();
