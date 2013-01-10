@@ -1,8 +1,5 @@
 define(["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html", "./AddCategoryView", "spinhelper"], function($, Parse, _, Category, template, AddCategoryView, spinhelper) {
 	return Parse.View.extend({
-		events : {
-			"click #addCategoryButton" : "addCategory"
-		},
 
 		pageTitle: "Symptoms",
 
@@ -26,6 +23,11 @@ define(["jquery", "parse", "underscore", "../Models/Category", "text!../Template
 
 			this.categories.on("all", this.render);
 			this.hideBackButton = true;
+			$("#newButton").off("click");
+			$("#newButton").click(function(event) {
+				event.preventDefault();
+				that.addCategory();
+			});
 		},
 
 		render: function() {

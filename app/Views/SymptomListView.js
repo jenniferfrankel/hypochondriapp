@@ -44,6 +44,12 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				error: stopSpinner
 			});
 
+			$("#newButton").off("click");
+			$("#newButton").click(function(event) {
+				event.preventDefault();
+				that.addSymptom();
+			});
+
 			this.showAdd = true;
 		},
 
