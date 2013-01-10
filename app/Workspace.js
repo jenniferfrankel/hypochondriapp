@@ -7,7 +7,8 @@ define([
 	"Views/GraphSymptomView",
 	"Views/AboutView",
 	"Views/SymptomListView",
-	"Views/HomeView"
+	"Views/HomeView",
+	"Views/SettingsView"
 	],
 function(
 	$, Parse, _, spin,
@@ -18,7 +19,8 @@ function(
 	GraphSymptomView,
 	AboutView,
 	SymptomListView,
-	HomeView
+	HomeView,
+	SettingsView
 	) {
 	return Parse.Router.extend({
 		/**
@@ -30,6 +32,7 @@ function(
 			"logout": "logout",
 			"signup": "signup",
 			"home": "home",
+			"settings": "settings",
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName/history": "listSymptoms",
@@ -55,6 +58,10 @@ function(
 		home: function(){
 			this.updateContent(new HomeView());
 			//this.navigate("categories", {trigger: true, replace: true});
+		},
+
+		settings: function(){
+			this.updateContent(new SettingsView());
 		},
 
 		defaultRoute: function(){

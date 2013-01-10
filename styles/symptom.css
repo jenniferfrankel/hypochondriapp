@@ -35,6 +35,13 @@ body {
 	color: #4D4D4D;
 }
 
+#settingsList li a {
+	font-size: 16pt;
+	padding-left: 20px;
+	font-weight: bold;
+	color: #4D4D4D;
+}
+
 .new-text {
 	padding: 15px 15px 80px 15px;
 }
