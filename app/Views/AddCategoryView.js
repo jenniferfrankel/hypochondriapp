@@ -1,9 +1,10 @@
 define(
-	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory2.html", "./ModalFormView", "jquery.serializeobject"],
+	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "./ModalFormView", "jquery.serializeobject"],
 	function($, Parse, _, Category, template, ModalFormView) {
 	return ModalFormView.extend({
 		events : {
-			"submit form" :  "handleSubmit"
+			"submit form" :  "handleSubmit",
+			"change input, select" : "validateForm"
 		},
 
 		initialize: function(options){
@@ -38,6 +39,12 @@ define(
 			console.log(formData);
 			console.log("That was the formData");
 			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
+		},
+
+		validateForm: function() {
+			var isValid = true;
+			isValid = isValid && this.$("[name=name]").val().length > 0;
+			this.toggleSubmitButtonDisabled(!isValid);
 		},
 
 		saveToParse: function(data) {
