@@ -40,6 +40,32 @@ define(
 			}
 		},
 
+		validateForm: function() {
+			// Check if the chosen date and time is in the future
+			var date = this.$("[name=date]").val();
+			var time = this.$("[name=time]").val();
+			var dateANDtime = moment(date+"T"+time+":00");
+			var now = moment();
+			if (dateANDtime > now){
+				console.log("date&time > now");
+				if(confirm("You have chosen a future time/date for this symptom event. Do you wish to continue?")){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			
+		//	console.log("date: " + date);
+		//	console.log("time: " + time);
+		//	console.log(moment().format('YYYY-MM-DD'));
+		//	console.log(moment().format('HH:mm'));
+
+		//	console.log("now: " + moment());
+
+			return true;
+		},
+
 		onCategoryLoaded : function(categories) {
 			this.category = _.first(categories);
 			this.render();
