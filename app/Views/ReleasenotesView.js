@@ -1,17 +1,17 @@
-define(["jquery", "underscore", "text!../Templates/Home.html"], function($, _, template) {
+define(["jquery", "underscore", "text!../Templates/Releasenotes.html"], function($, _, template) {
 	return Parse.View.extend({
 
-		pageTitle: "HypochondriApp",
+		pageTitle: "Release notes",
 
 		initialize: function() {
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
 			$("#newButton").hide();
-			this.hideBackButton = true;
+			this.hideBackButton = false;
 			$("#symptomsTab").removeClass("active");
-			$("#settingsTab").removeClass("active");
-			$("#homeTab").addClass("active");
+			$("#homeTab").removeClass("active");
+			$("#settingsTab").addClass("active");
 		},
 
 		render: function() {
