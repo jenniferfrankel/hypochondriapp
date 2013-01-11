@@ -8,7 +8,8 @@ define([
 	"Views/SymptomListView",
 	"Views/HomeView",
 	"Views/SettingsView",
-	"Views/ReleasenotesView"
+	"Views/ReleasenotesView",
+	"Views/FaqView"
 	],
 function(
 	$, Parse, _, spin,
@@ -20,7 +21,8 @@ function(
 	SymptomListView,
 	HomeView,
 	SettingsView,
-	ReleasenotesView
+	ReleasenotesView,
+	FaqView
 	) {
 	return Parse.Router.extend({
 		/**
@@ -38,6 +40,7 @@ function(
 			"categories/:categoryName/history": "listSymptoms",
 			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"settings/releasenotes" : "releasenotes",
+			"settings/faq" : "faq",
 			"*path": "defaultRoute"
 		},
 
@@ -67,6 +70,10 @@ function(
 
 		releasenotes: function(){
 			this.updateContent(new ReleasenotesView());
+		},
+
+		faq: function(){
+			this.updateContent(new FaqView());
 		},
 
 		defaultRoute: function(){
