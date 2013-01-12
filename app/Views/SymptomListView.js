@@ -49,7 +49,9 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				event.preventDefault();
 				that.addSymptom();
 			});
-
+			$("#settingsTab").removeClass("active");
+			$("#homeTab").removeClass("active");
+			$("#symptomsTab").addClass("active");
 			this.showAdd = true;
 		},
 
