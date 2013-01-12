@@ -123,21 +123,20 @@ function(
 			var that = this;
 			var onSignupSuccess = function() {
 				// TODO: Take user to tutorial
-				that.navigate("", {trigger: true, replace: true});
+				that.navigate("categories", {trigger: true, replace: true});
 			};
 			var signUpView = new SignUpView({
 				success: onSignupSuccess
 			});
 			this.updateContent(signUpView, true);
 			$("#myModal").modal('hide');
-
 		},
 
 		login: function() {
 			if (!!Parse.User.current()) {
 				// If we are logged in already, an the user goes to the login
 				// page (somehow), just send them home.
-				this.navigate("", {trigger: true, replace: true});
+				this.navigate("categories", {trigger: true, replace: true});
 			} else {
 				var that = this;
 				var onLoginSuccess = function() {
