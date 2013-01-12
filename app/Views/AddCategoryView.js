@@ -3,8 +3,7 @@ define(
 	function($, Parse, _, Category, template, ModalFormView) {
 	return ModalFormView.extend({
 		events : {
-			"submit form" :  "handleSubmit",
-			"change input, select" : "validateForm"
+			"submit form" :  "handleSubmit"
 		},
 
 		initialize: function(options){
