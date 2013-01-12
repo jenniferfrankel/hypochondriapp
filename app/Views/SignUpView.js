@@ -25,7 +25,6 @@ define(["jquery", "parse", "underscore", "text!../Templates/Signup.html"], funct
 					that.$(".signup-form button").prop('disabled', false);
 				}
 			});
-
 		},
 
 		render: function() {
