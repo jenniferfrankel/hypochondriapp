@@ -28,6 +28,11 @@ body {
 	margin: auto;
 }
 
+#signup {
+	padding: 20px;
+}
+
+
 #categoryList li a {
 	font-size: 16pt;
 	padding-left: 20px;
