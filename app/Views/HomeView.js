@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "text!../Templates/Home.html"], function($, _, template) {
+define(["jquery", "underscore", "parse", "text!../Templates/Home.html"], function($, _, Parse, template) {
 	return Parse.View.extend({
 
 		pageTitle: "HypochondriApp",
@@ -12,10 +12,11 @@ define(["jquery", "underscore", "text!../Templates/Home.html"], function($, _, t
 			$("#symptomsTab").removeClass("active");
 			$("#settingsTab").removeClass("active");
 			$("#homeTab").addClass("active");
+			this.username = Parse.User.current().get("username");
 		},
 
 		render: function() {
-			this.$el.html(this.template());
+			this.$el.html(this.template({"username": this.username}));
 			return this;
 		}
 	});
