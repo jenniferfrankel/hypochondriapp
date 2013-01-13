@@ -1,4 +1,6 @@
-define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "moment"], function($, Parse, _, Category, Symptom, AddSymptomView, template) {
+define(
+	["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "QueryHelper", "moment"],
+	function($, Parse, _, Category, Symptom, AddSymptomView, template, queryHelper) {
 	return Parse.View.extend({
 		events : {
 			"click .symptom" :  "editSymptom",
@@ -13,43 +15,43 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			this.pageTitle = categoryName;
 			this.newButtonFn = this.addSymptom;
 
-			// Create a query to fetch the actual category object with the specified name
-			var categoryQuery = new Parse.Query(Category);
-			categoryQuery.equalTo("user", Parse.User.current());
-			categoryQuery.equalTo("name", categoryName);
-
-			// A query to fetch the symptoms - this uses the category query as
-			// an inner query to just pick the symptoms for that category.
-			var symptomQuery = new Parse.Query(Symptom);
-			symptomQuery.matchesQuery("category", categoryQuery);
-			symptomQuery.include("category");
-
-			this.categories = categoryQuery.collection();
-			this.symptoms = symptomQuery.collection();
-			this.symptoms.comparator = function(symptom) {
-				return -symptom.get("date").getTime();
-			};
-			this.symptoms.on("all", this.render);
-			this.categories.on("all", this.render);
-			var stopSpinner = function() {
-				console.log("stop spinner");
-				$("#spinner").spin(false).hide();
-			};
-
-			$("#spinner").show().spin('large');
-			this.categories.fetch();
-			this.symptoms.fetch({
-				success: stopSpinner,
-				error: stopSpinner
-			});
+			this.showSpinner();
+			queryHelper.fetchCategoryByName(categoryName)
+				.done(this.onCategoryFetched)
+				.fail(this.stopSpinner)
+				.always(this.render);
+			
 			this.showAdd = true;
 		},
 
+		onCategoryFetched : function(category) {
+			this.category = category;
+			queryHelper.fetchSymptomsForCategory(category)
+				.done(this.onSymptomsFetched)
+				.always(this.stopSpinner)
+				.always(this.render);
+		},
+
+		onSymptomsFetched: function(symptoms) {
+			this.symptoms = symptoms;
+			this.symptoms.on("all", this.render);
+			this.symptoms.comparator = function(symptom) {
+				return -symptom.get("date").getTime();
+			};
+		},
+
+		showSpinner : function () {
+			$("#spinner").show().spin('large');
+		},
+
+		stopSpinner : function () {
+			$("#spinner").spin(false).hide();
+		},
+
 		render: function(){
-			var hasCategory = !!this.categories.first();
 			this.$el.html(this.template({
-				symptoms : this.symptoms.toJSON(),
-				category : hasCategory ? this.categories.first().toJSON() : null
+				symptoms : this.symptoms ? this.symptoms.toJSON() : [],
+				category : this.category ? this.category.toJSON() : null
 			}));
 
 			if (this.symptoms && this.showAdd) {
@@ -71,6 +73,7 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			var symptomId = $(event.target).closest(".symptom").data("symptom-id");
 			var symptom = this.symptoms.get(symptomId);
 			var view = new AddSymptomView({
+				categoryName: this.categoryName,
 				symptom: symptom
 			});
 			$("#myModal").empty().append(view.render().$el);

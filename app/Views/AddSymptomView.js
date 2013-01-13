@@ -1,6 +1,6 @@
 define(
-	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./ModalFormView", "jquery.serializeobject"],
-	function($, Parse, _, durationUtils, Category, Symptom, template, ModalFormView) {
+	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./ModalFormView", "QueryHelper", "jquery.serializeobject"],
+	function($, Parse, _, durationUtils, Category, Symptom, template, ModalFormView, queryHelper) {
 	return ModalFormView.extend({
 		events : {
 			"submit form" :  "handleSubmit",
@@ -15,14 +15,8 @@ define(
 			this.symptom = options.symptom;
 			this.symptoms = options.symptoms;
 
-			if (this.symptom) {
-				this.category = this.symptom.get("category");
-			} else {
-				var categoryQuery = new Parse.Query(Category);
-				categoryQuery.equalTo("name", options.categoryName);
-				categoryQuery.equalTo("user", Parse.User.current());
-				categoryQuery.find({ success : this.onCategoryLoaded });
-			}
+			queryHelper.fetchCategoryByName(options.categoryName)
+				.done(this.onCategoryLoaded);
 
 			// We 'debounce' the onChange event handlers to not make the UI
 			// to sluggish when dragging the slider to fast. I.e., we wait
@@ -64,8 +58,8 @@ define(
 			return true;
 		},
 
-		onCategoryLoaded : function(categories) {
-			this.category = _.first(categories);
+		onCategoryLoaded : function(category) {
+			this.category = category;
 			this.render();
 		},
 
