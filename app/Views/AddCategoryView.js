@@ -49,6 +49,11 @@ define(
 				alert("You need to choose a unit.");
 				return false;
 			}
+			if (!window.navigator.onLine) {
+				alert("Ooops! You seem to be offline. Please go online to submit your new symptom.");
+				return false;
+			}
+				
 			return true;
 		},
 

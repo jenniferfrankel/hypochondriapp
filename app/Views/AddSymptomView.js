@@ -55,13 +55,11 @@ define(
 					return false;
 				}
 			}
-			
-		//	console.log("date: " + date);
-		//	console.log("time: " + time);
-		//	console.log(moment().format('YYYY-MM-DD'));
-		//	console.log(moment().format('HH:mm'));
 
-		//	console.log("now: " + moment());
+			if (!window.navigator.onLine) {
+				alert("Ooops! You seem to be offline. Please go online to submit your new event.");
+				return false;
+			}
 
 			return true;
 		},
