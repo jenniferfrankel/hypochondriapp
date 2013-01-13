@@ -5,14 +5,13 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 			"click #addSymptomButton" : "addSymptom"
 		},
 
-		pageTitle: "&hellip;",
-
 		initialize: function(categoryName) {
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
 			this.categoryName = categoryName;
 			this.pageTitle = categoryName;
+			this.newButtonFn = this.addSymptom;
 
 			// Create a query to fetch the actual category object with the specified name
 			var categoryQuery = new Parse.Query(Category);
@@ -43,15 +42,6 @@ define(["jquery", "parse", "underscore", "../Models/Category", "../Models/Sympto
 				success: stopSpinner,
 				error: stopSpinner
 			});
-			$("#newButton").show();
-			$("#newButton").off("click");
-			$("#newButton").click(function(event) {
-				event.preventDefault();
-				that.addSymptom();
-			});
-			$("#settingsTab").removeClass("active");
-			$("#homeTab").removeClass("active");
-			$("#symptomsTab").addClass("active");
 			this.showAdd = true;
 		},
 

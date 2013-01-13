@@ -7,11 +7,6 @@ define(["jquery", "underscore", "text!../Templates/faq.html"], function($, _, te
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
-			$("#newButton").hide();
-			this.hideBackButton = false;
-			$("#symptomsTab").removeClass("active");
-			$("#homeTab").removeClass("active");
-			$("#settingsTab").addClass("active");
 		},
 
 		render: function() {

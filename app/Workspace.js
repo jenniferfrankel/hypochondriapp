@@ -50,12 +50,10 @@ function(
 		initialize: function() {
 			_.bindAll(this);
 			Parse.history.start();
-			$("#aboutButton").click(function(event) {
+			
+			$("#backButton").click(function(event) {
 				event.preventDefault();
-				var view = new AboutView();
-				//this.updateContent(view, true);
-				$("#myModal").empty().append(view.render().$el);
-				$('#myModal').modal();
+				window.history.back();
 			});
 		},
 
@@ -173,19 +171,42 @@ function(
 				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});
 			}
-			if (window.history.length > 0 && !view.hideBackButton) {
-				$("#backButton").show();
-			} else {
-				$("#backButton").hide();
-			}
+			
 			// This is a fix for non-working drop-down menus on iPad and iPhone (from https://github.com/twitter/bootstrap/issues/2975#issuecomment-6659992)
 			$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
-			$("#backButton").off("click");
-			$("#backButton").click(function(event) {
-				event.preventDefault();
-				window.history.back();
-			});
+			
+			this.updatePageTitle(view);
+			this.updateBackButton(view);
+			this.updateNewButton(view);
+			this.updateActiveTab(view);
+		},
+
+		updatePageTitle : function(view) {
 			$("#page-title").html(view.pageTitle);
+		},
+
+		updateBackButton : function(view) {
+			var hasHistory = window.history.length > 0;
+			var isRootView = view.tabId;
+			$("#backButton").toggle(hasHistory && !isRootView);
+		},
+
+		updateNewButton : function(view) {
+			if (view.newButtonFn) {
+				$("#newButton").show().off("click").click(function(event) {
+					event.preventDefault();
+					view.newButtonFn();
+				});
+			} else {
+				$("#newButton").hide();
+			}
+		},
+
+		updateActiveTab : function(view) {
+			if (view.tabId) {
+				$(".bar-tab .tab-item").removeClass("active");
+				$(view.tabId).addClass("active");
+			}
 		}
 	});
 });

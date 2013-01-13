@@ -4,12 +4,14 @@ define(
 	return Parse.View.extend({
 
 		pageTitle: "Symptoms",
+		tabId: "#symptomsTab",
 
 		initialize: function() {
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
 			this.categories = this.fetchCategories();
+			this.newButtonFn = this.addCategory;
 			this.categories.on("all", this.render);
 		},
 

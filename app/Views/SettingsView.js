@@ -3,15 +3,12 @@ define(["jquery", "underscore", "text!../Templates/Settings.html"], function($, 
 
 		pageTitle: "Settings",
 
+		tabId: "#settingsTab",
+
 		initialize: function() {
 			_.bindAll(this);
 			var that = this;
 			this.template = _.template(template);
-			$("#newButton").hide();
-			this.hideBackButton = true;
-			$("#symptomsTab").removeClass("active");
-			$("#homeTab").removeClass("active");
-			$("#settingsTab").addClass("active");
 		},
 
 		render: function() {
