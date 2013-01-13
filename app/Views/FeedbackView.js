@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "text!../Templates/Feedback.html"], function($, _, template) {
+define(["jquery", "parse", "underscore", "text!../Templates/Feedback.html"], function($, Parse, _, template) {
 	return Parse.View.extend({
 
 		pageTitle: "Feedback",

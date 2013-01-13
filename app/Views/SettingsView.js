@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "text!../Templates/Settings.html"], function($, _, template) {
+define(["parse", "jquery", "underscore", "text!../Templates/Settings.html"], function(Parse, $, _, template) {
 	return Parse.View.extend({
 
 		pageTitle: "Settings",
