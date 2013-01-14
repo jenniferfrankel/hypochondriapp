@@ -50,11 +50,6 @@ function(
 		initialize: function() {
 			_.bindAll(this);
 			Parse.history.start();
-			
-			$("#backButton").click(function(event) {
-				event.preventDefault();
-				window.history.back();
-			});
 
 			this.on("all", function() {
 				var url = Parse.history.getFragment();
@@ -198,6 +193,10 @@ function(
 			var hasHistory = window.history.length > 0;
 			var isRootView = view.tabId;
 			$("#backButton").toggle(hasHistory && !isRootView);
+			$("#backButton").off("click").click(function(event) {
+				event.preventDefault();
+				window.history.back();
+			});
 		},
 
 		updateNewButton : function(view) {
