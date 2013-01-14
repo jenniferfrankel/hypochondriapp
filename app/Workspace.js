@@ -57,6 +57,8 @@ function(
 			});
 
 			this.on("all", function() {
+				var url = Backbone.history.getFragment();
+				_gaq.push(['_trackPageview', "/#"+url]);
 				localStorage.setItem("lastRoute", window.location.hash);
 			});
 
