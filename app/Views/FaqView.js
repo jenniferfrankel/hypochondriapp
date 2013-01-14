@@ -1,4 +1,4 @@
-define(["jquery", "parse", "underscore", "text!../Templates/faq.html"], function($, Parse, _, template) {
+define(["jquery", "parse", "underscore", "text!../Templates/Faq.html"], function($, Parse, _, template) {
 	return Parse.View.extend({
 
 		pageTitle: "FAQ",
