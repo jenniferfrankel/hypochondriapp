@@ -28,16 +28,17 @@ body {
 	margin: auto;
 }
 
-#signup {
-	padding: 20px;
+.content {
+	background-color: #CFD0D3;
 }
 
+.aboutText {
+	background-color: white;
+	padding-bottom: 100px;
+}
 
-#categoryList li a {
-	font-size: 16pt;
-	padding-left: 20px;
-	font-weight: bold;
-	color: #4D4D4D;
+#settingsList {
+	margin: 20px;
 }
 
 #settingsList li a {
@@ -51,8 +52,22 @@ body {
 	height: 50px;
 }
 
+#signup {
+	padding: 20px;
+}
+
+
+#categoryList li a {
+	font-size: 16pt;
+	padding-left: 25px;
+	font-weight: bold;
+	color: #4D4D4D;
+}
+
+
 .new-text {
-	padding: 15px 15px 80px 15px;
+	padding: 5px 15px 40px 20px;
+	background-color: white;
 }
 
 
