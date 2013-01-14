@@ -55,6 +55,13 @@ function(
 				event.preventDefault();
 				window.history.back();
 			});
+
+			this.on("all", function() {
+				localStorage.setItem("lastRoute", window.location.hash);
+			});
+
+			var lastRoute = localStorage.getItem("lastRoute");
+			window.location.hash = lastRoute;
 		},
 
 		/**
