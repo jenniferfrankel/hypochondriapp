@@ -36,6 +36,14 @@ body {
 	margin: auto;
 }
 
+.faqs {
+	width: 320px;
+}
+
+#feedbackForm {
+	width: 320px;
+}
+
 .content {
 	background-color: #CFD0D3;
 }
