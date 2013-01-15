@@ -202,13 +202,17 @@ function(
 		},
 
 		updateBackButton : function(view) {
-			var hasHistory = window.history.length > 0;
-			var isRootView = view.tabId;
-			$("#backButton").toggle(hasHistory && !isRootView);
-			$("#backButton").off("click").click(function(event) {
-				event.preventDefault();
-				window.history.back();
-			});
+			if(!!view.backButtonText){
+				$("#backButton").text(view.backButtonText);
+				$("#backButton").show();
+				$("#backButton").off("click").click(function(event) {
+					event.preventDefault();
+					window.location.hash = view.backLocation;
+				});
+			}else{
+				$("#backButton").hide();
+			}
+			
 		},
 
 		updateNewButton : function(view) {

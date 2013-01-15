@@ -2,6 +2,11 @@ define(
 	["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "QueryHelper", "jquery.flot", "jquery.flot.time", "moment"],
 	function($, Parse, _, Category, Symptom, AddSymptomView, template, queryHelper) {
 	return Parse.View.extend({
+
+		backButtonText: "All symptoms",
+		backLocation: "categories",
+		tabId: "#symptomsTab",
+
 		events : {
 			"click .symptom" :  "editSymptom",
 			"click #addSymptomButton" : "addSymptom"

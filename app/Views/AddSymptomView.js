@@ -2,6 +2,9 @@ define(
 	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./FormView", "QueryHelper", "jquery.serializeobject"],
 	function($, Parse, _, durationUtils, Category, Symptom, template, FormView, queryHelper) {
 	return FormView.extend({
+
+		tabId: "#symptomsTab",
+		
 		events : {
 			"submit form" :  "handleSubmit",
 			"click .delete" : "onClickDelete",

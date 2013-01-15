@@ -2,6 +2,9 @@ define(["jquery", "parse", "underscore", "text!../Templates/Feedback.html"], fun
 	return Parse.View.extend({
 
 		pageTitle: "Feedback",
+		tabId: "#settingsTab",
+		backButtonText: "Settings",
+		backLocation: "settings",
 
 		initialize: function() {
 			_.bindAll(this);

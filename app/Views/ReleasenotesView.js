@@ -2,6 +2,9 @@ define(["parse", "jquery", "underscore", "text!../Templates/Releasenotes.html"],
 	return Parse.View.extend({
 
 		pageTitle: "Release notes",
+		tabId: "#settingsTab",
+		backButtonText: "Settings",
+		backLocation: "settings",
 
 		initialize: function() {
 			_.bindAll(this);
