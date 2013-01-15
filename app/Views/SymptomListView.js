@@ -56,7 +56,7 @@ define(
 		},
 
 		getOrientation : function() {
-			return window.orientation === 0 ? 'portrait' : 'landscape';
+			return !window.orientation ? 'portrait' : 'landscape';
 		},
 
 		render: function() {
