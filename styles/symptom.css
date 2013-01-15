@@ -41,7 +41,12 @@ body {
 }
 
 #feedbackForm {
-	width: 320px;
+	padding: 10px;
+}
+
+#feedbackForm textarea {
+	height: 200px;
+	margin: 40px 0;
 }
 
 .content {
