@@ -11,13 +11,6 @@ define(
 				this.$("[type=submit]").prop('disabled', isDisabled);
 			},
 
-			hideModal: function() {
-				// Remove focus from input fields to ensure
-				// that keyboard field disappears when modal closes
-				this.$("input").blur();
-				$("#myModal").modal('hide');
-			},
-
 			onSendToParseComplete: function() {
 				this.toggleSubmitButtonDisabled(false);
 			},

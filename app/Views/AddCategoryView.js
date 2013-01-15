@@ -21,13 +21,6 @@ define(
 			this.categories = categories;
 		},
 
-		getDataFromForm1 : function() {
-			var formData = this.$("#categorysubmitform").serializeObject();
-			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
-			formData.rangeDefault = rangeDefault;
-			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
-		},
-
 		onClickCancel: function() {
 			window.location.hash = "categories";
 		},
