@@ -16,6 +16,10 @@ body {
 	padding-top: 50px;
 }
 
+.signup-form div{
+	padding: 10px;
+}
+
 .editPage {
 	margin: 10px;
 	border-radius: 5px;

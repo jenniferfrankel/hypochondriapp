@@ -148,15 +148,14 @@ function(
 
 		login: function() {
 			if (!!Parse.User.current()) {
-				// If we are logged in already, an the user goes to the login
+				// If we are logged in already, and the user goes to the login
 				// page (somehow), just send them home.
 				this.navigate("categories", {trigger: true, replace: true});
 			} else {
 				var that = this;
 				var onLoginSuccess = function() {
 					$('#myModal').modal('hide');
-					that.navigate(that.locationAfterLogin || "", {trigger: true, replace: true});
-					that.locationAfterLogin = null;
+					that.navigate("categories", {trigger: true, replace: true});
 				};
 				var view = new LogInView({
 					success: onLoginSuccess

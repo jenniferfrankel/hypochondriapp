@@ -1,10 +1,16 @@
-<div id="signup">	
+<div class="editPage" id="signup">	
 	<form class="signup-form">
 		<h2 class=".modal-title">Sign Up</h2><br/>
 		<div class="error" style="display:none"></div>
 		<input type="text" id="signup-username" required placeholder="Username" />
 		<input type="password" id="signup-password" required placeholder="Create a Password" />
 		<input id="#signup-email" type="email" name="email" required placeholder="Email address">
-		<button class="btn">Sign Up</button>
+		<div class="pull-left">
+			<button type="button" class="btn cancel" data-dismiss="modal">Cancel</button>
+		</div>
+		<div class="pull-right">
+			<button class="btn btn-primary">Sign Up</button>
+		</div>
+		<div style="clear:both"></div>
 	</form>
 </div>

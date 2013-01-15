@@ -1,7 +1,11 @@
 define(["jquery", "parse", "underscore", "text!../Templates/Signup.html"], function($, Parse, _, template) {
 	return Parse.View.extend({
+
+		pageTitle: "HypochondriApp",
+
 		events: {
-			"submit form.signup-form": "signUp"
+			"submit form.signup-form": "signUp",
+			"click .cancel" : "onClickCancel"
 		},
 		
 		initialize: function(options) {
@@ -25,6 +29,10 @@ define(["jquery", "parse", "underscore", "text!../Templates/Signup.html"], funct
 					that.$(".signup-form button").prop('disabled', false);
 				}
 			});
+		},
+
+		onClickCancel: function() {
+			window.location.hash = "login";
 		},
 
 		render: function() {

@@ -2,7 +2,6 @@ define(["parse", "jquery", "underscore", "text!../Templates/Settings.html"], fun
 	return Parse.View.extend({
 
 		pageTitle: "Settings",
-
 		tabId: "#settingsTab",
 
 		initialize: function() {
