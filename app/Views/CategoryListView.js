@@ -39,12 +39,8 @@ define(
 
 		addCategory: function() {
 			// when add new button is clicked
-			// create addCategoryView and display in modal
-			var view = new AddCategoryView({
-				categories: this.categories
-			});
-			$("#myModal").empty().append(view.render().$el);
-			$("#myModal").modal();
+			// go to AddCategoryView via Workspace router
+			window.location.hash = "categories/addCategory";
 		}
 	});
 });

@@ -20,11 +20,14 @@ define(
 
 			onSendToParseComplete: function() {
 				this.toggleSubmitButtonDisabled(false);
-				this.hideModal();
 			},
 
 			validateForm: function() {
 				return true;
+			},
+
+			navigateBack: function() {
+				window.history.back();
 			},
 
 			handleSubmit: function(event){
@@ -35,6 +38,7 @@ define(
 					data.user = Parse.User.current();
 					data.ACL = new Parse.ACL(Parse.User.current());
 					this.saveToParse(data);
+					this.navigateBack();
 				}
 			}
 		});

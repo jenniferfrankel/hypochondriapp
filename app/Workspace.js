@@ -6,6 +6,7 @@ define([
 	"Views/AddCategoryView",
 	"Views/GraphSymptomView",
 	"Views/SymptomListView",
+	"Views/AddSymptomView",
 	"Views/HomeView",
 	"Views/SettingsView",
 	"Views/ReleasenotesView",
@@ -20,6 +21,7 @@ function(
 	AddCategoryView,
 	GraphSymptomView,
 	SymptomListView,
+	AddSymptomView,
 	HomeView,
 	SettingsView,
 	ReleasenotesView,
@@ -40,6 +42,8 @@ function(
 			"categories": "listCategories",
 			"categories/addCategory": "addCategory",
 			"categories/:categoryName/history": "listSymptoms",
+			"categories/:categoryName/addNew": "addSymptom",
+			"categories/:categoryName/edit/:symptomId": "editSymptom",
 			"categories/:categoryName/symptomGraph": "symptomGraph",
 			"settings/releasenotes" : "releasenotes",
 			"settings/faq" : "faq",
@@ -115,6 +119,14 @@ function(
 		 */
 		listSymptoms: function(categoryName) {
 			this.updateContent(new SymptomListView(categoryName));
+		},
+
+		addSymptom: function(categoryName) {
+			this.updateContent(new AddSymptomView(categoryName));
+		},
+
+		editSymptom: function(categoryName, symptomId) {
+			this.updateContent(new AddSymptomView(categoryName, symptomId));
 		},
 
 		symptomGraph: function(categoryName) {

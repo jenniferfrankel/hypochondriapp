@@ -1,22 +1,25 @@
 define(
-	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./ModalFormView", "QueryHelper", "jquery.serializeobject"],
-	function($, Parse, _, durationUtils, Category, Symptom, template, ModalFormView, queryHelper) {
-	return ModalFormView.extend({
+	["jquery", "parse", "underscore", "durationUtils", "../Models/Category", "../Models/Symptom", "text!../Templates/AddSymptom.html", "./FormView", "QueryHelper", "jquery.serializeobject"],
+	function($, Parse, _, durationUtils, Category, Symptom, template, FormView, queryHelper) {
+	return FormView.extend({
 		events : {
 			"submit form" :  "handleSubmit",
 			"click .delete" : "onClickDelete",
+			"click .cancel" : "onClickCancel",
 			"change input[name='severity']" : "onChangeSeverity",
 			"change input[name='duration']" : "onChangeDuration"
 		},
 
-		initialize: function(options) {
+		initialize: function(categoryName, symptomId) {
 			_.bindAll(this);
 			this.template = _.template(template);
-			this.symptom = options.symptom;
-			this.symptoms = options.symptoms;
+			this.categoryName = categoryName;
+			this.symptomId = symptomId;
+			var addOrEdit = symptomId ? "Edit " : "Add ";
+			this.pageTitle = addOrEdit + categoryName;
 
-			queryHelper.fetchCategoryByName(options.categoryName)
-				.done(this.onCategoryLoaded);
+			queryHelper.fetchCategoryByName(categoryName)
+				.done(this.onCategoryFetched);
 
 			// We 'debounce' the onChange event handlers to not make the UI
 			// to sluggish when dragging the slider to fast. I.e., we wait
@@ -30,8 +33,12 @@ define(
 		onClickDelete : function() {
 			if (confirm("Are you sure you want to delete this symptom?")) {
 				this.symptom.destroy();
-				$("#myModal").modal('hide');
+				window.location.hash = "categories/"+this.categoryName+"/history";
 			}
+		},
+
+		onClickCancel: function() {
+			window.location.hash = "categories/"+this.categoryName+"/history";
 		},
 
 		validateForm: function() {
@@ -58,14 +65,27 @@ define(
 			return true;
 		},
 
-		onCategoryLoaded : function(category) {
+		navigateBack: function() {
+			window.location.hash = "categories/" + this.categoryName + "/history";
+		},
+
+		onCategoryFetched: function(category) {
 			this.category = category;
-			this.render();
+			queryHelper.fetchSymptomsForCategory(category)
+				.done(this.onSymptomsFetched)
+				.always(this.render);
+		},
+
+		onSymptomsFetched: function(symptoms) {
+			this.symptoms = symptoms;
+			if (this.symptomId) {
+				this.symptom = symptoms.get(this.symptomId);
+			}
 		},
 
 		render: function() {
 			this.$el.html(this.template({
-				isEdit: !!this.options.symptom,
+				isEdit: !!this.symptomId,
 				category: this.category ? this.category.toJSON() : {},
 				symptom: this.symptom ? this.symptom.toJSON() : {},
 				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 443

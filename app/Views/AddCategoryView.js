@@ -1,15 +1,24 @@
 define(
-	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "./ModalFormView", "jquery.serializeobject"],
-	function($, Parse, _, Category, template, ModalFormView) {
-	return ModalFormView.extend({
+	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/AddCategory.html", "./FormView", "QueryHelper", "jquery.serializeobject"],
+	function($, Parse, _, Category, template, FormView, queryHelper) {
+	return FormView.extend({
 		events : {
-			"submit form" :  "handleSubmit"
+			"submit form" :  "handleSubmit",
+			"click .cancel" : "onClickCancel"
 		},
 
-		initialize: function(options){
+		initialize: function(){
 			_.bindAll(this);
 			this.template = _.template(template);
-			this.categories = options.categories;
+			this.pageTitle = "New Symptom";
+
+			queryHelper.fetchCategories()
+				.done(this.onCategoriesFetched)
+				.always(this.render);
+		},
+
+		onCategoriesFetched: function(categories) {
+			this.categories = categories;
 		},
 
 		getDataFromForm1 : function() {
@@ -17,6 +26,10 @@ define(
 			var rangeDefault = Math.floor(((formData.rangeMin + formData.rangeMax) / 2) / formData.stepSize) * formData.stepSize;
 			formData.rangeDefault = rangeDefault;
 			return _.pick(formData, ['name', 'unit', 'rangeMin', 'rangeMax', 'rangeDefault', 'stepSize']);
+		},
+
+		onClickCancel: function() {
+			window.location.hash = "categories";
 		},
 
 		getDataFromForm : function() {

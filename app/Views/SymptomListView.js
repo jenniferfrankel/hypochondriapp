@@ -24,7 +24,7 @@ define(
 			this.showAdd = true;
 		},
 
-		onCategoryFetched : function(category) {
+		onCategoryFetched: function(category) {
 			this.category = category;
 			queryHelper.fetchSymptomsForCategory(category)
 				.done(this.onSymptomsFetched)
@@ -53,42 +53,33 @@ define(
 				symptoms : this.symptoms ? this.symptoms.toJSON() : [],
 				category : this.category ? this.category.toJSON() : null
 			}));
-
-			if (this.symptoms && this.showAdd) {
-				var view = new AddSymptomView({
-					categoryName: this.categoryName,
-					symptoms : this.symptoms
-				});
-				$("#myModal").empty().append(view.render().$el);
-				$("#myModal").modal();
-				this.showAdd = false;
-			}
-
 			return this;
 		},
 
 		editSymptom: function(event){
-			// when a symptom is clicked on
-			// create Add/Edit-View and send in that whole symptom object
+			// when a symptom is clicked on send a
+			// hash address (containing category name and symptom id) to the router
 			var symptomId = $(event.target).closest(".symptom").data("symptom-id");
-			var symptom = this.symptoms.get(symptomId);
-			var view = new AddSymptomView({
-				categoryName: this.categoryName,
-				symptom: symptom
-			});
-			$("#myModal").empty().append(view.render().$el);
-			$("#myModal").modal();
+			window.location.hash = "categories/"+this.categoryName+"/edit/"+symptomId;
+			// var symptom = this.symptoms.get(symptomId);
+			// var view = new AddSymptomView({
+			// 	categoryName: this.categoryName,
+			// 	symptom: symptom
+			// });
+			// $("#myModal").empty().append(view.render().$el);
+			// $("#myModal").modal();
 		},
 
 		addSymptom: function(event){
 			// when the add new button is clicked
 			// create the add view
-			var view = new AddSymptomView({
-				categoryName: this.categoryName,
-				symptoms : this.symptoms
-			});
-			$("#myModal").empty().append(view.render().$el);
-			$("#myModal").modal();
+			window.location.hash = "categories/"+this.categoryName+"/addNew";
+			// var view = new AddSymptomView({
+			// 	categoryName: this.categoryName,
+			// 	symptoms : this.symptoms
+			// });
+			// $("#myModal").empty().append(view.render().$el);
+			// $("#myModal").modal();
 		}
 	});
 });
