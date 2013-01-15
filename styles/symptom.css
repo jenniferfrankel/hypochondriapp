@@ -21,7 +21,7 @@ body {
 }
 
 .editPage {
-	margin: 10px;
+	margin: 10px 10px 120px 10px;
 	border-radius: 5px;
 	border: 1px solid black;
 	background-color: white;
@@ -94,6 +94,9 @@ body {
 	background-color: white;
 }
 
+#symptomList {
+	margin: 10px 10px 80px 10px;
+}
 
 #symptomList li {
 	padding: 10px 20px 10px 20px;
@@ -136,6 +139,7 @@ body {
 #symptomsubmitform {
 	line-height: 2.5em;
 	-webkit-user-select: none;
+	margin-bottom: 80px;
 }
 
 #symptomsubmitform input[type="number"] {
