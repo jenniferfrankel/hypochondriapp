@@ -72,6 +72,15 @@ function(Parse, Category, Symptom, appCache) {
 				appCache.symptoms[category.get("name")] = symptoms;
 			}
 			return deferred;
+		},
+
+		cacheValidation : function(user) {
+			// Check if user appCache.user === Parse.User.current()
+			// If not, empty cache and set appCache.user = Parse.User.current()
+		},
+
+		emptyCache : function() {
+			// Empty the cache
 		}
 	};
 });
