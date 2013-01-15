@@ -143,6 +143,7 @@ function(
 				success: onSignupSuccess
 			});
 			this.updateContent(signUpView, true);
+			// Remove the login modal to show signup screen:
 			$("#myModal").modal('hide');
 		},
 
