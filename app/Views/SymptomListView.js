@@ -3,7 +3,7 @@ define(
 	function($, Parse, _, Category, Symptom, AddSymptomView, template, queryHelper) {
 	return Parse.View.extend({
 
-		backButtonText: "All symptoms",
+		backButtonText: "Symptoms",
 		backLocation: "categories",
 		tabId: "#symptomsTab",
 
