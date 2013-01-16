@@ -47,7 +47,7 @@ function(
 			"settings/releasenotes" : "releasenotes",
 			"settings/faq" : "faq",
 			"settings/feedback" : "feedback",
-			"*path": "defaultRoute"
+			"*path": "listCategories"
 		},
 
 		initialize: function() {
