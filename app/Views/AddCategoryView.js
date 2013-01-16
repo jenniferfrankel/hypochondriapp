@@ -63,8 +63,19 @@ define(
 				alert("Ooops! You seem to be offline. Please go online to submit your new symptom.");
 				return false;
 			}
-				
+			if(this.nameAlreadyExists()){
+				alert("You already have a symptom by that name. Please choose a different name.");
+				return false;
+			}
 			return true;
+		},
+
+		nameAlreadyExists: function() {
+			var newName = this.$("[name=name]").val();
+			var existingCategory = this.categories.find(function(category){
+				return category.get("name") === newName;
+			});
+			return !!existingCategory;
 		},
 
 		saveToParse: function(data) {
