@@ -1,5 +1,5 @@
 define(
-	["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "QueryHelper", "jquery.flot", "jquery.flot.time", "moment"],
+	["jquery", "parse", "underscore", "../Models/Category", "../Models/Symptom", "./AddSymptomView", "text!../Templates/SymptomList.html", "queryhelper", "jquery.flot", "jquery.flot.time", "moment"],
 	function($, Parse, _, Category, Symptom, AddSymptomView, template, queryHelper) {
 	return Parse.View.extend({
 

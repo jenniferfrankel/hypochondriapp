@@ -4,6 +4,7 @@ function(Parse, Category, Symptom, appCache) {
 	return {
 		fetchCategories : function() {
 			var deferred = $.Deferred();
+			this.validateCache();
 			if (appCache.categories) {
 				console.log("Using cached copy of categories");
 				deferred.resolve(appCache.categories);
@@ -24,7 +25,7 @@ function(Parse, Category, Symptom, appCache) {
 		fetchCategoryByName : function(categoryName) {
 			var deferred = $.Deferred();
 			var category;
-
+			this.validateCache();
 			if (appCache.categories) {
 				category = appCache.categories.find(function(c) { return c.get("name") === categoryName; });
 				if (category) {
@@ -55,6 +56,7 @@ function(Parse, Category, Symptom, appCache) {
 
 		fetchSymptomsForCategory : function(category) {
 			var deferred = $.Deferred();
+			this.validateCache();
 			if (appCache.symptoms[category.get("name")]) {
 				console.log("Using cached copy of categories");
 				deferred.resolve(appCache.symptoms[category.get("name")]);
@@ -74,13 +76,29 @@ function(Parse, Category, Symptom, appCache) {
 			return deferred;
 		},
 
-		cacheValidation : function(user) {
+		validateCache : function() {
 			// Check if user appCache.user === Parse.User.current()
 			// If not, empty cache and set appCache.user = Parse.User.current()
+			console.log("Cache was validated");
+			if (appCache.username != Parse.User.current().getUsername()) {
+				appCache.username = Parse.User.current().getUsername();
+				this.emptyCache();
+			}
 		},
 
 		emptyCache : function() {
 			// Empty the cache
+			console.log("Cache was emptied");
+			appCache.symptoms = {};
+			appCache.categories = null;
+		},
+
+		resetCache : function() {
+			// Empty the cache and set username to null
+			console.log("Cache was reset");
+			appCache.username = null,
+			appCache.symptoms = {};
+			appCache.categories = null;
 		}
 	};
 });

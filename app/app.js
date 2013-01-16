@@ -15,7 +15,8 @@ require.config( {
 		"bootstrap": "../lib/bootstrap",
 		"spin": "../lib/spin",
 		"spinhelper": "../lib/spin.helper",
-		"ratchet": "../lib/ratchet"
+		"ratchet": "../lib/ratchet",
+		"queryhelper": "./QueryHelper"
 	},
 
 	// Sets the configuration for your third party scripts that are not AMD compatible

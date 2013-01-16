@@ -1,5 +1,6 @@
 define([
 	"jquery","parse","underscore", "spin",
+	"queryhelper",
 	"Views/CategoryListView",
 	"Views/LogInView",
 	"Views/SignUpView",
@@ -15,6 +16,7 @@ define([
 	],
 function(
 	$, Parse, _, spin,
+	QueryHelper,
 	CategoryListView,
 	LogInView,
 	SignUpView,
@@ -138,6 +140,7 @@ function(
 			var onSignupSuccess = function() {
 				// TODO: Take user to tutorial
 				that.navigate("categories", {trigger: true, replace: true});
+				QueryHelper.resetCache();
 			};
 			var signUpView = new SignUpView({
 				success: onSignupSuccess
@@ -156,6 +159,7 @@ function(
 				var that = this;
 				var onLoginSuccess = function() {
 					$('#myModal').modal('hide');
+					QueryHelper.emptyCache();
 					that.navigate("categories", {trigger: true, replace: true});
 				};
 				var view = new LogInView({

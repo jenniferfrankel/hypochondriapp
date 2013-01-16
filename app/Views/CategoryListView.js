@@ -1,5 +1,5 @@
 define(
-	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html", "./AddCategoryView", "spinhelper", "QueryHelper"],
+	["jquery", "parse", "underscore", "../Models/Category", "text!../Templates/CategoryList.html", "./AddCategoryView", "spinhelper", "queryhelper"],
 	function($, Parse, _, Category, template, AddCategoryView, spinhelper, queryHelper) {
 	return Parse.View.extend({
 

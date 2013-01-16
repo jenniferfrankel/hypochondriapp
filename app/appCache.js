@@ -1,6 +1,6 @@
 define([], function() {
 	return {
-		user: null,
+		username: null,
 		symptoms: {}
 	};
 });
