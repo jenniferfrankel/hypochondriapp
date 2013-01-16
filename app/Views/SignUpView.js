@@ -18,7 +18,7 @@ define(["jquery", "parse", "underscore", "text!../Templates/Signup.html"], funct
 			e.preventDefault();
 			var that = this;
 			var email = this.$("#signup-email").val();
-			var username = this.$("#signup-username").val();
+			var username = this.$("#signup-username").val().toLowerCase();
 			var password = this.$("#signup-password").val();
 			this.$(".signup-form button").prop('disabled', true);
 			

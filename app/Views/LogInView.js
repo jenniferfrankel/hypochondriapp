@@ -13,7 +13,7 @@ define(["jquery", "parse", "underscore", "text!../Templates/Login.html"], functi
 		logIn: function(e) {
 			e.preventDefault();
 			var that = this;
-			var username = this.$("#login-username").val();
+			var username = this.$("#login-username").val().toLowerCase();
 			var password = this.$("#login-password").val();
 			
 			Parse.User.logIn(username, password, {
