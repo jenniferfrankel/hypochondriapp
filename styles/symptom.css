@@ -75,6 +75,7 @@ body {
 
 .aboutText p {
 	margin: 10px;
+	padding-bottom: 20px;
 }
 
 #settingsList {
@@ -88,7 +89,7 @@ body {
 	color: #4D4D4D;
 }
 
-#listEnd {
+.listEnd {
 	height: 50px;
 }
 
