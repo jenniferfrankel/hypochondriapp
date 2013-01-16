@@ -185,6 +185,7 @@ function(
 			if (allowWithoutLogin || !!Parse.User.current()) {
 				$(".content").empty().append(view.render().$el);
 				$(".content").scrollTop(0);
+				$("body").scrollTop(0);
 			} else {
 				this.locationAfterLogin = window.location.hash;
 				this.navigate("login", {trigger: true, replace: true});
