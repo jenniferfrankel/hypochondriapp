@@ -1,10 +1,12 @@
 <div>
 	<ul class="list" id="categoryList">
 <%			_.each(categories,function(category){ %>
-			<li>
+			<li class="split-list">
 				<a href="#categories/<%= category.name %>/history">
 					<%= category.name %>
-      				<span class="chevron"></span>
+				</a>
+				<a class="plus" href="#categories/<%= category.name %>/addNew">
+					+
 				</a>
 			</li>
 <%			}); %>
