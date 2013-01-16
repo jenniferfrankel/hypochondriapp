@@ -94,7 +94,16 @@ define(
 				sliderValue: this.symptom ? durationUtils.secondsToSliderValue(this.symptom.get("duration")) : 443
 			}));
 			this.$("input[type=range]").change();
-			
+			this.$(".editPage").addClass(this.symptomId ? "edit" : "add");
+
+			this.$('input, textarea').bind('focus', function(e) {
+				$(".bar-tab").hide();
+			});
+			this.$('input, textarea').bind('blur', function(e) {
+				$(".bar-tab").show();
+				$(document.body).scrollTop(0);
+			});
+
 			return this;
 		},
 
