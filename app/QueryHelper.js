@@ -80,7 +80,7 @@ function(Parse, Category, Symptom, appCache) {
 			// Check if user appCache.user === Parse.User.current()
 			// If not, empty cache and set appCache.user = Parse.User.current()
 			console.log("Cache was validated");
-			if (appCache.username != Parse.User.current().getUsername()) {
+			if (Parse.User.current() && appCache.username != Parse.User.current().getUsername()) {
 				appCache.username = Parse.User.current().getUsername();
 				this.emptyCache();
 			}
