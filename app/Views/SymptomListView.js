@@ -66,8 +66,9 @@ define(
 
 		render: function() {
 			if (this.getOrientation() == 'landscape') {
+				$(".bar-tab").hide();
 				var width = _.max([1, (_.first(this.dataX) - _.last(this.dataX)) / (1000*60*60*24*30)]) * window.innerWidth;
-				this.$el.html('<div id="graph" style="width:'+width+'px;height:205px"></div>');
+				this.$el.html('<div id="graph" style="width:'+width+'px;height:'+(window.innerHeight-$(".bar-title").height()-12)+'px"></div>');
 				if (this.dataX && this.dataY) {
 					var data = [ _.zip(this.dataX, this.dataY)];
 					var options = {
@@ -87,6 +88,7 @@ define(
 					symptoms : this.symptoms ? this.symptoms.toJSON() : [],
 					category : this.category ? this.category.toJSON() : null
 				}));
+				$(".bar-tab").show();
 			}
 			return this;
 		},
