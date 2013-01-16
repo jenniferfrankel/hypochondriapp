@@ -35,6 +35,8 @@ define(
 			switch (formData["unit"]) {
 				case "scale10" : formData.unit = "on a scale of 1-10", range = [1,10,5,1]; break;
 				case "scale5" : formData.unit = "on a scale of 1-5", range = [1,5,3,1]; break;
+				case "scale010" : formData.unit = "on a scale of 0-10", range = [0,10,5,1]; break;
+				case "scale05" : formData.unit = "on a scale of 0-5", range = [0,5,3,1]; break;
 				case "tempC" : formData.unit = "&deg; Celsius", range = [32.0,45.0,37.0,0.1]; break;
 				case "tempF" : formData.unit = "&deg; Fahrenheit", range = [89.6,113.0,98.6,0.1]; break;
 				case "bpm" : formData.unit = "bpm", range = [30,230,100,1]; break;
