@@ -56,12 +56,16 @@ function(
 
 			this.on("all", function() {
 				var url = Parse.history.getFragment();
+				// Track the route in google analytics
 				_gaq.push(['_trackPageview', "/#"+url]);
 				localStorage.setItem("lastRoute", window.location.hash);
 			});
 
 			var lastRoute = localStorage.getItem("lastRoute");
-			window.location.hash = lastRoute;
+			if (lastRoute) {
+				console.log("Restoring last route to "+lastRoute);
+				window.location.hash = lastRoute;
+			}
 		},
 
 		/**
