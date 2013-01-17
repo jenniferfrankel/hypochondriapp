@@ -136,14 +136,21 @@ define(
 		},
 
 		saveToParse: function(data) {
+			var that = this;
 			if (this.symptom) { // if we're editing...
 				this.symptom.save(data, {
-					success: this.onSendToParseComplete
+					success: function() {
+						that.onSendToParseComplete();
+						that.symptoms.sort();
+					}
 				});
 			} else { // If we're creating a new one...
 				this.symptoms.create(data, {
 					wait: true, // Make sure to wait for the server to agree
-					success: this.onSendToParseComplete
+					success: function() {
+						that.onSendToParseComplete();
+						that.symptoms.sort();
+					}
 				});
 			}
 		}

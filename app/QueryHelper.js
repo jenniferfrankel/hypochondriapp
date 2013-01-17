@@ -66,7 +66,8 @@ function(Parse, Category, Symptom, appCache) {
 				var symptomQuery = new Parse.Query(Symptom);
 				symptomQuery.equalTo("category", category);
 				symptomQuery.include("category");
-				var symptoms = symptomQuery.collection();
+
+				var symptoms = symptomQuery.descending("date").collection();
 				symptoms.fetch({
 					success: function() { deferred.resolve(symptoms); },
 					error: function() { deferred.reject(); }
