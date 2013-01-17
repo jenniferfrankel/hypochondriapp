@@ -81,6 +81,10 @@ body {
 	padding: 0 15px 10px 15px;
 }
 
+.resetPassword-form > * {
+	padding: 10px;
+}
+
 #settingsList {
 	margin: 20px;
 }
