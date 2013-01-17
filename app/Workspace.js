@@ -11,7 +11,8 @@ define([
 	"Views/SettingsView",
 	"Views/ReleasenotesView",
 	"Views/FaqView",
-	"Views/FeedbackView"
+	"Views/FeedbackView",
+	"Views/ResetPasswordView"
 	],
 function(
 	$, Parse, _, spin,
@@ -26,7 +27,8 @@ function(
 	SettingsView,
 	ReleasenotesView,
 	FaqView,
-	FeedbackView
+	FeedbackView,
+	ResetPasswordView
 	) {
 	return Parse.Router.extend({
 		/**
@@ -47,6 +49,7 @@ function(
 			"settings/releasenotes" : "releasenotes",
 			"settings/faq" : "faq",
 			"settings/feedback" : "feedback",
+			"resetpassword" : "resetPassword",
 			"*path": "listCategories"
 		},
 
@@ -92,9 +95,9 @@ function(
 			this.updateContent(new FeedbackView());
 		},
 
-		defaultRoute: function(){
-			// TODO: Make this into a view
-			$("#content").empty().html("404");
+		resetPassword: function(){
+			this.updateContent(new ResetPasswordView(), true);
+			$("#myModal").modal('hide');
 		},
 
 		about: function(){
