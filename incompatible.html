@@ -1,14 +1,139 @@
 <!doctype html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="styles/incompatible.css" />
+		<link rel="stylesheet" href="styles/bootstrap.css" />
+		<link rel="stylesheet" href="styles/bootstrap-responsive.css" />
+		<script type="text/javascript" src="lib/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="lib/bootstrap.js"></script>
+		<script type="text/javascript">
+			(function() {
+				// This is for automatic page reloading in dev mode. We dynamically insert a new script tag with the right hostname.
+				var currentHostname = (location.host || 'localhost').split(':')[0];
+				var scriptEl = document.createElement('script');
+				scriptEl.type = 'text/javascript';
+				scriptEl.src = 'http://' + currentHostname + ':35729/livereload.js?snipver=1';
+				document.head.appendChild(scriptEl);
+			})();
+		</script>
 	</head>
 
 	<body>
-		<div style="padding:20px;">
-			Unfortunately the device you are using is not yet compatible with HypochondriApp. If you like we can let you know when it is available. Just fill out the form below. HypochondriApp currently supports iPhones, and has been tested with iOS 5 & 6.
+		<div class="about container-fluid">
+			<div class="alert alert-block">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>Incompatible Device.</h4>
+				Unfortunately the device you are using is not yet compatible with HypochondriApp. If you like we can let you know when it is available. Just fill out the form at the bottom of this page. HypochondriApp currently supports iPhones, and has been tested with iOS 5 &amp; 6.
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<h1>Introducing HypochondriApp</h1>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6 offset2">
+					<p class="lead">
+						HypochondrioApp is the Symptom Tracker you have been looking for. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a <strong>augue ipsum</strong>, a ornare lacus. Aenean luctus elementum dolor, pretium viverra nibh gravida quis.
+					</p>
+					<p>
+						Curabitur molestie laoreet aliquet. Cras scelerisque dignissim massa vitae iaculis. Sed a pretium magna. Curabitur dui ligula, rhoncus ut semper ac, sagittis id magna. Etiam nec cursus eros. Nunc dignissim odio vitae felis placerat pulvinar.
+					</p>
+					<p>
+						Nullam feugiat lobortis elit, viverra sodales eros rhoncus nec. Vivamus a est orci, at feugiat massa. Proin justo velit, pulvinar eget volutpat bibendum, vehicula vitae felis.
+					</p>
+				</div>
+				<div class="span4">
+					<img class="screenshot" src="img/hypoScreen1.png"/>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<h1>The 1-minute tour</h1>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6 offset3">
+					<div id="myCarousel" class="carousel slide">
+					  <!-- Carousel items -->
+					  <div class="carousel-inner">
+					    <div class="active item">
+							<img class="screenshot" src="img/hypoScreen1.png"/>
+							<div class="carousel-caption">
+								<h4>Banana</h4>
+								<p>This is not a banana</p>
+							</div>
+						</div>
+					    <div class="item">
+							<img class="screenshot" src="img/hypoScreen2.png"/>
+							<div class="carousel-caption">
+								<h4>Banana</h4>
+								<p>This is not a banana</p>
+							</div>
+						</div>
+					    <div class="item">
+							<img class="screenshot" src="img/hypoScreen3.png"/>
+							<div class="carousel-caption">
+								<h4>Banana</h4>
+								<p>This is not a banana</p>
+							</div>
+						</div>
+					    <div class="item">
+							<img class="landscape-screenshot" src="img/hypoScreen4.png"/>
+							<div class="carousel-caption">
+								<h4>Banana</h4>
+								<p>This is not a banana</p>
+							</div>
+						</div>
+					    <div class="item">
+							<img class="screenshot" src="img/hypoScreen5.png"/>
+							<div class="carousel-caption">
+								<h4>Banana</h4>
+								<p>This is not a banana</p>
+							</div>
+						</div>
+					  </div>
+					  <!-- Carousel nav -->
+					  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+					  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12">
+					<h1>Sign up for news and notifications!</h1>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span8 offset2">
+					<p>
+						Sign up for the newsletter and we'll let you know about new releases, new features, support for more devices and more! Just add your email in the box and press the button and you're done. Simple as cake.
+					</p>
+				</div>
+				<div class="span6 offset4">
+					<form class="form-inline">
+					    <label class="control-label" for="inputEmail">Email</label>
+				        <div class="input-prepend">
+					      <span class="add-on"><i class="icon-envelope"></i></span>
+					      <input class="span9" id="inputIcon" type="text">
+					    </div>
+					    <button type="submit" class="btn">Let me know!</button>
+					</form>
+				</div>
+			</div>
 		</div>
-		<div>
-<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dGVfY1BXMTdEaTlBdkt4aTk5c0NtbFE6MQ" width="760" height="642" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		<hr>
+		<div class="footer">
+			&copy; 2012-2012 Jennifer Frankel
 		</div>
 	</body>
+	<script>
+		$(document).ready(function() {
+			$("form").on("submit", function(event) {
+				event.preventDefault();
+				//do stuff
+			})
+		});
+	</script>
 </html>
