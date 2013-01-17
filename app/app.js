@@ -35,36 +35,37 @@ require.config( {
 });
 
 require(["parse", "./Workspace", "bootstrap", "ratchet"], function(Parse, Workspace, bootstrap, ratchet) {
-	// Override console.log and stuff to do more
-	var oldError = console.error;
-	var oldWarn = console.warn;
-	var oldLog = console.log;
-	var sendLogToServer = function(type, args) {
-		try {
-			var message;
-			if (Parse.User.current()) {
-				message = type +" ["+Parse.User.current().getUsername()+"]: "+args[0];
-			} else {
-				message = type +" [anonymous]: "+args[0];
+	// Override console.log and stuff to do serversid logging
+	if (document.location.port === 80) {
+		var oldError = console.error;
+		var oldWarn = console.warn;
+		var oldLog = console.log;
+		var sendLogToServer = function(type, args) {
+			try {
+				var message;
+				if (Parse.User.current()) {
+					message = type +" ["+Parse.User.current().getUsername()+"]: "+args[0];
+				} else {
+					message = type +" [anonymous]: "+args[0];
+				}
+				$.post("logger.php", { log: message } );
+			} catch (e) {
+				// Do nothing.
 			}
-			$.post("logger.php", { log: message } );
-		} catch (e) {
-			// Do nothing.
-		}
-	};
-	console.log = function() {
-		sendLogToServer("log", arguments);
-		oldLog.apply(console, arguments);
-	};
-	console.warn = function() {
-		sendLogToServer("warn", arguments);
-		oldWarn.apply(console, arguments);
-	};
-	console.error = function() {
-		sendLogToServer("error", arguments);
-		oldError.apply(console, arguments);
-	};
-
+		};
+		console.log = function() {
+			sendLogToServer("log", arguments);
+			oldLog.apply(console, arguments);
+		};
+		console.warn = function() {
+			sendLogToServer("warn", arguments);
+			oldWarn.apply(console, arguments);
+		};
+		console.error = function() {
+			sendLogToServer("error", arguments);
+			oldError.apply(console, arguments);
+		};
+	}
 	console.log("Starting app...");
 
 	$(document).ready(function() {
