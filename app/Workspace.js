@@ -167,7 +167,7 @@ function(
 				});
 				//this.updateContent(view, true);
 				$("#myModal").empty().append(view.render().$el);
-				$('#myModal').modal();
+				$('#myModal').modal({backdrop: 'static'});
 			}
 		},
 
