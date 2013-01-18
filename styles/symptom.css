@@ -85,6 +85,10 @@ body {
 	padding: 10px;
 }
 
+#homePageIcon {
+	text-align: center;
+}
+
 #settingsList {
 	margin: 20px;
 }
@@ -188,6 +192,16 @@ body {
 	padding: 5px;
 	border-radius: 6px;
 	margin-bottom: 10px;
+}
+
+
+
+.displayed {
+	border-radius: 5px;
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #myModal {
